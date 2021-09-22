@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+* {
+    max-width: 2000px;
+    max-height: 2000px;
+    font-size: 12pt;
+    padding: 0;
+    margin: 0;
+    font-family: 'Bebas Neue', cursive;
+}
+
+.container-navbar {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.navbar, .footer{
+    background-color: #F8A0C5;
+    width: 100%;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+     justify-content: space-between;
+     color: black;
+}
+
+.buttons {
+    color: #ffffff;
+    background-color: #707B7C;
+    border-radius: 10px;
+    padding:  3px 6px 6px 6px;
+    height: 50px;
+    margin: 3%;
+}
+
+.buttons:hover {
+    background-color: #181818;
+    transition: .5s;
+}
+
+.logo-container {
+    width: 70%;
+    margin-left: 3%;
+}
+
+.buttons-container {
+    width: 13%;
+    height: 70px;
+    display: flex;
+}
+
+.carrousel {
+    width: 50%;
+    height: 400px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10%;
+}
+.carrousel-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer{
+    justify-content: space-around;
+}
+p{
+    margin-left: 10px;
+}
+
+a {
+    color: rgb(109, 174, 235);
+    cursor: pointer;
+    transition: 0.5s;
+}
+a:hover {
+    color: rgb(26, 26, 26);
+    cursor: pointer;
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+  }
+
+h1{
+    font-size: 2.9em;
+    color:black;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 330vh;
+}
+
+h2{
+    text-align: center;
+    font-size: 40px;
+    font-family: arial;
+    margin-top: 80px;
+    color: aqua;
+    text-shadow: 0px 0px 6px black;
+}
+
+@keyframes rotar{
+    from{
+        transform: rotateY(0deg);
+    }to{
+        transform: rotateY(360deg);
+    }
+}
+
+ul {
+    list-style-type: none;
+    margin: auto;
+    padding: auto;
+    overflow: hidden;
+    background-color:  #F8A0C5;
+}
+      
+li {
+    float: left;
+}
+      
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+      
+.active{
+    color: #000000;
+    font-size: 15px;
+}
+
+.menu-container{
+    max-width: 2000px;
+    width: 100%;
+    max-height: 700px;
+    display: flex;
+    align-items: center;
+}
+
+.menu {
+    margin: 5%;
+    height: 400px;
+    width: 400px;
+    background-color: #F8A0C5;
+    padding: 20px;
+}
+
+.detallitos {
+    margin: 10% 5%;
+    display: flex;
+}
+
+#img {
+    width: 70%;
+    margin-left: 100px;
+    height: 100%;
+}
+
+.buttons-menu {
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-green {
+    height: 30px;
+    margin: 5%;
+    max-width: 200px;
+    background-color: #98959b;
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+.btn-green:hover {
+    background-color: #181818;
+    transition: .5s;
+}
+
+.item-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
