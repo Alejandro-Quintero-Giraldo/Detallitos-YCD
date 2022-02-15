@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.util.logging.Logger;
 
 public class Conection {
+	
     private static final Logger  LOGGER = Logger.getLogger("co.com.detallitosycd.app.domain.model.conection");
     
     

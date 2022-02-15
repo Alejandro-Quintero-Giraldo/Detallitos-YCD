@@ -13,8 +13,8 @@
         <nav class="main-nav">
           <span class="icon-menu" id="btn-menu"><i class="fas fa-bars"></i></span>
           <ul class="menu" id="menu">
-            <li class="menu__item"><a href="../Formularios/Registrarse.html" class="menu__link menu__link--select"><span>REGISTRARSE</span></a></li>
-            <li class="menu__item"><a href="../Formularios/IniciarSesion.html" class="menu__link"><span>INICIAR SESIÃ“N</span></a></li>
+            <li class="menu__item"><a href="./view/register.jsp" class="menu__link menu__link--select"><span>REGISTRARSE</span></a></li>
+            <li class="menu__item"><a href="./view/login.jsp" class="menu__link"><span>INICIAR SESIÓN</span></a></li>
           </ul>
         </nav>
       </div>
@@ -23,7 +23,7 @@
       <div class="banner__content">
         <div class="container">
           <h2 class="banner__title"></h2>
-          <p class="banner__txt"><b>Regalitos De Amor Para Toda OcasiÃ³n</b></p>
+          <p class="banner__txt"><b>Regalitos De Amor Para Toda Ocasión</b></p>
         </div>
       </div>
     </div>
