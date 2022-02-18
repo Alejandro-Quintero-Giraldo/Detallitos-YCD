@@ -1,5 +1,8 @@
 package co.com.detallitosycd.app.domain.entity;
 
+import javax.persistence.Table;
+
+@Table(name = "Usuario")
 public class User {
 
     private String userId;
@@ -14,6 +17,11 @@ public class User {
         this.userName = userName;
         this.cellphone = cellphone;
         this.address = address;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }

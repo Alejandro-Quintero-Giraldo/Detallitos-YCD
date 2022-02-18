@@ -4,30 +4,33 @@
     <meta charset="UTF-8">
     <title>Registro DetallitosYCD</title>
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
-    <link rel="stylesheet" th:href="@{styles/estilo.css}">
-  </head>  
+    <link rel="stylesheet" th:href="@{styles/forms.css}">
+  </head>
   <body>
-   <form class="formulario">
+   <form class="formulario" th:action="@{/saveUser}"  th:object="${userRegister}" method="POST">
+       <div th:if="${param.success}">
+           <p class="text-success">Su usuario se ha creado correctamente</p>
+       </div>
       <h1>Registrarse</h1>
        <div class="contenedor">
          <div class="input-contenedor">
             <i class="fas fa-user icon"></i>
-            <input type="text" placeholder="Identificación"> 
+            <input type="number"th:field="*{userId}"  name="id" placeholder="Identificación" required autofocus>
           </div>
           <div class="input-contenedor">
-            <input type="text" placeholder="Nombre Completo">
+            <input type="text" th:field="*{userName}" name="userName" placeholder="Nombre Completo" required>
           </div>
           <div class="input-contenedor">
-            <input type="text" placeholder="Celular">
+            <input type="number" th:field="*{cellphone}" name="cellphone" placeholder="Celular" required>
           </div>
           <div class="input-contenedor">
-            <input type="text" placeholder="Dirección">
+            <input type="text" th:field="*{address}" name="address" placeholder="Dirección" required>
           </div>
           <div class="input-contenedor">
-            <input type="text" placeholder="Correo Electrónico">
+            <input type="email" th:field="*{email}" name="email" placeholder="Correo Electrónico" required>
           </div>
           <div class="input-contenedor">
-           <input type="text" placeholder="Contraseña">
+           <input type="password" th:field="*{password}" name="password" placeholder="Contraseña" required>
          </div>
          <input type="submit" value="Registrarse" class="button">
          <p>Al enviar tus datos estarán seguros y no serán revelados.</p>

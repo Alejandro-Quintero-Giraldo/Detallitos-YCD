@@ -10,7 +10,7 @@ public class Conection {
     private static final Logger  LOGGER = Logger.getLogger("co.com.detallitosycd.app.domain.model.conection");
     
     
-    public Connection conect(){
+    public static Connection conect(){
         String dataBase = "detallitosycd";
         String server = "jdbc:mysql://localhost/"+dataBase;
         String userDataBase = "root";
