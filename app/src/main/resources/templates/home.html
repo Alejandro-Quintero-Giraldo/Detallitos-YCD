@@ -39,7 +39,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
                 <br>
                 <br>
                 <br>
-                <h2 class=""design__item><b>¡BIENVENIDO ${user.getUserName()}!</b></h2>
+                <h2 class=""design__item><b>¡BIENVENIDO ${userName}!</b></h2>
                 <p>A Continuación Encontrarás Información De Nosotros Como Microempresa</p>
                 <br>
                 <br>
@@ -93,15 +93,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
                     <div class="footer__socials">
                         <div class="social-icon">
                             <img src="facebook.png" width="45" height="45">
-                            <a class="social__link" href="">Facebook</a>
+                            <a class="social__link" th:href="@{/assets/facebook.png}">Facebook</a>
                         </div>
                         <div class="social-icon">
                             <img src="instagram.png" width="45" height="45">
-                            <a class="social__link" href="">Instagram</a>
+                            <a class="social__link" th:href="@{/assets/instagram.png}">Instagram</a>
                         </div>
                         <div class="social-icon">
                             <img src="whatsapp.png" width="45" height="45">
-                            <a class="social__link" href="">WhatsApp</a>
+                            <a class="social__link" th:href="@{/assets/whatsapp.png}">WhatsApp</a>
                         </div>
                     </div>
                 </div>
@@ -125,8 +125,3 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
         </footer>
     </body>
 </html>
-
-<% 
-    } else {
-    response.sendRedirect("./view/index.jsp")
-%>

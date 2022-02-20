@@ -7,10 +7,11 @@
     <link rel="stylesheet" th:href="@{styles/forms.css}">
   </head>
   <body>
+      <div th:if="${param.success}">
+          <p class="text-success">Su usuario se ha creado correctamente</p>
+      </div>
    <form class="formulario" th:action="@{/saveUser}"  th:object="${userRegister}" method="POST">
-       <div th:if="${param.success}">
-           <p class="text-success">Su usuario se ha creado correctamente</p>
-       </div>
+
       <h1>Registrarse</h1>
        <div class="contenedor">
          <div class="input-contenedor">

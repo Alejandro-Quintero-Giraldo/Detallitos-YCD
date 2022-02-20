@@ -5,7 +5,7 @@
     	<title>Login Detallitos YCD</title>
     	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
     	<link rel="stylesheet" th:href="@{styles/forms.css}">
-    </head>  
+    </head>
     <body>
         <form class="formulario" th:action="@{/validate}"  th:object="${user}" method="GET">
             <div th:if="${param.error}">

@@ -60,13 +60,14 @@ public class UserController extends HttpServlet {
         userModel = new UserModel();
         System.out.println("\n\n"+userDTO.getEmail()+"\n"+userDTO.getPassword());
         User user = userModel.login(userDTO);
-        System.out.println("User: \n\n"+user.getUserName());
-        if(user.getUserName() == null){
+        //System.out.println("User: \n\n"+user.getUserName());
+        if(user == null){
             return "redirect:/login?error";
         }
         //System.out.println("\n\n"+user.getUserName());
+
         ModelAndView mav = new ModelAndView();
-        mav.addObject("user", user);
+        mav.addObject("userName", user.getUserName());
         return "redirect:/home";
     }
 
@@ -75,7 +76,7 @@ public class UserController extends HttpServlet {
         System.out.println("El usuario "+user.getUserName()+"\n\n"+user.getEmail());
         userModel = new UserModel();
         System.out.println("Bien por aquí");
-        User newUser = userModel.register(user);
+        userModel.register(user);
         return "redirect:/register?success";
     }
     /*
