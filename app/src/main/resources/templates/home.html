@@ -39,9 +39,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
                 <br>
                 <br>
                 <br>
-                <h2 class=""design__item><b>¡BIENVENIDO ${userName}!</b></h2>
-                <div sec:authorize="isAuthenticated()" ></div>
-                <span sec:authentication="name" th:text="'Hello, ' "></span>
+                <h2>¡BIENVENIDO <b th:text="${username}"></b></h2>
+
+
                 <p>A Continuación Encontrarás Información De Nosotros Como Microempresa</p>
                 <br>
                 <br>
@@ -94,15 +94,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
                     <h2 class="footer__title">REDES SOCIALES</h2>
                     <div class="footer__socials">
                         <div class="social-icon">
-                            <img src="facebook.png" width="45" height="45">
+                            <img th:src="@{/assets/facebook.png}" width="45" height="45">
                             <a class="social__link" th:href="@{/assets/facebook.png}">Facebook</a>
                         </div>
                         <div class="social-icon">
-                            <img src="instagram.png" width="45" height="45">
+                            <img th:src="@{/assets/instagram.png}" width="45" height="45">
                             <a class="social__link" th:href="@{/assets/instagram.png}">Instagram</a>
                         </div>
                         <div class="social-icon">
-                            <img src="whatsapp.png" width="45" height="45">
+                            <img th:src="@{/assets/whatsapp.png}" width="45" height="45">
                             <a class="social__link" th:href="@{/assets/whatsapp.png}">WhatsApp</a>
                         </div>
                     </div>

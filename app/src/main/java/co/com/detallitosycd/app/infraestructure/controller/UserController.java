@@ -42,13 +42,12 @@ public class UserController extends HttpServlet {
 
     @GetMapping("login")
     public String loginPage(Model model){
-        checkSession();
         model.addAttribute("user", new User());
         return "login";
     }
 
     @GetMapping("home")
-    public String homePage(){
+    public String homePage(Model model){
         return "home";
     }
 
@@ -59,7 +58,7 @@ public class UserController extends HttpServlet {
     }
 
     @GetMapping("validate")
-    public String validateUser(User userDTO) throws Exception {
+    public String validateUser(User userDTO, Model model) throws Exception {
         userModel = new UserModel();
         System.out.println("\n\n"+userDTO.getEmail()+"\n"+userDTO.getPassword());
         User user = userModel.login(userDTO);
@@ -68,9 +67,7 @@ public class UserController extends HttpServlet {
             return "redirect:/login?error";
         }
         System.out.println("\n\n"+user.getUserName());
-
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("username", user);
+        model.addAttribute("username", user.getUserName());
         return "redirect:/home";
     }
 
@@ -132,11 +129,5 @@ public class UserController extends HttpServlet {
         }
     }
     */
-    private void checkSession(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        System.out.println(currentPrincipalName);
-
-    }
     
 }

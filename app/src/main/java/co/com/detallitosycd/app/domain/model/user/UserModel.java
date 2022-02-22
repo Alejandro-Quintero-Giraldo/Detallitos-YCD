@@ -35,8 +35,6 @@ public class UserModel extends Conection {
                         resultSet.getString("NombreUsuario"), resultSet.getString("Celular"),
                         resultSet.getString("Direccion"), resultSet.getString("CorreoElectronico"),
                         resultSet.getString("Contraseña"));
-                LOGGER.log(Level.INFO, user.getUserName());
-
             }
         } catch (Exception e) {
             System.out.println(e);
