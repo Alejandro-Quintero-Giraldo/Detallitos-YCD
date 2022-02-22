@@ -12,4 +12,9 @@ public class ExampleController {
     public ResponseEntity<Object> responseEntity(){
         return ResponseEntity.ok("OK XD");
     }
+    
+    @GetMapping("/practice")
+     public ResponseEntity<Object> responseEntity2(){
+        return ResponseEntity.ok("Practicando");
+    }
 }
