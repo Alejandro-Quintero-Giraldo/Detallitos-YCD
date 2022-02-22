@@ -40,6 +40,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
                 <br>
                 <br>
                 <h2 class=""design__item><b>¡BIENVENIDO ${userName}!</b></h2>
+                <div sec:authorize="isAuthenticated()" ></div>
+                <span sec:authentication="name" th:text="'Hello, ' "></span>
                 <p>A Continuación Encontrarás Información De Nosotros Como Microempresa</p>
                 <br>
                 <br>

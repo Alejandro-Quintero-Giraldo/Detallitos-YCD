@@ -17,6 +17,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,6 +42,7 @@ public class UserController extends HttpServlet {
 
     @GetMapping("login")
     public String loginPage(Model model){
+        checkSession();
         model.addAttribute("user", new User());
         return "login";
     }
@@ -64,10 +67,10 @@ public class UserController extends HttpServlet {
         if(user == null){
             return "redirect:/login?error";
         }
-        //System.out.println("\n\n"+user.getUserName());
+        System.out.println("\n\n"+user.getUserName());
 
         ModelAndView mav = new ModelAndView();
-        mav.addObject("userName", user.getUserName());
+        mav.addObject("username", user);
         return "redirect:/home";
     }
 
@@ -129,15 +132,11 @@ public class UserController extends HttpServlet {
         }
     }
     */
-    private static void logout(HttpServletRequest request, HttpServletResponse response) throws IOException  {
-        HttpSession session = request.getSession();
-        session.setAttribute("usuario", null);
-        session.invalidate();
-        response.sendRedirect("./view/index.jsp");
-    }
-    
-     private static UserDTO getUser(HttpServletRequest request ) {
-        return new UserDTO(request.getParameter("inputEmail"),request.getParameter("inputPassword"));
+    private void checkSession(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        System.out.println(currentPrincipalName);
+
     }
     
 }
