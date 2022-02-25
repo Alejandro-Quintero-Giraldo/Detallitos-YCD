@@ -1,17 +1,16 @@
 
-package co.com.detallitosycd.app.domain.model.user;
+package co.com.detallitosycd.app.model.user;
 
-import co.com.detallitosycd.app.domain.entity.User;
-import co.com.detallitosycd.app.domain.model.conection.Conection;
+import co.com.detallitosycd.app.entity.User;
+import co.com.detallitosycd.app.model.conection.Conection;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserModel extends Conection {
 
-    private static final Logger LOGGER = Logger.getLogger("co.com.detallitosycd.app.domain.model.user");
+    private static final Logger LOGGER = Logger.getLogger("co.com.detallitosycd.app.model.user");
 
     public User login(User userDTO) throws SQLException {
         User user = null;

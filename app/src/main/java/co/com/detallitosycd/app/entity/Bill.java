@@ -1,4 +1,4 @@
-package co.com.detallitosycd.app.domain.entity;
+package co.com.detallitosycd.app.entity;
 
 import java.time.LocalDateTime;
 

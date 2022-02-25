@@ -1,10 +1,16 @@
-package co.com.detallitosycd.app.domain.entity;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package co.com.detallitosycd.app.dto;
 
-import javax.persistence.Table;
-
-@Table(name = "Usuario")
-public class User {
-
+/**
+ *
+ * @author ASUS
+ */
+public class UserDTO {
+    
+    
     private String userId;
     private String userName;
     private String cellphone;
@@ -12,7 +18,7 @@ public class User {
     private String email;
     private String password;
 
-    public User(String userId, String userName, String cellphone, String address, String email, String password) {
+    public UserDTO(String userId, String userName, String cellphone, String address, String email, String password) {
         this.userId = userId;
         this.userName = userName;
         this.cellphone = cellphone;
@@ -21,14 +27,11 @@ public class User {
         this.password = password;
     }
 
-    public User(String email, String password) {
+    public UserDTO(String email, String password) {
         this.email = email;
         this.password = password;
     }
-
-    public User() {
-    }
-
+        
     public String getUserId() {
         return userId;
     }

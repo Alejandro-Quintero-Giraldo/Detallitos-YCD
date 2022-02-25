@@ -1,5 +1,5 @@
 
-package co.com.detallitosycd.app.domain.model.conection;
+package co.com.detallitosycd.app.model.conection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class Conection {
 	
-    private static final Logger  LOGGER = Logger.getLogger("co.com.detallitosycd.app.domain.model.conection");
+    private static final Logger  LOGGER = Logger.getLogger("co.com.detallitosycd.app.model.conection");
     
     
     public static Connection conect(){

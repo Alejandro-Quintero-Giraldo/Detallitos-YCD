@@ -1,24 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package co.com.detallitosycd.app.domain.dto;
+package co.com.detallitosycd.app.entity;
 
-/**
- *
- * @author ASUS
- */
-public class UserDTO {
-    
-    
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Usuario", uniqueConstraints = @UniqueConstraint(columnNames = {"userId", "email"}))
+public class User {
+
+    @Id
+    @Column(name = "IdUsuario")
     private String userId;
+
+    @Column(name="NombreUsuario")
     private String userName;
+
+    @Column(name = "Celular")
     private String cellphone;
+
+    @Column(name = "Direccion")
     private String address;
+
+    @Column(name = "CorreoElectronico")
     private String email;
+
+    @Column(name = "Contraseña")
     private String password;
 
-    public UserDTO(String userId, String userName, String cellphone, String address, String email, String password) {
+    public User(String userId, String userName, String cellphone, String address, String email, String password) {
         this.userId = userId;
         this.userName = userName;
         this.cellphone = cellphone;
@@ -27,11 +35,14 @@ public class UserDTO {
         this.password = password;
     }
 
-    public UserDTO(String email, String password) {
+    public User(String email, String password) {
         this.email = email;
         this.password = password;
     }
-        
+
+    public User() {
+    }
+
     public String getUserId() {
         return userId;
     }

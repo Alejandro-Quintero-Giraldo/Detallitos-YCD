@@ -1,6 +1,6 @@
 package co.com.detallitosycd.app;
 
-import co.com.detallitosycd.app.domain.model.conection.Conection;
+import co.com.detallitosycd.app.model.conection.Conection;
 import java.util.logging.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

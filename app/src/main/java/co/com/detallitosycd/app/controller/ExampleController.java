@@ -1,4 +1,4 @@
-package co.com.detallitosycd.app.infraestructure.controller;
+package co.com.detallitosycd.app.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

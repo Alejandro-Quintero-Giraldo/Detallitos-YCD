@@ -1,37 +1,24 @@
 
-package co.com.detallitosycd.app.infraestructure.controller;
+package co.com.detallitosycd.app.controller;
 
 
-import co.com.detallitosycd.app.domain.dto.UserDTO;
-import co.com.detallitosycd.app.domain.entity.User;
-import co.com.detallitosycd.app.domain.model.user.UserModel;
-import java.io.IOException;
+import co.com.detallitosycd.app.entity.User;
+import co.com.detallitosycd.app.model.user.UserModel;
+
 import java.util.logging.Logger;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 //@WebServlet(name="srvUser", urlPatterns = {"/srvUser"})
 @Controller
 public class UserController extends HttpServlet {
 
-	private static final Logger LOGGER = Logger.getLogger("co.com.detallitosycd.app.infraestructure.controller");
+	private static final Logger LOGGER = Logger.getLogger("co.com.detallitosycd.app.controller");
 
     public UserModel userModel;
 
@@ -40,11 +27,12 @@ public class UserController extends HttpServlet {
         return "index";
     }
 
+    /*
     @GetMapping("login")
     public String loginPage(Model model){
         model.addAttribute("user", new User());
         return "login";
-    }
+    }*/
 
     @GetMapping("home")
     public String homePage(Model model){

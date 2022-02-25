@@ -1,6 +1,8 @@
 package co.com.detallitosycd.app.config;
 
-import co.com.detallitosycd.app.domain.model.user.UserModel;
+import co.com.detallitosycd.app.model.user.UserModel;
+import co.com.detallitosycd.app.rest.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -15,16 +17,18 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
-    private UserModel userModel;
+    @Autowired
+    private UserService userService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
     public DaoAuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+        auth.setUserDetailsService(userService);
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
     }
@@ -32,19 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)  throws Exception {
         auth.authenticationProvider(authenticationProvider());
-        /*
-        http.authorizeRequests()
-                .anyRequest().authenticated();
-
-                http.formLogin()
-                .loginPage("/login")
-                .usernameParameter("email")
-                .permitAll()
-                .and()
-                .logout().permitAll()
-                .and().rememberMe();
-               // .tokenRepository(persistentTokenRepository());
-*/
     }
 
     @Override
