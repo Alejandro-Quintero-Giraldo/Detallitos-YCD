@@ -1,12 +1,28 @@
 package co.com.detallitosycd.app.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Administrador", uniqueConstraints = @UniqueConstraint(columnNames = {"idAdministrador", "CorreoElectronico"}))
 public class Administrator {
 
+    @Id
+    @Column(name = "idAdministrador")
     private String idAdministrator;
+
+    @Column(name = "NombreAdministrador")
     private String nameAdministrator;
+
+    @Column(name = "Celular")
     private String cellphone;
+
+    @Column(name = "Direccion")
     private String address;
+
+    @Column(name = "CorreoElectronico")
     private String email;
+
+    @Column(name = "EmpresaNIT")
     private String companyNIT;
 
     public Administrator(String idAdministrator, String nameAdministrator, String cellphone, String address, String email, String companyNIT) {

@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package co.com.detallitosycd.app.dto;
 
-/**
- *
- * @author ASUS
- */
 public class UserDTO {
     
     
@@ -30,6 +23,9 @@ public class UserDTO {
     public UserDTO(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public UserDTO() {
     }
         
     public String getUserId() {

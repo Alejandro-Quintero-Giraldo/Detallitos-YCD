@@ -1,24 +1,28 @@
-
 package co.com.detallitosycd.app.controller;
 
 
+import co.com.detallitosycd.app.dto.UserDTO;
 import co.com.detallitosycd.app.entity.User;
 import co.com.detallitosycd.app.model.user.UserModel;
+import co.com.detallitosycd.app.rest.service.UserService;
 
 import java.util.logging.Logger;
-import javax.servlet.http.HttpServlet;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//@WebServlet(name="srvUser", urlPatterns = {"/srvUser"})
 @Controller
-public class UserController extends HttpServlet {
+public class UserController {
 
 	private static final Logger LOGGER = Logger.getLogger("co.com.detallitosycd.app.controller");
+
+	@Autowired
+    private UserService userService;
 
     public UserModel userModel;
 
@@ -27,12 +31,12 @@ public class UserController extends HttpServlet {
         return "index";
     }
 
-    /*
+
     @GetMapping("login")
     public String loginPage(Model model){
         model.addAttribute("user", new User());
         return "login";
-    }*/
+    }
 
     @GetMapping("home")
     public String homePage(Model model){
@@ -47,24 +51,26 @@ public class UserController extends HttpServlet {
 
     @GetMapping("validate")
     public String validateUser(User userDTO, Model model) throws Exception {
-        userModel = new UserModel();
+        //userModel = new UserModel();
         System.out.println("\n\n"+userDTO.getEmail()+"\n"+userDTO.getPassword());
-        User user = userModel.login(userDTO);
+        //User user = userModel.login(userDTO);
+        UserDetails user = userService.loadUserByUsername(userDTO.getEmail());
         //System.out.println("User: \n\n"+user.getUserName());
         if(user == null){
             return "redirect:/login?error";
         }
-        System.out.println("\n\n"+user.getUserName());
-        model.addAttribute("username", user.getUserName());
+        //System.out.println("\n\n"+user.getUserName());
+        //model.addAttribute("username", user.getUserName());
         return "redirect:/home";
     }
 
     @PostMapping("/saveUser")
     public String saveUser(User user) throws Exception {
-        System.out.println("El usuario "+user.getUserName()+"\n\n"+user.getEmail());
-        userModel = new UserModel();
+        System.out.println("El usuario "+user.getUserName()+"\n\n"+user.getEmail()+"\n"+user.getUserId()+"\n"+user.getPassword()+"\n"+user.getCellphone()+"\n"+user.getAddress());
+        //userModel = new UserModel();
+        userService.save(user);
         System.out.println("Bien por aquí");
-        userModel.register(user);
+        //userModel.register(user);
         return "redirect:/register?success";
     }
     /*

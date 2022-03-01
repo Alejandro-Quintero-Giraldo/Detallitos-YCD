@@ -3,12 +3,17 @@ package co.com.detallitosycd.app.model.user;
 
 import co.com.detallitosycd.app.entity.User;
 import co.com.detallitosycd.app.model.conection.Conection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserModel extends Conection {
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     private static final Logger LOGGER = Logger.getLogger("co.com.detallitosycd.app.model.user");
 
@@ -59,7 +64,6 @@ public class UserModel extends Conection {
         boolean resultSet = false;
         String query = "INSERT INTO USUARIO(IdUsuario, NombreUsuario, Celular,CorreoElectronico,Direccion, Contraseña) " +
                 "VALUES( ? , ? , ? , ? , ? , ?)";
-        LOGGER.log(Level.INFO, query);
         try {
             connection = Conection.conect();
             preparedStatement = connection.prepareStatement(query);
@@ -70,7 +74,7 @@ public class UserModel extends Conection {
             preparedStatement.setString(4,userInfo.getEmail());
             preparedStatement.setString(5,userInfo.getAddress());
             preparedStatement.setString(6,userInfo.getPassword());
-
+            LOGGER.log(Level.INFO, preparedStatement.toString());
             resultSet = preparedStatement.execute();
 
             //System.out.println("resultSet " + resultSet.getString("NombreUsuario"));
