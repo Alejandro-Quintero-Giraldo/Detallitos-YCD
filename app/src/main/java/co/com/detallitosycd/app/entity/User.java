@@ -4,10 +4,11 @@ package co.com.detallitosycd.app.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "usuario", uniqueConstraints = @UniqueConstraint(columnNames = "CorreoElectronico"))
+@Table(name = "usuario", uniqueConstraints = @UniqueConstraint(columnNames = "correo_electronico"))
 public class User {
 
     @Id
+    @Column(name = "id_usuario")
     private String userId;
 
     @Column(name="NombreUsuario")
@@ -19,7 +20,7 @@ public class User {
     @Column(name = "Direccion")
     private String address;
 
-    @Column(name = "CorreoElectronico")
+    @Column(name = "correo_electronico")
     private String email;
 
     @Column(name = "Contraseña")

@@ -48,6 +48,7 @@ public class UserService implements IUserService {
         if (user == null) {
             throw  new UsernameNotFoundException("Correo electrónico o contraseña incorrecto");
         }
+        System.out.println("paso");
         return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),
                 mapAuthorities(user.getEmail()));
     }
@@ -55,8 +56,10 @@ public class UserService implements IUserService {
     public Collection<GrantedAuthority> mapAuthorities(String email){
         Administrator administrator = administratorRepository.findByEmail(email);
         if (administrator == null) {
+            System.out.println("role user");
             return List.of(new SimpleGrantedAuthority("ROLE_USER"));
         } else {
+            System.out.println("role administrator");
             return List.of(new SimpleGrantedAuthority("ROLE_ADMINISTRATOR"));
         }
     }

@@ -9,7 +9,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
         <link rel="stylesheet" th:href="@{/styles/home.css}">
         <title>Detallitos YCD</title>
     </head>
-    <body>
+    <body sec:authorize="isAuthenticated()">
 
         <header class="main-header">
             <div class="container container--flex">
@@ -39,7 +39,17 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
                 <br>
                 <br>
                 <br>
-                <h2>¡BIENVENIDO <b th:text="${username}"></b></h2>
+                Bienvenido
+                    <span sec:authentication="principal.authorities"></span>
+
+                <div sec:authorize="hasRole('ROLE_USER')">
+                    <h2>¡BIENVENIDO USUARIO</h2>
+                </div>
+
+                <div sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+                    <h2>¡BIENVENIDO ADMIN</h2>
+                </div>
+
 
 
                 <p>A Continuación Encontrarás Información De Nosotros Como Microempresa</p>
