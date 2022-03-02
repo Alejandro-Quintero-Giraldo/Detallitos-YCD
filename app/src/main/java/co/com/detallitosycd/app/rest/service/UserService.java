@@ -42,13 +42,13 @@ public class UserService implements IUserService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println("antes del query");
+        //System.out.println("antes del query");
         User user = userRepository.findUserByEmail(email);
-        System.out.println("login "+user.getUserId());
+       // System.out.println("login "+user.getUserId());
         if (user == null) {
             throw  new UsernameNotFoundException("Correo electrónico o contraseña incorrecto");
         }
-        System.out.println("paso");
+        //System.out.println("paso");
         return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),
                 mapAuthorities(user.getEmail()));
     }

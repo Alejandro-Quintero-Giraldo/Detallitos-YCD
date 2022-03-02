@@ -3,26 +3,26 @@ package co.com.detallitosycd.app.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Administrador", uniqueConstraints = @UniqueConstraint(columnNames = {"idAdministrador", "CorreoElectronico"}))
+@Table(name = "Administrador", uniqueConstraints = @UniqueConstraint(columnNames = {"id_administrador", "correo_electronico"}))
 public class Administrator {
 
     @Id
-    @Column(name = "idAdministrador")
+    @Column(name = "id_administrador")
     private String idAdministrator;
 
-    @Column(name = "NombreAdministrador")
+    @Column(name = "nombre_administrador")
     private String nameAdministrator;
 
-    @Column(name = "Celular")
+    @Column(name = "celular")
     private String cellphone;
 
-    @Column(name = "Direccion")
+    @Column(name = "direccion")
     private String address;
 
-    @Column(name = "CorreoElectronico")
+    @Column(name = "correo_electronico")
     private String email;
 
-    @Column(name = "EmpresaNIT")
+    @Column(name = "empresanit")
     private String companyNIT;
 
     public Administrator(String idAdministrator, String nameAdministrator, String cellphone, String address, String email, String companyNIT) {
@@ -32,6 +32,9 @@ public class Administrator {
         this.address = address;
         this.email = email;
         this.companyNIT = companyNIT;
+    }
+
+    public Administrator() {
     }
 
     public String getIdAdministrator() {

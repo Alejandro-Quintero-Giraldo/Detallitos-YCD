@@ -11,19 +11,19 @@ public class User {
     @Column(name = "id_usuario")
     private String userId;
 
-    @Column(name="NombreUsuario")
+    @Column(name="nombre_usuario")
     private String userName;
 
-    @Column(name = "Celular")
+    @Column(name = "celular")
     private String cellphone;
 
-    @Column(name = "Direccion")
+    @Column(name = "direccion")
     private String address;
 
     @Column(name = "correo_electronico")
     private String email;
 
-    @Column(name = "Contraseña")
+    @Column(name = "contraseña")
     private String password;
 
     public User(String userId, String userName, String cellphone, String address, String email, String password) {

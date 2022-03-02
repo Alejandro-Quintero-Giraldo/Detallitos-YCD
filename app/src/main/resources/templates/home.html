@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      sec:authorize="isAuthenticated()"
 >
     <head>
         <meta charset="UTF-8"/>
@@ -9,7 +10,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
         <link rel="stylesheet" th:href="@{/styles/home.css}">
         <title>Detallitos YCD</title>
     </head>
-    <body sec:authorize="isAuthenticated()">
+    <body>
 
         <header class="main-header">
             <div class="container container--flex">
