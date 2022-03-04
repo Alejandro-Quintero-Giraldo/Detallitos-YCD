@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -32,7 +33,7 @@ public class UserController {
     }
 
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public String loginPage(Model model){
         model.addAttribute("user", new User());
         return "login";
@@ -44,9 +45,13 @@ public class UserController {
     }
 
     @RequestMapping("register")
-    public String registerPage(Model model){
-        model.addAttribute("userRegister", new User());
+    public String registerPage(){
         return "register";
+    }
+
+    @ModelAttribute("userRegister")
+    public User returnNewUser(){
+        return new User();
     }
 
     @GetMapping("validate")

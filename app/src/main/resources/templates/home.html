@@ -41,6 +41,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
                 <br>
                 <br>
                 Bienvenido
+                    <span sec:authentication="principal.username"></span>
                     <span sec:authentication="principal.authorities"></span>
 
                 <div sec:authorize="hasRole('ROLE_USER')">

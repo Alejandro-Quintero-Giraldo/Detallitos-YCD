@@ -4,7 +4,7 @@ package co.com.detallitosycd.app.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "usuario", uniqueConstraints = @UniqueConstraint(columnNames = "correo_electronico"))
+@Table(name = "usuario", uniqueConstraints = @UniqueConstraint(columnNames = {"id_usuario","correo_electronico"}))
 public class User {
 
     @Id

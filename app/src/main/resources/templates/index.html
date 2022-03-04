@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
@@ -7,7 +8,7 @@
     <link rel="stylesheet" th:href="@{/styles/estilo.css}">
     <title>Detallitos YCD</title>
 </head>
-<body>
+<body sec:authorize="isAuthenticated()">
 
 <header th:fragment="navbar" class="main-header">
     <div class="container container--flex">
@@ -35,6 +36,17 @@
         <br>
         <br>
         <br>
+        Bienvenido
+        <span sec:authentication="principal.username"></span>
+        <span sec:authentication="principal.authorities"></span>
+
+        <div sec:authorize="hasRole('ROLE_USER')">
+            <h2>¡BIENVENIDO USUARIO del sistema</h2>
+        </div>
+
+        <div sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+            <h2>¡BIENVENIDO ADMINistrador de la app</h2>
+        </div>
         <h2><b>�BIENVENIDOS!</b></h2>
         <p>A Continuaci�n Encontrar�s Informaci�n De Nosotros Como Microempresa</p>
     </section>

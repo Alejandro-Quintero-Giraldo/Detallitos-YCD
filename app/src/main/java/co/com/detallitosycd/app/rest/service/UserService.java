@@ -41,9 +41,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //System.out.println("antes del query");
-        User user = userRepository.findUserByEmail(email);
+        User user = userRepository.findUserByEmail(username);
        // System.out.println("login "+user.getUserId());
         if (user == null) {
             throw  new UsernameNotFoundException("Correo electrónico o contraseña incorrecto");

@@ -7,7 +7,7 @@
     	<link rel="stylesheet" th:href="@{styles/forms.css}">
     </head>
     <body>
-        <form class="formulario" th:action="@{/validate}"  th:object="${user}" method="GET">
+        <form class="formulario" th:action="@{/login}"  method="POST">
             <div th:if="${param.error}">
                 <p class="text-danger">Correo electrónico o contraseña no son correctos</p>
             </div>
@@ -18,11 +18,11 @@
              <div class="contenedor">
                 <div class="input-contenedor">
                     <i class="fas fa-user icon"></i>
-                    <input type="email" name="inputEmail" th:field="*{email}" placeholder="Correo Electrónico" required autofocus>
+                    <input type="email" name="username"  placeholder="Correo Electrónico" required autofocus>
                 </div>
                 <div class="input-contenedor">
                     <i class="fas fa-key icon"></i>
-                    <input type="password" name="inputPassword" th:field="*{password}" placeholder="Contraseña" required>
+                    <input type="password" name="password"  placeholder="Contraseña" required>
                 </div>
                 <input type="submit" value="Acceder" class="button">
                 <p>Al enviar tus datos estar�n seguros y no ser�n revelados.</p>
