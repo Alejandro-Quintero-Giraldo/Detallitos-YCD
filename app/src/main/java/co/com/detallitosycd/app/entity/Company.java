@@ -1,10 +1,22 @@
 package co.com.detallitosycd.app.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "empresa", uniqueConstraints = @UniqueConstraint(columnNames = "nit"))
 public class Company {
 
+    @Id
+    @Column(name = "nit")
     private String NIT;
+
+    @Column(name  = "nombre_empresa")
     private String nameCompany;
+
+    @Column(name = "celular")
     private String cellphone;
+
+    @Column(name = "correo_electronico")
     private String email;
 
     public Company(String NIT, String nameCompany, String cellphone, String email) {

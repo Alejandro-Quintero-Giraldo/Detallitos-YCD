@@ -1,14 +1,29 @@
 package co.com.detallitosycd.app.entity;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "factura", uniqueConstraints = @UniqueConstraint(columnNames = "id_factura"))
 public class Bill {
 
+    @Id
+    @Column(name = "id_factura")
     private String billId;
+
+    @Column(name = "fecha_factura")
     private LocalDateTime dateBill;
+
+    @Column(name = "precio_final")
     private Integer finalPrice;
+
+    @Column(name = "usuario_id")
     private String userId;
+
+    @Column(name = "empresa_nit")
     private String companyNIT;
+
+    @Column(name = "entrega_id")
     private String deliverId;
 
     public Bill(String billId, LocalDateTime dateBill, Integer finalPrice, String userId, String companyNIT, String deliverId) {

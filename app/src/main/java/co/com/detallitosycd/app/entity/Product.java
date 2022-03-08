@@ -1,12 +1,28 @@
 package co.com.detallitosycd.app.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "producto", uniqueConstraints = @UniqueConstraint(columnNames = "id_producto"))
 public class Product {
 
+    @Id
+    @Column(name = "id_producto")
     private String productId;
+
+    @Column(name = "nombre_producto")
     private String productName;
+
+    @Column(name = "tipo_producto")
     private String productType;
+
+    @Column(name = "precio_producto")
     private Integer productPrice;
+
+    @Column(name = "cantidad_existencias")
     private Integer amountStock;
+
+    @Column(name = "descripcion")
     private String description;
 
     public Product(String productId, String productName, String productType, Integer productPrice, Integer amountStock, String description) {

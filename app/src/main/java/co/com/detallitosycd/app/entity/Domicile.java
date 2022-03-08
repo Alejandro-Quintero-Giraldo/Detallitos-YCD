@@ -1,15 +1,26 @@
 package co.com.detallitosycd.app.entity;
 
-import java.time.LocalTime;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "domicilio", uniqueConstraints = @UniqueConstraint(columnNames = "id_domicilio"))
 public class Domicile {
 
+    @Id
+    @Column(name = "id_domicilio")
     private String domicileId;
-    private String deliveryAddress;
-    private String deliveryPerson;
-    private LocalTime arrivalTime;
 
-    public Domicile(String domicileId, String deliveryAddress, String deliveryPerson, LocalTime arrivalTime) {
+    @Column(name = "direccion_entrega")
+    private String deliveryAddress;
+
+    @Column(name = "encargado_entrega")
+    private String deliveryPerson;
+
+    @Column(name = "hora_llegada")
+    private LocalDateTime arrivalTime;
+
+    public Domicile(String domicileId, String deliveryAddress, String deliveryPerson, LocalDateTime arrivalTime) {
         this.domicileId = domicileId;
         this.deliveryAddress = deliveryAddress;
         this.deliveryPerson = deliveryPerson;
@@ -40,11 +51,11 @@ public class Domicile {
         this.deliveryPerson = deliveryPerson;
     }
 
-    public LocalTime getArrivalTime() {
+    public LocalDateTime getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalTime arrivalTime) {
+    public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 }

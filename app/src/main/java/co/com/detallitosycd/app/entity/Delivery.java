@@ -1,9 +1,19 @@
 package co.com.detallitosycd.app.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "entrega", uniqueConstraints = @UniqueConstraint(columnNames = "id_entrega"))
 public class Delivery {
 
+    @Id
+    @Column(name = "id_entrega")
     private String deliveryId;
+
+    @Column(name =  "tipo_entrega")
     private String deliveryType;
+
+    @Column(name = "domicilio_id")
     private String domicileId;
 
     public Delivery(String deliveryId, String deliveryType, String domicileId) {

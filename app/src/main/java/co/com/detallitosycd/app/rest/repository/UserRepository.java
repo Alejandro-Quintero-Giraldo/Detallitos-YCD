@@ -1,6 +1,5 @@
 package co.com.detallitosycd.app.rest.repository;
 
-import co.com.detallitosycd.app.dto.UserDTO;
 import co.com.detallitosycd.app.entity.User;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.JpaRepository;
