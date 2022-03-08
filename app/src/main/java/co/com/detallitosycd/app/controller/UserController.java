@@ -1,7 +1,5 @@
 package co.com.detallitosycd.app.controller;
 
-
-import co.com.detallitosycd.app.dto.UserDTO;
 import co.com.detallitosycd.app.entity.User;
 import co.com.detallitosycd.app.model.user.UserModel;
 import co.com.detallitosycd.app.rest.service.UserService;
@@ -9,6 +7,7 @@ import co.com.detallitosycd.app.rest.service.UserService;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +34,9 @@ public class UserController {
 
     @GetMapping("/login")
     public String loginPage(Model model){
+        if(checkSession() != null){
+            return "redirect:/";
+        }
         model.addAttribute("user", new User());
         return "login";
     }
@@ -46,6 +48,9 @@ public class UserController {
 
     @RequestMapping("register")
     public String registerPage(){
+        if(checkSession() != null){
+            return "redirect:/";
+        }
         return "register";
     }
 
@@ -55,7 +60,7 @@ public class UserController {
     }
 
     @GetMapping("validate")
-    public String validateUser(User userDTO, Model model) throws Exception {
+    public String validateUser(User userDTO) {
         //userModel = new UserModel();
         System.out.println("\n\n"+userDTO.getEmail()+"\n"+userDTO.getPassword());
         //User user = userModel.login(userDTO);
@@ -77,6 +82,15 @@ public class UserController {
         System.out.println("Bien por aquí");
         //userModel.register(user);
         return "redirect:/register?success";
+    }
+
+    private UserDetails checkSession(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = null;
+        if (principal instanceof UserDetails) {
+            userDetails = (UserDetails) principal;
+        }
+        return userDetails;
     }
     /*
 	@RequestMapping("login")

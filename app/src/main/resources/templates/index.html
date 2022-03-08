@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
@@ -8,14 +8,19 @@
     <link rel="stylesheet" th:href="@{/styles/estilo.css}">
     <title>Detallitos YCD</title>
 </head>
-<body sec:authorize="isAuthenticated()">
+<body>
 
 <header th:fragment="navbar" class="main-header">
     <div class="container container--flex">
         <h1 class="main-title"><span class="color-span">DETALLITOS</span>YCD</h1>
         <nav class="main-nav">
             <span class="icon-menu" id="btn-menu"><i class="fas fa-bars"></i></span>
-            <ul class="menu" id="menu">
+            <ul th:if="${#authorization.expression('isAuthenticated()')}" class="menu" id="menuAuth">
+                <li class="menu__item"><a href="" class="menu__link menu__link--select"><span>PERFIL</span></a></li>
+                <li class="menu__item"><a href="" class="menu__link"><span>CARRITO</span></a></li>
+                <li class="menu__item"><a th:href="@{/logout}" class="menu__link"><span>CERRAR SESIÓN</span></a></li>
+            </ul>
+            <ul th:unless="${#authorization.expression('isAuthenticated()')}" class="menu" id="menu">
                 <li class="menu__item"><a th:href="@{/register}" class="menu__link menu__link--select"><span>REGISTRARSE</span></a></li>
                 <li class="menu__item"><a th:href="@{/login}" class="menu__link"><span>INICIAR SESIÓN</span></a></li>
             </ul>
@@ -37,8 +42,12 @@
         <br>
         <br>
         Bienvenido
+        <span th:text="${#authorization.expression('isAuthenticated()')}"></span>
+        <div sec:authorize="isAuthenticated()">
         <span sec:authentication="principal.username"></span>
         <span sec:authentication="principal.authorities"></span>
+        <span sec:authorize="isAuthenticated()">Este mensaje sale si estas autenticado</span>
+        </div>
 
         <div sec:authorize="hasRole('ROLE_USER')">
             <h2>¡BIENVENIDO USUARIO del sistema</h2>
