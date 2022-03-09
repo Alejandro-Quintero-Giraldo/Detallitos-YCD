@@ -7,4 +7,8 @@ public interface IUserService  extends UserDetailsService {
 
     User save(User userDTO);
 
+    User findUserByUserId(String id);
+
+    User findByEmail(String email);
+
 }

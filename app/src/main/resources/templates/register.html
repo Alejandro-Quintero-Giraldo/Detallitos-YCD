@@ -10,13 +10,21 @@
       <div th:if="${param.success}">
           <p class="text-success">Su usuario se ha creado correctamente</p>
       </div>
+
+      <div th:if="${param.idExists}">
+          <p class="text-danger">El usuario ya existe en la plataforma</p>
+      </div>
+
+      <div th:if="${param.emailExist}">
+          <p class="text-danger">El correo eletrónico ingresado ya lo tiene otro usuario</p>
+      </div>
    <form class="formulario" th:action="@{/saveUser}"  th:object="${userRegister}" method="POST">
 
       <h1>Registrarse</h1>
        <div class="contenedor">
          <div class="input-contenedor">
             <i class="fas fa-user icon"></i>
-            <input type="number"th:field="*{userId}"  name="id" placeholder="Identificación" required autofocus>
+            <input type="number"th:field="*{userId}"  name="userId" placeholder="Identificación" required autofocus>
           </div>
           <div class="input-contenedor">
             <input type="text" th:field="*{userName}" name="userName" placeholder="Nombre Completo" required>

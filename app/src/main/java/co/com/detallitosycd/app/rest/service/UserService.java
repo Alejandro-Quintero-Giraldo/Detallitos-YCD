@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
@@ -35,6 +36,16 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User findUserByUserId(String id) {
+        return userRepository.findUserByUserId(id);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByEmail(username);
         if (user == null) {
@@ -53,4 +64,6 @@ public class UserService implements IUserService {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMINISTRATOR"));
         }
     }
+
+
 }
