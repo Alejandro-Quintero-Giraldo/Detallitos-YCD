@@ -1,6 +1,5 @@
 package co.com.detallitosycd.app.config;
 
-import co.com.detallitosycd.app.model.user.UserModel;
 import co.com.detallitosycd.app.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

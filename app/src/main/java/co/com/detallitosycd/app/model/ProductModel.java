@@ -1,21 +1,42 @@
+package co.com.detallitosycd.app.model;
 
-package co.com.detallitosycd.app.model.user;
-
+import co.com.detallitosycd.app.entity.Product;
 import co.com.detallitosycd.app.entity.User;
 import co.com.detallitosycd.app.model.conection.Conection;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserModel extends Conection {
-
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
+public class ProductModel extends Conection {
 
     private static final Logger LOGGER = Logger.getLogger("co.com.detallitosycd.app.model.user");
+
+    private Connection connection;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
+
+    private void prepareBD(String query) throws SQLException {
+        this.connection = Conection.conect();
+        this.preparedStatement = connection.prepareStatement(query);
+    }
+
+    private void processQuery(String action) throws SQLException {
+        if(action.equals("query")){
+            this.resultSet = this.preparedStatement.executeQuery();
+        } else if(action.equals("create")){
+            this.preparedStatement.execute();
+        }
+    }
+
+    private void finishProcess() throws SQLException {
+        if (this.resultSet != null && Boolean.FALSE.equals(this.resultSet.isClosed())) this.resultSet.close();
+        resultSet = null;
+        if (this.preparedStatement != null && Boolean.FALSE.equals(this.preparedStatement.isClosed())) this.preparedStatement.close();
+        this.preparedStatement = null;
+        if (this.connection != null && Boolean.FALSE.equals(this.connection.isClosed())) this.connection.close();
+        this.connection = null;
+    }
 
     public User login(User userDTO) throws SQLException {
         User user = null;
@@ -45,23 +66,16 @@ public class UserModel extends Conection {
             LOGGER.log(Level.INFO, "{0}Error App", e.getMessage());
         } finally {
 
-            if (resultSet != null && resultSet.isClosed() == false) resultSet.close();
-            resultSet = null;
-            if (preparedStatemen != null && preparedStatemen.isClosed() == false) preparedStatemen.close();
-            preparedStatemen = null;
-            if (connection != null && connection.isClosed() == false) connection.close();
-            connection = null;
             System.out.println("por el finally");
         }
         return user;
 
     }
 
-    public void register(User userInfo) throws SQLException {
-        System.out.println(userInfo.getUserId()+" "+userInfo.getCellphone()+" "+userInfo.getEmail()+" "+userInfo.getAddress()+" "+userInfo.getPassword());
+    public void createProduct(Product userInfo) throws SQLException {
+        /*System.out.println(userInfo.getUserId()+" "+userInfo.getCellphone()+" "+userInfo.getEmail()+" "+userInfo.getAddress()+" "+userInfo.getPassword());
         PreparedStatement preparedStatement = null;
         Connection connection = null;
-        boolean resultSet = false;
         String query = "INSERT INTO USUARIO(IdUsuario, NombreUsuario, Celular,CorreoElectronico,Direccion, Contraseña) " +
                 "VALUES( ? , ? , ? , ? , ? , ?)";
         try {
@@ -86,7 +100,7 @@ public class UserModel extends Conection {
                         resultSet.getString("Contraseña"));
 
             }*/
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             LOGGER.log(Level.INFO, "{0}Error", e.getMessage());
         } finally {
 
@@ -94,6 +108,6 @@ public class UserModel extends Conection {
             preparedStatement = null;
             if (connection != null && connection.isClosed() == false) connection.close();
             connection = null;
-        }
+        }*/
     }
 }

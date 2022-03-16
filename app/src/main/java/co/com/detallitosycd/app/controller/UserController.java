@@ -1,7 +1,6 @@
 package co.com.detallitosycd.app.controller;
 
 import co.com.detallitosycd.app.entity.User;
-import co.com.detallitosycd.app.model.user.UserModel;
 import co.com.detallitosycd.app.rest.service.UserService;
 
 import java.util.logging.Logger;
@@ -23,8 +22,6 @@ public class UserController {
 
 	@Autowired
     private UserService userService;
-
-    public UserModel userModel;
 
     @RequestMapping("/")
     public String index(){
