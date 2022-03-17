@@ -1,7 +1,7 @@
 body {
     font-family: "Segoe UI";
     margin: 0;
-    background: url(https://demodaybelleza.com/wp-content/uploads/2018/02/regalos-de-san-valentin.jpg);
+    background: url(https://images.alphacoders.com/877/thumb-1920-877413.jpg);
     background-size: cover;
     background-attachment: fixed;
 }
@@ -52,14 +52,14 @@ input[type="password"]{
     color: white;
     font-weight: bold;
     font-size: 20px;
-    background: #5C4B48;
+    background: #000000;
     padding: 15px 20px;
     border-radius: 5px;
     cursor: pointer;
 }
 .button:hover{
     font-family: "Segoe UI";
-    background: #5C4B48;
+    background: #000000;
 }
 p{
     font-family: "Segoe UI";

@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-    <head>
-    	<meta charset="UTF-8">
-    	<title>Login Detallitos YCD</title>
-    	<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
-    	<link rel="stylesheet" th:href="@{styles/forms.css}">
-    </head>
-    <body>
-        <form class="formulario" th:action="@{/login}"  method="POST">
-            <div th:if="${param.error}">
-                <p class="text-danger">Correo electrónico o contraseña no son correctos</p>
-            </div>
-            <div th:if="${param.logout}">
-                <p class="text-warning">Has cerrado sesión exitosamente</p>
-            </div>
-            <h1>Iniciar Sesión</h1>
-             <div class="contenedor">
-                <div class="input-contenedor">
-                    <i class="fas fa-user icon"></i>
-                    <input type="email" name="username"  placeholder="Correo Electrónico" required autofocus>
-                </div>
-                <div class="input-contenedor">
-                    <i class="fas fa-key icon"></i>
-                    <input type="password" name="password"  placeholder="Contraseña" required>
-                </div>
-                <input type="submit" value="Acceder" class="button">
-                <p>Al enviar tus datos estar�n seguros y no ser�n revelados.</p>
-                <p>�Ya ingresastes tus datos? <a class="link" th:href="@{/register}">Registrarse</a></p>
-             </div>
-        </form>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Detallitos YCD</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <link rel="stylesheet" th:href="@{styles/forms.css}">
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<form class="formulario" th:action="@{/login}"  method="POST">
+    <div th:if="${param.error}">
+        <p class="text-warning">Correo electrónico o contraseña no son correctos</p>
+    </div>
+    <div th:if="${param.logout}">
+        <p class="text-warning">Has cerrado sesión exitosamente</p>
+    </div>
+    <h1>Iniciar Sesión</h1>
+    <div class="contenedor">
+        <div class="input-contenedor">
+            <i class="fas fa-user icon"></i>
+            <input type="text" name="password"  placeholder="Correo Electronico" required>
+        </div>
+        <div class="input-contenedor">
+            <i class="fas fa-key icon"></i>
+            <input type="password" name="password"  placeholder="Contraseña" required>
+        </div>
+        <input type="submit" value="Acceder" class="button">
+        <p>Al enviar tus datos estarán seguros y no serán revelados.</p>
+        <p>¿Ya ingresastes tus datos? <a class="link" th:href="@{/register}">Registrarse</a></p>
+    </div>
+</form>
+</body>
 </html>

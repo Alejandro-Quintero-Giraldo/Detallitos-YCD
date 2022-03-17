@@ -38,11 +38,11 @@ p {
   padding: 0 15px;
 }
 .main-title {
-  color: white;
+  color: black;
   font-family: "Segoe UI";
 }
 .color-li{
-  color: white;
+  color: black;
 }
 
 /*Estilos del menu*/
@@ -54,18 +54,18 @@ p {
   padding: 10px 12px;
   border-radius: 5px;
   cursor: pointer;
-}  
+}
 .menu{
   position: absolute;
   top: 80px;
-  left: 0;
+  left: ;
   background: #212121;
   width: 100%;
   list-style: none;
   padding: 20px;
   margin: 0;
   z-index: 999;
-  opacity: 0;
+  opacity: ;
   visibility: hidden;
   transition: all 0.5s;
 }
@@ -76,7 +76,7 @@ p {
   margin: auto;
 }
 .menu__link {
-  color: white;
+  color: black;
   text-decoration: none;
   position: relative;
   display: block;
@@ -131,6 +131,7 @@ p {
   padding: 10px;
   font-size: 1.1em;
   display: block;
+
 }
 .menu__link--select:before, .menu__link--select:after, .menu__link--select span:before, .menu__link--select span:after {
   opacity: 1;
@@ -145,12 +146,11 @@ p {
 
 /*Estilos del banner*/
 .banner {
-  background: url(https://demodaybelleza.com/wp-content/uploads/2018/02/regalos-de-san-valentin.jpg);
   min-height: 400px;
   position: absolute;
   top: 0;
   left: 0;
-  width: 2850px;
+  width: 1900px;
   z-index: -999;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -408,7 +408,7 @@ p {
   color: white;
   padding: 10px;
   border-radius: 50%;
-  
+
 }
 .social-icon .fa-facebook-f{
   background: #3b5998;
@@ -469,7 +469,7 @@ p {
     margin-top: 400px;
   }
   .box{
-    justify-content: center;  
+    justify-content: center;
   }
   .box__icon{
     margin-right: 30px;

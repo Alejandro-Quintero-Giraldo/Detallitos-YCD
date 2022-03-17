@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>Registro DetallitosYCD</title>
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
     <link rel="stylesheet" th:href="@{styles/forms.css}">
-  </head>
-  <body>
-      <div th:if="${param.success}">
-          <p class="text-success">Su usuario se ha creado correctamente</p>
-      </div>
 
-      <div th:if="${param.idExists}">
-          <p class="text-danger">El usuario ya existe en la plataforma</p>
-      </div>
+</head>
+<body>
+<br>
+<br>
+<br>
+<div th:if="${param.success}">
+    <p class="text-success">Su usuario se ha creado correctamente</p>
+</div>
 
-      <div th:if="${param.emailExist}">
-          <p class="text-danger">El correo eletrónico ingresado ya lo tiene otro usuario</p>
-      </div>
-   <form class="formulario" th:action="@{/saveUser}"  th:object="${userRegister}" method="POST">
+<form class="formulario" th:action="@{/saveUser}"  th:object="${userRegister}" method="POST">
+    <h1>Registrarse</h1>
+    <div class="contenedor">
 
-      <h1>Registrarse</h1>
-       <div class="contenedor">
-         <div class="input-contenedor">
+        <div class="input-contenedor">
             <i class="fas fa-user icon"></i>
-            <input type="number"th:field="*{userId}"  name="userId" placeholder="Identificación" required autofocus>
-          </div>
-          <div class="input-contenedor">
+            <input type="text" th:field="*{userName}" name="userName" placeholder="Identificación" required>
+        </div>
+        <div class="input-contenedor">
             <input type="text" th:field="*{userName}" name="userName" placeholder="Nombre Completo" required>
-          </div>
-          <div class="input-contenedor">
-            <input type="number" th:field="*{cellphone}" name="cellphone" placeholder="Celular" required>
-          </div>
-          <div class="input-contenedor">
+        </div>
+        <div class="input-contenedor">
+            <input type="text" th:field="*{userName}" name="userName" placeholder="Celular" required>
+        </div>
+        <div class="input-contenedor">
             <input type="text" th:field="*{address}" name="address" placeholder="Dirección" required>
-          </div>
-          <div class="input-contenedor">
-            <input type="email" th:field="*{email}" name="email" placeholder="Correo Electrónico" required>
-          </div>
-          <div class="input-contenedor">
-           <input type="password" th:field="*{password}" name="password" placeholder="Contraseña" required>
-         </div>
-         <input type="submit" value="Registrarse" class="button">
-         <p>Al enviar tus datos estarán seguros y no serán revelados.</p>
-       </div>
-      </form>
-      <br>
-      <br>
-      <br>
-      <br>
-  </body>
+        </div>
+        <div class="input-contenedor">
+            <input type="text" th:field="*{userName}" name="userName" placeholder="Correo Electronico" required>
+        </div>
+        <div class="input-contenedor">
+            <input type="password" th:field="*{password}" name="password" placeholder="Contraseña" required>
+        </div>
+        <input type="submit" value="Registrarse" class="button">
+        <p>Al enviar tus datos estarán seguros y no serán revelados.</p>
+        <p>¿Ya tienes una Cuenta? <a class="link" th:href="@{/login}">Iniciar Session</a></p>
+    </div>
+</form>
+<br>
+<br>
+<br>
+<br>
+</body>
 </html>

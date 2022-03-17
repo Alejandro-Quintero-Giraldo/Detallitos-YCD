@@ -54,7 +54,7 @@ p {
   padding: 10px 12px;
   border-radius: 5px;
   cursor: pointer;
-}  
+}
 .menu{
   position: absolute;
   top: 80px;
@@ -145,8 +145,7 @@ p {
 
 /*Estilos del banner*/
 .banner {
-  background: url(https://demodaybelleza.com/wp-content/uploads/2018/02/regalos-de-san-valentin.jpg);
-  min-height: 400px;
+  min-height: 500px;
   position: absolute;
   top: 0;
   left: 0;
@@ -165,7 +164,7 @@ p {
 .banner:before {
   content: "";
   width: 100%;
-  min-height: 400px;
+  min-height: 500px;
   background: rgba(0,0,0,0.3);
   position: absolute;
   top: 0;
@@ -468,7 +467,7 @@ p {
     margin-top: 400px;
   }
   .box{
-    justify-content: center;  
+    justify-content: center;
   }
   .box__icon{
     margin-right: 30px;

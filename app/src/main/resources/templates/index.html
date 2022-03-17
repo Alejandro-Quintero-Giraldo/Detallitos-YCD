@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/styles/estilo.css}">
     <title>Detallitos YCD</title>
 </head>
@@ -16,157 +15,90 @@
         <h1 class="main-title"><span class="color-span">DETALLITOS</span>YCD</h1>
         <nav class="main-nav">
             <span class="icon-menu" id="btn-menu"><i class="fas fa-bars"></i></span>
-            <ul th:if="${#authorization.expression('isAuthenticated()')}" class="menu" id="menuAuth">
-                <li class="menu__item"><a href="" class="menu__link menu__link--select"><span>PERFIL</span></a></li>
-                <li class="menu__item"><a href="" class="menu__link"><span>CARRITO</span></a></li>
-                <li class="menu__item"><a th:href="@{/logout}" class="menu__link"><span>CERRAR SESIÓN</span></a></li>
-            </ul>
-            <ul th:unless="${#authorization.expression('isAuthenticated()')}" class="menu" id="menu">
-                <li class="menu__item"><a th:href="@{/register}"
-                                          class="menu__link menu__link--select"><span>REGISTRARSE</span></a></li>
-                <li class="menu__item"><a th:href="@{/login}" class="menu__link"><span>INICIAR SESIÓN</span></a></li>
+            <ul class="menu" id="menu">
+                <li class="menu__item"><a th:href="@{/register}" class="menu__link menu__link--select"><span>REGISTRARSE</span></a></li>
+                <li class="menu__item"><a th:href="@{/login}" class="menu__link menu__link--select"><span>INICIAR SESSION</span></a></li>
             </ul>
         </nav>
     </div>
 </header>
 <div th:fragment="banner" class="banner">
+
+    <img class="banner" src="https://cdn.pixabay.com/photo/2019/10/05/11/52/nature-4527797_960_720.jpg">
     <div class="banner__content">
         <div class="container">
             <h2 class="banner__title"></h2>
-            <p class="banner__txt"><b>Regalitos De Amor Para Toda Ocasi�n</b></p>
+            <p class="banner__txt">Detalles De Amor Para Toda Ocasión</p>
         </div>
     </div>
 </div>
-
 <main class="main">
     <section class="welcome">
         <br>
         <br>
         <br>
         Bienvenido
-        <span th:text="${#authorization.expression('isAuthenticated()')}"></span>
-        <div sec:authorize="isAuthenticated()">
-            <span sec:authentication="principal.username"></span>
-            <span sec:authentication="principal.authorities"></span>
-            <span sec:authorize="isAuthenticated()">Este mensaje sale si estas autenticado</span>
-        </div>
 
         <div sec:authorize="hasRole('ROLE_USER')">
-            <h2>¡BIENVENIDO USUARIO del sistema</h2>
+            <h2>¡BIENVENIDO USUARIO DEL SISTEMA!</h2>
         </div>
 
         <div sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
             <h2>¡BIENVENIDO ADMINistrador de la app</h2>
         </div>
-        <h2><b>�BIENVENIDOS!</b></h2>
-        <p>A Continuaci�n Encontrar�s Informaci�n De Nosotros Como Microempresa</p>
+        <h2><b>¡BIENVENIDOS!</b></h2>
+        <p>A continuación Encontrarás Información De Nosotros Como Microempresa</p>
     </section>
-
+    <a href=""></a>
     <br>
     <br>
     <br>
     <section class="information_products">
         <center>
-            <p>Como microempresa realizamos tres productos personalizables para todo momento y fecha especial. Estos
-                productos son:</p>
-            <p><b>Mugs: </b>estructura de porcelana que aplica el arte decorativo por medio de frases, iconos animados y
-                fotograf�as.</p>
-            <p><b>Cojines: </b>estructura de algod�n que aplica el arte decorativo por medio de frases y fotograf�as.
-            </p>
-            <p><b>Cuadros: </b>estructura plana de madera que aplica el arte decorativo por medio de la enmarcaci�n de
-                frases y fotografías.</p>
+            <p>Como microempresa realizamos tres productos personalizables para todo momento y fecha especial. Estos productos son:</p>
+            <p><b>Mugs: </b>estructura de porcelana que aplica el arte decorativo por medio de frases, iconos animados y  fotografía .</p>
+            <p><b>Cojines: </b>estructura de algodón que aplica el arte decorativo por medio de frases y  fotografías.</p>
+            <p><b>Cuadros: </b>estructura plana de madera que aplica el arte decorativo por medio de la enmarcación de frases y  fotografía .</p>
         </center>
     </section>
-    <section class="container-design">
-        <div class="design__item">
-            <h3 class="design__title">Productos Destacados</h3>
-            <img src="https://www.zankyou.com.pe/images/card-main/429/c4c0/550/475/w/627304/-/1518547326.png" alt=""
-                 class="design__img">
-        </div>
-        <div class="design__item">
-            <h3 class="design__title">Catálogos de Productos</h3>
-            <img src="https://i.pinimg.com/originals/89/df/f5/89dff56dd598ff1b2a55d3c4f2b42346.jpg" alt=""
-                 class="design__img">
-        </div>
-        <div class="design__item">
-            <h3 class="design__title">Productos</h3>
-            <img src="https://http2.mlstatic.com/D_NQ_NP_722553-MPE26480979989_122017-O.jpg" alt="" class="design__img">
-        </div>
-        <div class="design__item">
-            <h3 class="design__title">¿Quiénes Somos?</h3>
-            <img src="logoDetallitosYCD.jpeg" alt="" class="design__img">
-        </div>
-    </section>
-    <br>
-    <br>
-    <br>
-    <br>
-    <center>
-        <section class="section-carrousel">
-            <div class="carrousel-container">
-                <div class="carrousel">
-                    <div class="content-all">
-                        <div class="content-carrousel">
-                            <figure><img src=""></figure>
+    <center><section class="section-carrousel">
+        <div class="carrousel-container">
+            <div class="carrousel">
+                <div class="content-all">
+                    <div class="content-carrousel">
+                        <figure><img src=""></figure>
 
-                            <figure><img
-                                    src="https://www.thegiftcompany.com.co/wp-content/uploads/2020/08/Mug-profesionales.jpg">
-                            </figure>
+                        <figure><img src="https://www.thegiftcompany.com.co/wp-content/uploads/2020/08/Mug-profesionales.jpg"></figure>
 
-                            <figure><img src="https://http2.mlstatic.com/D_NQ_NP_778738-MCO43438455808_092020-O.jpg">
-                            </figure>
+                        <figure><img src="https://http2.mlstatic.com/D_NQ_NP_778738-MCO43438455808_092020-O.jpg"></figure>
 
-                            <figure><img
-                                    src="https://rcreaweb.com/wp-content/uploads/2021/05/cuadros-personalizados-600x400.jpg"
-                                    height="200px"></figure>
+                        <figure><img src="https://i0.wp.com/arteyregalosperu.com/wp-content/uploads/2021/07/cuadro-spotify-personalizado-peru-lima-1.jpg?fit=1080%2C1080&ssl=1" height="200px"></figure>
 
-                            <figure><img src="https://http2.mlstatic.com/D_NQ_NP_712028-MCO43438162650_092020-O.jpg"
-                                         height="200px"></figure>
+                        <figure><img src="https://http2.mlstatic.com/D_NQ_NP_712028-MCO43438162650_092020-O.jpg" height="200px"></figure>
 
-                            <figure><img src="https://sublistamp.com/20511-home_default/cojin-para-mejor-amiga.jpg">
-                            </figure>
+                        <figure><img src="https://sublistamp.com/20511-home_default/cojin-para-mejor-amiga.jpg"></figure>
 
-                            <figure><img
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOLwVnWykdKG0_k4kXJ3ReTdq33k-WgSNd3w&usqp=CAU">
-                            </figure>
+                        <figure><img src="https://tussorpresas.com/wp-content/uploads/2020/10/cojin-hasta-infinito-g-1.jpg"></figure>
 
-                            <figure><img
-                                    src="https://ae01.alicdn.com/kf/H453f98758d3b40a8a5470ff8faf743dfX/Tazas-de-caf-de-Panda-taza-de-t-de-cer-mica.jpg_q50.jpg">
-                            </figure>
+                        <figure><img src="https://ae01.alicdn.com/kf/H453f98758d3b40a8a5470ff8faf743dfX/Tazas-de-caf-de-Panda-taza-de-t-de-cer-mica.jpg_q50.jpg"></figure>
 
-                            <figure><img
-                                    src="https://www.dhresource.com/600x600/f2/albu/g6/M00/FD/F3/rBVaR1vRjUCABeytAADMXitTWbE992.jpg"
-                                    height="200px"></figure>
+                        <figure><img src="https://www.dhresource.com/600x600/f2/albu/g6/M00/FD/F3/rBVaR1vRjUCABeytAADMXitTWbE992.jpg" height="200px"></figure>
 
-                            <figure><img src="https://dbdzm869oupei.cloudfront.net/img/quadres/large/28906.jpg"
-                                         height="200px"></figure>
-                        </div>
+                        <figure><img src="https://app.pymebot.com/upload/ecommerce/fproduct_132_1621890178154090.jpg" height="200px"></figure>
                     </div>
                 </div>
             </div>
-        </section>
-    </center>
-    <br><br><br><br><br><br><br> <br><br><br><br><br><br><br>
-    <section class="container-testimonials">
-        <h3 class="section__title">¡Quejas y Reclamos!</h3>
-        <img src="http://www.pqrs.dsierra.com/images/pqrsLogo.png" alt="" class="testimonials__img">
-    </section>
-    <section class="newsletter">
-        <h2 class="section__title">Escríbenos</h2>
-        <form action="" method="post" class="form">
-            <input type="email" placeholder="" class="form__mail">
-            <input type="submit" class="form__submit" value="ENVIAR">
-        </form>
-    </section>
+        </div>
+    </section></center>
+    <br><br><br><br><br><br><br>
 </main>
 <br><br><br><br><br><br><br>
-<footer th:fragment="footer" class="main-footer">
+<br><br><br><br><br><br><br>
+<footer  th:fragment="footer" class="main-footer">
     <div class="container">
         <div class="column column--50-25">
             <h2 class="footer__title">DETALLITOSYCD</h2>
-            <p class="footer__txt">Somos DetallitosYCD una microempresa que brinda a la sociedad cuadros, cojines y mugs
-                personalizados para fechas especiales. Nos ubicamos en la ciudad de Medellín. Y puedes encontrar
-                nuestros productos en la actual página.</p>
+            <p class="footer__txt">Somos DetallitosYCD una microempresa que brinda a la sociedad cuadros, cojines y mugs personalizados para fechas especiales. Nos ubicamos en la ciudad de Medellín. Y puedes encontrar nuestros productos en la actual página.</p>
         </div>
         <div class="column column--50-25">
             <h2 class="footer__title">REDES SOCIALES</h2>
