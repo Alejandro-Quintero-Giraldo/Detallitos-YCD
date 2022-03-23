@@ -73,14 +73,12 @@ public class UserController {
 
     @PostMapping("/saveUser")
     public String saveUser(User user) throws Exception {
-        System.out.println("El usuario "+user.getUserName()+"\n\n"+user.getEmail()+"\n"+user.getUserId()+"\n"+user.getPassword()+"\n"+user.getCellphone()+"\n"+user.getAddress());
         //userModel = new UserModel();
         User verifyUserId = userService.findUserByUserId(user.getUserId());
         if(verifyUserId != null) return "redirect:/register?idExists";
         User verifyUserEmail = userService.findByEmail(user.getEmail());
         if(verifyUserEmail != null) return "redirect:/register?emailExist";
         User newUser = userService.save(user);
-        System.out.println("Bien por aquí");
         //userModel.register(user);
         return "redirect:/register?success";
     }

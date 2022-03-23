@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Producto</title>
+</head>
+<body>
+    <div th:if="${param.success}}">
+        <p>El producto se ha creado exitosamente</p>
+    </div>
+
+    <form method="post" th:action="@{/save}" th:object="${productCreate}">
+        <input type="text" name="productName" th:field="*{productName}" placeholder="Nombre" required autofocus><br>
+        <select name="productType" th:field="*{productType}" required>
+            <option selected disabled>Seleccione una opción</option>
+            <option value="Cuadros">Cuadros</option>
+            <option value="Cojines">Cojines</option>
+            <option value="Mugs">Mugs</option>
+        </select>
+        <input type="number" name="productPrice" th:field="*{productPrice}" placeholder="Precio" required><br>
+        <input type="number" name="productStock" th:field="*{productStock}" placeholder="Cantidad Existencias" required><br>
+        <textarea name="productDescription" th:field="*{productDescription}" placeholder="Descripcion" required></textarea>
+    </form>
+
+</body>
+</html>

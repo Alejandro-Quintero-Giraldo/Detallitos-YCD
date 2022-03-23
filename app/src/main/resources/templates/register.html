@@ -15,25 +15,33 @@
     <p class="text-success">Su usuario se ha creado correctamente</p>
 </div>
 
+<div th:if="${param.idExists}">
+    <p class="text-success">Este usuario ya existe</p>
+</div>
+
+<div th:if="${param.emailExist}">
+    <p class="text-success">El correo electrónico ya está en uso</p>
+</div>
+
 <form class="formulario" th:action="@{/saveUser}"  th:object="${userRegister}" method="POST">
     <h1>Registrarse</h1>
     <div class="contenedor">
 
         <div class="input-contenedor">
             <i class="fas fa-user icon"></i>
-            <input type="text" th:field="*{userName}" name="userName" placeholder="Identificación" required>
+            <input type="text" th:field="*{userId}" name="userId" placeholder="Identificación" required>
         </div>
         <div class="input-contenedor">
             <input type="text" th:field="*{userName}" name="userName" placeholder="Nombre Completo" required>
         </div>
         <div class="input-contenedor">
-            <input type="text" th:field="*{userName}" name="userName" placeholder="Celular" required>
+            <input type="text" th:field="*{cellphone}" name="cellphone" placeholder="Celular" required>
         </div>
         <div class="input-contenedor">
             <input type="text" th:field="*{address}" name="address" placeholder="Dirección" required>
         </div>
         <div class="input-contenedor">
-            <input type="text" th:field="*{userName}" name="userName" placeholder="Correo Electronico" required>
+            <input type="text" th:field="*{email}" name="email" placeholder="Correo Electronico" required>
         </div>
         <div class="input-contenedor">
             <input type="password" th:field="*{password}" name="password" placeholder="Contraseña" required>

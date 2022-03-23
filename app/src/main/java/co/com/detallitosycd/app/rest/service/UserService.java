@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
@@ -28,7 +27,7 @@ public class UserService implements IUserService {
     private AdministratorRepository administratorRepository;
 
     @Override
-    public User save(User userDTO){
+    public User save(User userDTO) {
         passwordEncoder = new BCryptPasswordEncoder();
         User user = new User(userDTO.getUserId(),userDTO.getUserName(), userDTO.getCellphone(), userDTO.getAddress(),
                 userDTO.getEmail(), passwordEncoder.encode(userDTO.getPassword()));
@@ -46,12 +45,16 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
+        System.out.println("entra al method");
         User user = userRepository.findUserByEmail(username);
+        System.out.println("siguio");
         if (user == null) {
+            System.out.println("entra al ex");
             throw  new UsernameNotFoundException("Correo electrónico o contraseña incorrecto");
         }
         //System.out.println("paso");
+        System.out.println("pasa al load");
         return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),
                 mapAuthorities(user.getEmail()));
     }

@@ -45,6 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/assets/**",
                 "/styles/**"
                 ).permitAll()
+                .antMatchers("/product/create")
+                .hasRole("ADMINISTRATOR")
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login")
                 .permitAll()
