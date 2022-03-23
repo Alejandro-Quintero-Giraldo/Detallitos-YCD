@@ -15,9 +15,14 @@
         <h1 class="main-title"><span class="color-span">DETALLITOS</span>YCD</h1>
         <nav class="main-nav">
             <span class="icon-menu" id="btn-menu"><i class="fas fa-bars"></i></span>
-            <ul class="menu" id="menu">
+            <ul th:if="${#authorization.expression('isAuthenticated()')}" class="menu" id="menuAuth">
+                <li class="menu__item"><a href="" class="menu__link menu__link--select"><span>PERFIL</span></a></li>
+                <li class="menu__item"><a href="" class="menu__link"><span>CARRITO</span></a></li>
+                <li class="menu__item"><a th:href="@{/logout}" class="menu__link"><span>CERRAR SESIÓN</span></a></li>
+            </ul>
+            <ul th:unless="${#authorization.expression('isAuthenticated()')}" class="menu" id="menu">
                 <li class="menu__item"><a th:href="@{/register}" class="menu__link menu__link--select"><span>REGISTRARSE</span></a></li>
-                <li class="menu__item"><a th:href="@{/login}" class="menu__link menu__link--select"><span>INICIAR SESSION</span></a></li>
+                <li class="menu__item"><a th:href="@{/login}" class="menu__link"><span>INICIAR SESIÓN</span></a></li>
             </ul>
         </nav>
     </div>
@@ -61,12 +66,41 @@
             <p><b>Cuadros: </b>estructura plana de madera que aplica el arte decorativo por medio de la enmarcación de frases y  fotografía .</p>
         </center>
     </section>
-    <center><section class="section-carrousel">
-        <div class="carrousel-container">
-            <div class="carrousel">
-                <div class="content-all">
-                    <div class="content-carrousel">
-                        <figure><img src=""></figure>
+
+    <section class="container-design">
+        <div class="design__item">
+            <h3 class="design__title">Productos Destacados</h3>
+            <img src="https://www.zankyou.com.pe/images/card-main/429/c4c0/550/475/w/627304/-/1518547326.png" alt=""
+                 class="design__img">
+        </div>
+        <div class="design__item">
+            <h3 class="design__title">Catálogos de Productos</h3>
+            <img src="https://i.pinimg.com/originals/89/df/f5/89dff56dd598ff1b2a55d3c4f2b42346.jpg" alt=""
+                 class="design__img">
+        </div>
+        <div class="design__item">
+            <h3 class="design__title">Productos</h3>
+            <img src="https://http2.mlstatic.com/D_NQ_NP_722553-MPE26480979989_122017-O.jpg" alt="" class="design__img">
+        </div>
+        <div class="design__item">
+            <h3 class="design__title">¿Quiénes Somos?</h3>
+            <img src="logoDetallitosYCD.jpeg" alt="" class="design__img">
+        </div>
+    </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <center>
+        <section class="section-carrousel">
+            <div class="carrousel-container">
+                <div class="carrousel">
+                    <div class="content-all">
+                        <div class="content-carrousel">
+                            <figure><img src=""></figure>
+
+
+                            <!--  --------->
 
                         <figure><img src="https://www.thegiftcompany.com.co/wp-content/uploads/2020/08/Mug-profesionales.jpg"></figure>
 
@@ -91,8 +125,21 @@
         </div>
     </section></center>
     <br><br><br><br><br><br><br>
+    </section>
+    </center>
+    <br><br><br><br><br><br><br>
+    <section class="container-testimonials">
+        <h3 class="section__title">¡Quejas y Reclamos!</h3>
+        <img src="http://www.pqrs.dsierra.com/images/pqrsLogo.png" alt="" class="testimonials__img">
+    </section>
+    <section class="newsletter">
+        <h2 class="section__title">Escríbenos</h2>
+        <form action="" method="post" class="form">
+            <input type="email" placeholder="" class="form__mail">
+            <input type="submit" class="form__submit" value="ENVIAR">
+        </form>
+    </section>
 </main>
-<br><br><br><br><br><br><br>
 <br><br><br><br><br><br><br>
 <footer  th:fragment="footer" class="main-footer">
     <div class="container">
