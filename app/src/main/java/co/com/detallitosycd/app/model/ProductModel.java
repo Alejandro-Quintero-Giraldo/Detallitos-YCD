@@ -1,10 +1,11 @@
 package co.com.detallitosycd.app.model;
 
 import co.com.detallitosycd.app.entity.Product;
-import co.com.detallitosycd.app.entity.User;
 import co.com.detallitosycd.app.model.conection.Conection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,6 +16,7 @@ public class ProductModel extends Conection {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+    private ResultSet[] resultSets;
 
     private void prepareBD(String query) throws SQLException {
         this.connection = Conection.conect();
@@ -24,8 +26,10 @@ public class ProductModel extends Conection {
     private void processQuery(String action) throws SQLException {
         if(action.equals("query")){
             this.resultSet = this.preparedStatement.executeQuery();
-        } else if(action.equals("create")){
+        } else if(action.equals("create") || action.equals("update")){
             this.preparedStatement.execute();
+        } else if(action.equals("products")) {
+            this.resultSet = this.preparedStatement.executeQuery();
         }
         LOGGER.log(Level.INFO, this.preparedStatement.toString());
     }
@@ -39,42 +43,9 @@ public class ProductModel extends Conection {
         this.connection = null;
     }
 
-    public User login(User userDTO) throws SQLException {
-        User user = null;
-        Connection connection = null;
-        PreparedStatement preparedStatemen = null;
-        ResultSet resultSet = null;
-        String query = "SELECT * FROM USUARIO WHERE CORREOELECTRONICO = ? AND CONTRASEÑA = ?;";
-        //String query = "select * from Usuario where CorreoElectronico = '"+userDTO.getEmail()+"' and Contraseña = '"+userDTO.getPassword()+"';";
-
-        try {
-            connection = Conection.conect();
-            preparedStatemen = connection.prepareStatement(query);
-            preparedStatemen.setString(1, userDTO.getEmail());
-            preparedStatemen.setString(2, userDTO.getPassword());
-            LOGGER.log(Level.INFO, preparedStatemen.toString());
-            resultSet = preparedStatemen.executeQuery();
-
-            while (resultSet.next() ) {
-                System.out.println("resultSet " + resultSet.getString(1));
-                user = new User(resultSet.getString("IdUsuario"),
-                        resultSet.getString("NombreUsuario"), resultSet.getString("Celular"),
-                        resultSet.getString("Direccion"), resultSet.getString("CorreoElectronico"),
-                        resultSet.getString("Contraseña"));
-            }
-        } catch (Exception e) {
-            LOGGER.log(Level.INFO, "{0}Error App", e.getMessage());
-        } finally {
-
-            System.out.println("por el finally");
-        }
-        return user;
-
-    }
-
     public void createProduct(Product productInfo) throws SQLException {
         String query = "INSERT INTO PRODUCTO(id_producto, nombre_producto,tipo_producto,precio_producto,cantidad_existencias," +
-                "descripcion) VALUES (?,?,?,?,?,?)";
+                "descripcion, esta_visible, imagen ) VALUES (?,?,?,?,?,?,?,?)";
         prepareBD(query);
         this.preparedStatement.setString(1, productInfo.getProductId());
         this.preparedStatement.setString(2, productInfo.getProductName());
@@ -82,45 +53,49 @@ public class ProductModel extends Conection {
         this.preparedStatement.setInt(4, productInfo.getProductPrice());
         this.preparedStatement.setInt(5, productInfo.getAmountStock());
         this.preparedStatement.setString(6, productInfo.getDescription());
+        this.preparedStatement.setString(7, productInfo.getIsVisible());
+        this.preparedStatement.setString(8, productInfo.getImage());
         processQuery("create");
         finishProcess();
-
-
-        /*System.out.println(userInfo.getUserId()+" "+userInfo.getCellphone()+" "+userInfo.getEmail()+" "+userInfo.getAddress()+" "+userInfo.getPassword());
-        PreparedStatement preparedStatement = null;
-        Connection connection = null;
-        String query = "INSERT INTO USUARIO(IdUsuario, NombreUsuario, Celular,CorreoElectronico,Direccion, Contraseña) " +
-                "VALUES( ? , ? , ? , ? , ? , ?)";
-        try {
-            connection = Conection.conect();
-            preparedStatement = connection.prepareStatement(query);
-            System.out.println("El prepare statement");
-            preparedStatement.setString(1,userInfo.getUserId());
-            preparedStatement.setString(2,userInfo.getUserName());
-            preparedStatement.setString(3,userInfo.getCellphone());
-            preparedStatement.setString(4,userInfo.getEmail());
-            preparedStatement.setString(5,userInfo.getAddress());
-            preparedStatement.setString(6,userInfo.getPassword());
-            LOGGER.log(Level.INFO, preparedStatement.toString());
-            resultSet = preparedStatement.execute();
-
-            //System.out.println("resultSet " + resultSet.getString("NombreUsuario"));
-        /*
-            if (resultSet.next() == true) {
-                user = new User(resultSet.getString("IdUsuario"),
-                        resultSet.getString("NombreUsuario"), resultSet.getString("Celular"),
-                        resultSet.getString("Direccion"), resultSet.getString("CorreoElectronico"),
-                        resultSet.getString("Contraseña"));
-
-            }*/
-        /*} catch (Exception e) {
-            LOGGER.log(Level.INFO, "{0}Error", e.getMessage());
-        } finally {
-
-            if (preparedStatement != null && preparedStatement.isClosed() == false) preparedStatement.close();
-            preparedStatement = null;
-            if (connection != null && connection.isClosed() == false) connection.close();
-            connection = null;
-        }*/
     }
+
+    public Product findById(String id) throws SQLException {
+        String query = "SELECT * FROM PRODUCTO WHERE id_producto = ?";
+        prepareBD(query);
+        this.preparedStatement.setString(1,id);
+        processQuery("query");
+        Product product = null;
+        if(this.resultSet.next()){
+            product = new Product(this.resultSet.getString("id_producto"),
+                    this.resultSet.getString("nombre_producto"),this.resultSet.getString("tipo_producto"),
+                    this.resultSet.getInt("precio_producto"), this.resultSet.getInt("cantidad_existencias"),
+                    this.resultSet.getString("descripcion"), this.resultSet.getString("esta_visible"),
+                    this.resultSet.getString("imagen"));
+        }
+        finishProcess();
+        return product;
+    }
+
+    public void updateProduct(Product productUpdate) throws SQLException {
+        String query = "UPDATE PRODUCT SET nombre_producto = ?, tipo_producto = ?, precio_producto = ?, cantidad_existencias = ?," +
+                "descripcion = ?, esta_visible = ?, imagen = ?";
+        prepareBD(query);
+        this.preparedStatement.setString(1, productUpdate.getProductName());
+        this.preparedStatement.setString(2, productUpdate.getProductType());
+        this.preparedStatement.setInt(3,productUpdate.getProductPrice());
+        this.preparedStatement.setInt(4, productUpdate.getAmountStock());
+        this.preparedStatement.setString(5, productUpdate.getDescription());
+        this.preparedStatement.setString(6, productUpdate.getIsVisible());
+        this.preparedStatement.setString(7, productUpdate.getImage());
+        processQuery("update");
+        finishProcess();
+    }
+    /*
+    public List<Product> findProductsVisibles() throws SQLException {
+        String query = "SELECT * FROM PRODUCTO WHERE esta_visible = ?";
+        prepareBD(query);
+        this.preparedStatement.setString(1, "SI");
+
+
+    }*/
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Actualizar Producto</title>
+</head>
+<body>
+<div th:if="${param.success}">
+    <p>El producto se ha creado exitosamente</p>
+</div>
+
+<form method="post" th:action="@{/product/save}" th:object="${productUpdate}">
+
+    <input type="text" name="productName" th:field="*{productName}" placeholder="Nombre" required autofocus><br>
+    <select name="productType" th:field="*{productType}" required>
+        <option value="Cuadros">Cuadro</option>
+        <option value="Cojines">Cojin</option>
+        <option value="Mugs">Mug</option>
+    </select>
+    <input type="number" name="productPrice" th:field="*{productPrice}" placeholder="Precio" required><br>
+    <input type="number" name="amountStock" th:field="*{amountStock}" placeholder="Cantidad Existencias" required><br>
+    <textarea name="description" th:field="*{description}" placeholder="Descripcion" required></textarea>
+    <input type="file" name="image" th:field="*{image}" required  />
+    <select name="isVisible" th:field="*{isVisible}" required >
+        <option  selected value="SI">SI</option>
+        <option value="NO">NO</option>
+    </select>
+    <input type="submit" value="Crear" class="button" />
+</form>
+
+</body>
+</html>

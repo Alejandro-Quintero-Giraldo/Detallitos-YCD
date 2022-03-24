@@ -22,7 +22,7 @@ public class Administrator {
     @Column(name = "correo_electronico")
     private String email;
 
-    @Column(name = "empresanit")
+    @Column(name = "empresa_nit")
     private String companyNIT;
 
     public Administrator(String idAdministrator, String nameAdministrator, String cellphone, String address, String email, String companyNIT) {
