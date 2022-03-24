@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet"  th:href="@{/styles/style.css}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+  <div class="container">
+  
+    <div class="title">Actualizar Productos</div>
+
+    <form method="post" th:action="@{/product/save}" th:object="${productCreate}">
+
+        <label for="productName">Nombre: </label><br>
+        <input type="text" id="productName" name="productName" th:field="*{productName}" placeholder="Nombre" required autofocus><br>
+
+      <label for="productType">Tipo de producto: </label><br>
+      <select id="productType" name="productType" th:field="*{productType}" required>
+        <option value="Cuadros">Cuadro</option>
+        <option value="Cojines">Cojin</option>
+        <option value="Mugs">Mug</option>
+      </select><br>
+
+    <label for="productPrice">Precio: </label><br>
+    <input type="number" id="productPrice" name="productPrice" th:field="*{productPrice}" placeholder="Precio" required><br>
+
+
+    <label for="amountStock">Cantidad en stock: </label><br>
+    <input type="number" id="amountStock" name="amountStock" th:field="*{amountStock}" placeholder="Cantidad Existencias" required><br>
+
+
+    <label for="description">Descripcion: </label><br>
+    <textarea name="description" id="description" th:field="*{description}" placeholder="Descripcion" required></textarea>
+    <br>
+
+    <label for="image">Imagen: </label><br>
+    <input type="file"  id="image" name="image" /><br>
+
+    <label for="isVisible">¿Será visible a los usuarios?: </label><br>
+    <select name="isVisible" id="isVisible" th:field="*{isVisible}" required>
+      <option selected value="SI">SI</option>
+      <option value="NO">NO</option>
+    </select><br>
+
+
+    <input type="submit" value="Crear" class="button">
+
+  </form>
+
+  <div class="success" th:if="${param.success}">
+    <strong><p>El producto se ha creado exitosamente</p></strong>
+  </div>
+  </div>
+</body>
+
+</html>
