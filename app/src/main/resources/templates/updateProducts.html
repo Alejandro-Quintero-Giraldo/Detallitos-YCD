@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -39,8 +39,9 @@
     <textarea name="description" id="description" th:field="*{description}" placeholder="Descripcion" required></textarea>
     <br>
 
-    <label for="image">Imagen: </label><br>
-    <input type="file"  id="image" name="image" /><br>
+     <input type="hidden" value="" th:field="*{image}" />
+    <label for="file">Imagen: </label><br>
+    <input type="file"  id="file" name="file" /><br>
 
     <label for="isVisible">¿Será visible a los usuarios?: </label><br>
     <select name="isVisible" id="isVisible" th:field="*{isVisible}" required>
@@ -53,7 +54,7 @@
 
   </form>
 
-    <form th:if="${action == 'update'}" method="post" th:action="@{/product/put}">
+    <form th:if="${action == 'update'}" method="post" th:action="@{/product/put}" enctype="multipart/form-data">
       <input type="hidden" th:value="${productUpdate.productId}" th:name="productId">
       <label for="productName">Nombre: </label><br>
       <input type="text" th:value="${productUpdate.productName}"  th:name="productName" placeholder="Nombre" required><br>
@@ -77,9 +78,13 @@
       <textarea  th:name="description"  placeholder="Descripcion"  th:inline="text" required>[[${productUpdate.description}]]</textarea>
 
       <br>
+      <label for="recentImg">Imagen actual</label>
+      <img  id="recentImg" th:src="@{/assets/products/}+${productUpdate.image}" width="200" height="200"/><br><br>
 
-      <label for="image">Imagen: </label><br>
-      <input type="file" name="image" /><br>
+      <input type="hidden" th:value="${productUpdate.image}" name="actualImage" />
+
+      <label for="fileUpdate">Imagen: </label><br>
+      <input type="file" name="fileUpdate" id="fileUpdate" /><br>
 
       <label for="isVisible">¿Será visible a los usuarios?: </label><br>
       <select th:name="isVisible" th:value="${productUpdate.isVisible}" required>

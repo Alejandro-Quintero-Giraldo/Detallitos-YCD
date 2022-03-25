@@ -26,12 +26,12 @@ public class Product {
     private String description;
 
     @Column(name = "imagen")
-    private byte[] image;
+    private String image;
 
     @Column(name = "esta_visible")
     private String isVisible;
 
-    public Product(String productId, String productName, String productType, Integer productPrice, Integer amountStock, String description, String isVisible, byte[] image) {
+    public Product(String productId, String productName, String productType, Integer productPrice, Integer amountStock, String description, String isVisible, String image) {
         this.productId = productId;
         this.productName = productName;
         this.productType = productType;
@@ -42,14 +42,24 @@ public class Product {
         this.image = image;
     }
 
+    public Product(String productId, String productName, String productType, Integer productPrice, Integer amountStock, String description, String isVisible) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productType = productType;
+        this.productPrice = productPrice;
+        this.amountStock = amountStock;
+        this.description = description;
+        this.isVisible = isVisible;
+    }
+
     public Product() {
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

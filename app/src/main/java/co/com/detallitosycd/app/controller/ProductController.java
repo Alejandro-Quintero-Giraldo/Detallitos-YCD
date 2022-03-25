@@ -6,9 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
@@ -36,11 +39,12 @@ public class ProductController {
     }
 
     @PostMapping("/save")
-    public String createProduct(Product productCreate, @RequestParam("image") MultipartFile image)
+    public String createProduct(Product productCreate, @RequestParam(name = "file") MultipartFile file)
             throws SQLException, IOException {
         productCreate.setProductId(UUID.randomUUID().toString());
-        if(!image.isEmpty()){
-            productCreate.setImage(image.getBytes());
+        String resultUpload = uploadFile(file);
+        if(resultUpload != null){
+            productCreate.setImage(file.getOriginalFilename());
         }
         productModel = new ProductModel();
         productModel.createProduct(productCreate);
@@ -83,11 +87,76 @@ public class ProductController {
                                 @RequestParam("amountStock") Integer amountStock,
                                 @RequestParam("description") String description,
                                 @RequestParam("isVisible") String isVisible,
-                                @RequestParam("image") byte[] image) throws SQLException {
-        Product productUpdate = new Product(productId,productName,productType,productPrice,amountStock,description,isVisible,image);
+                                @RequestParam("actualImage") String actualImage,
+                                @RequestParam("fileUpdate") MultipartFile file) throws SQLException, IOException {
+
+        Product productUpdate = new Product(productId,productName,productType,productPrice,amountStock,description,isVisible,"");
+        boolean resultDelete = deleteFile(actualImage);
+        if(resultDelete){
+            String resultUpload = uploadFile(file);
+            if(resultUpload != null){
+                productUpdate.setImage(file.getOriginalFilename());
+            }
+        }
+
         productModel = new ProductModel();
         productModel.updateProduct(productUpdate);
         return "redirect:/product/update/"+productUpdate.getProductId()+"?updated";
 
     }
+
+    public String uploadFile(MultipartFile file) throws IOException {
+        if(file == null || file.isEmpty()) {
+            return null;
+        }
+
+        String builder = System.getProperty("user.home") +
+                File.separator +
+                "Documents" + File.separator +
+                "Detallitos-YCD" + File.separator +
+                "app" + File.separator +
+                "src" + File.separator +
+                "main" + File.separator +
+                "resources" + File.separator +
+                "static" + File.separator +
+                "assets" + File.separator +
+                "products" + File.separator +
+                file.getOriginalFilename();
+
+        Path path = Paths.get(builder);
+        if(Files.exists(path)){
+            builder += "1";
+            path = Paths.get(builder);
+            Files.write(path, file.getBytes());
+            return file.getOriginalFilename()+"1";
+        }
+        Files.write(path, file.getBytes());
+
+        return file.getOriginalFilename();
+    }
+
+    public boolean deleteFile(String originalFileName){
+
+        String builder = System.getProperty("user.home") +
+                File.separator +
+                "Documents" + File.separator +
+                "Detallitos-YCD" + File.separator +
+                "app" + File.separator +
+                "src" + File.separator +
+                "main" + File.separator +
+                "resources" + File.separator +
+                "static" + File.separator +
+                "assets" + File.separator +
+                "products" + File.separator +
+                originalFileName;
+        Path path = Paths.get(builder);
+        try {
+            Files.delete(path);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

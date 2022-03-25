@@ -40,7 +40,7 @@
 	<div th:each="product : ${productList}">
 		<div class="card">
 			<figure>
-				<img src="https://http2.mlstatic.com/D_NQ_NP_849872-MCO44688816564_012021-O.jpg">
+				<img th:src="@{/assets/products/}+${product.image}" th:alt="${product.image}">
 			</figure>
 			<div class="contenido-card">
 				<h3 th:text="${product.productName}"></h3>

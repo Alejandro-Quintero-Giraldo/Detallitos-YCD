@@ -53,7 +53,7 @@ public class ProductModel extends Conection {
         this.preparedStatement.setInt(5, productInfo.getAmountStock());
         this.preparedStatement.setString(6, productInfo.getDescription());
         this.preparedStatement.setString(7, productInfo.getIsVisible());
-        this.preparedStatement.setBytes(8, productInfo.getImage());
+        this.preparedStatement.setString(8, productInfo.getImage());
         processQuery("create");
         finishProcess();
     }
@@ -69,7 +69,7 @@ public class ProductModel extends Conection {
                     this.resultSet.getString("nombre_producto"),this.resultSet.getString("tipo_producto"),
                     this.resultSet.getInt("precio_producto"), this.resultSet.getInt("cantidad_existencias"),
                     this.resultSet.getString("descripcion"), this.resultSet.getString("esta_visible"),
-                    this.resultSet.getBytes("imagen"));
+                    this.resultSet.getString("imagen"));
         }
         finishProcess();
         return product;
@@ -85,7 +85,7 @@ public class ProductModel extends Conection {
         this.preparedStatement.setInt(4, productUpdate.getAmountStock());
         this.preparedStatement.setString(5, productUpdate.getDescription());
         this.preparedStatement.setString(6, productUpdate.getIsVisible());
-        this.preparedStatement.setBytes(7, productUpdate.getImage());
+        this.preparedStatement.setString(7, productUpdate.getImage());
         this.preparedStatement.setString(8, productUpdate.getProductId());
         processQuery("update");
         finishProcess();
@@ -102,7 +102,7 @@ public class ProductModel extends Conection {
                     this.resultSet.getString("nombre_producto"),this.resultSet.getString("tipo_producto"),
                     this.resultSet.getInt("precio_producto"),this.resultSet.getInt("cantidad_existencias"),
                     this.resultSet.getString("descripcion"),this.resultSet.getString("esta_visible"),
-                    this.resultSet.getBytes("imagen"));
+                    this.resultSet.getString("imagen"));
             productList.add(product);
         }
         finishProcess();
