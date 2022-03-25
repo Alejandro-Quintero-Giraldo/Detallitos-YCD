@@ -1,10 +1,9 @@
 package co.com.detallitosycd.app.entity;
 
 import javax.persistence.*;
-import java.sql.Blob;
 
 @Entity
-@Table(name = "producto", uniqueConstraints = @UniqueConstraint(columnNames = "id_producto"))
+@Table(name = "producto", uniqueConstraints = @UniqueConstraint(columnNames = {"id_producto", "nombre_producto" }))
 public class Product {
 
     @Id
@@ -27,12 +26,12 @@ public class Product {
     private String description;
 
     @Column(name = "imagen")
-    private String image;
+    private byte[] image;
 
     @Column(name = "esta_visible")
     private String isVisible;
 
-    public Product(String productId, String productName, String productType, Integer productPrice, Integer amountStock, String description, String isVisible, String image) {
+    public Product(String productId, String productName, String productType, Integer productPrice, Integer amountStock, String description, String isVisible, byte[] image) {
         this.productId = productId;
         this.productName = productName;
         this.productType = productType;
@@ -46,11 +45,11 @@ public class Product {
     public Product() {
     }
 
-    public String getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 

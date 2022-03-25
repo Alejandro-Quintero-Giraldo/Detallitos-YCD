@@ -4,8 +4,11 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+}
 
-  
+nav {
+    background-color: #F17EB8;
+    color: #ffffff;
 }
 
 .button {
@@ -25,6 +28,7 @@
 .container-card{
 	width: 100%;
 	display: flex;
+	justify-content: space-around;
 	max-width: 1500px;
 	margin: auto;
 }
@@ -39,7 +43,7 @@
 }
 .card{
 	width: 100%;
-	margin: 20px;
+	margin: 5%;
 	border-radius: 6px;
 	overflow: hidden;
 	background:rgb(255, 255, 255);
@@ -185,10 +189,8 @@
 
   }
 
- .productos{
- 	position:relative;
- 	top: 300px;
- 	left: 0px;
+ .productos {
+ 	margin-bottom: 10%;
  }
 
 .menu{

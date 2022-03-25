@@ -6,13 +6,12 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>Productos</title>
 	<link rel="stylesheet" th:href="@{/styles/products.css}">
-	<script src="javaScript.java"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body th:background="@{}">
-	
+<body>
+
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 		  <div class="navbar-header">
@@ -27,135 +26,34 @@
 		  </ul>
 		</div>
 	  </nav>
-	  <div class="container">
-		<h3></h3>
-	  </div>
 	<div class="title-cards">
 			<h2>Productos</h2>
 	</div>
 					
 <div class="productos">
 	<!--   Tarjetas-->
-	<center>
-	<button class="button">Crear Nuevo Producto</button>
-</center>
-<br>
-	<br>
-<div class="container-card">
-<div class="card">
-	<figure>
-		<img src="https://tussorpresas.com/wp-content/uploads/2020/10/taza-llamas-g.jpg">
-	</figure>
-	<div class="contenido-card">
-		<h3>Mugs Personalizados</h3>
-		<p>.....</p>
-		<a href="#">Actualizar</a> 
-		<a href="#">Ver</a> 
-	</div>
-</div>
-<div class="card">
-	<figure>
-		<img src="https://http2.mlstatic.com/D_NQ_NP_849872-MCO44688816564_012021-O.jpg">
-	</figure>
-	<div class="contenido-card">
-		<h3>Dia de la Madre</h3>
-		<p>....</p>
-		<a href="#">Actualizar</a>
-		<a href="#">Ver</a> 
-	</div>
-</div>
-<div class="card">
-	<figure>
-		<img src="https://ojopublico.com.co/wp-content/uploads/2021/09/cuadrosity-1.jpg">
-	</figure>
-	<div class="contenido-card">
-		<h3>Cuadro Personalizado</h3>
-		<p>....</p>
-		<a href="#">Actualizar</a>
-		<a href="#">ver</a> 
-	</div>
-</div>
-<div class="card">
-	<figure>
-		<img src="https://http2.mlstatic.com/D_NQ_NP_640305-MLU43315675106_082020-O.jpg">
-	</figure>
-	<div class="contenido-card">
-		<h3>Cuadro de Cristiano Ronaldo</h3>
-		<p>.....</p>
-		<a href="#">Actualizar</a>
-		<a href="#">ver</a> 
-	</div>
-</div>
-<div class="card">
-	<figure>
-		<img src="https://m.media-amazon.com/images/I/715zYf2tt1L._AC_SY355_.jpg">
-	</figure>
-	<div class="contenido-card">
-		<h3>Messi Y Cristiano</h3>
-		<p>.....</p>
-		<a href="#">Actualizar</a>
-		<a href="#">Ver</a> 
-	</div>
-</div>
-<div class="card">
-	<figure>
-		<img src="https://http2.mlstatic.com/D_NQ_NP_831997-MCO43213318927_082020-O.jpg">
-	</figure>
-	<div class="contenido-card">
-		<h3>Los Simpson</h3>
-		<p>.....</p>
-		<a href="#">Actualizar</a>
-		<a href="#">Ver</a>
+	<center sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
+		<a th:href="@{/product/create}" ><button class="button">Crear Nuevo Producto</button></a>
+	</center><br><br>
+	<div class="container-card">
+
+	<div th:each="product : ${productList}">
+		<div class="card">
+			<figure>
+				<img src="https://http2.mlstatic.com/D_NQ_NP_849872-MCO44688816564_012021-O.jpg">
+			</figure>
+			<div class="contenido-card">
+				<h3 th:text="${product.productName}"></h3>
+				<p th:text="${product.productPrice}"></p>
+				<a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/product/update/}+${product.productId}">Actualizar</a>
+				<a th:href="@{/product/} + ${product.productId}">Ver</a>
+			</div>
+		</div>
 	</div>
 </div>
 </div>
-<br>
-	<br>
-		<br>
-		<br>
-	
 <!-- Footer --> 
-<footer class="main-footer">
-	<div class="container">
-	  <div class="column column--50-25">
-		<h2 class="footer__title">DETALLITOSYCDG</h2>
-		<p class="footer__txt">Somos detallitosYCDG una microempresa que brinda a la sociedad cuadros, cojines y mugs personalizados para fechas especiales. Nos ubicamos en la ciudad de Medellín. Y puedes encontrar nuestros productos en la actual página.</p>
-	  </div>
-	  <div class="column column--50-25">
-		<h2 class="footer__title">REDES SOCIALES</h2>
-		<div class="footer__socials">
-		  <div class="social-icon">
-			<img src="facebook.png" width="45" height="45">
-			<a class="social__link" href="">Facebook</a>
-		  </div>
-		  <div class="social-icon">
-			<img src="instagram.png" width="45" height="45">
-			<a class="social__link" href="">Instagram</a>
-		  </div>
-		  <div class="social-icon">
-			<img src="whatsapp.png" width="45" height="45">
-			<a class="social__link" href="">WhatsApp</a>
-		  </div>
-		</div>
-	  </div>
-	  <div class="column column--50-25">
-		<h2 class="footer__title">CONTÁCTANOS</h2>
-		<div class="contact-icon">
-		  <i class="fas fa-map-marker-alt"></i>
-		  <p class="contact__txt">detallitosYCDG</p>
-		</div>
-		<div class="contact-icon">
-		  <i class="fas fa-phone-alt"></i>
-		  <p class="contact__txt">3000587390</p>
-		</div>
-		<div class="contact-icon">
-		  <i class="fas fa-envelope"></i>
-		  <p class="contact__txt">detallitosYCDG@gmail.com</p>
-		</div>
-	  </div>
-	</div>
-	<p class="copy"><b>© 2022 PROYECTO DETALLITOSYCDG</b><span class="color-span"></span></p>
-  </footer>
+<div th:replace="index :: footer"></div>
 <!--Fin de Footer-->
 
 

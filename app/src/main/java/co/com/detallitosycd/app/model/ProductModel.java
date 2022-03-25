@@ -16,7 +16,6 @@ public class ProductModel extends Conection {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
-    private ResultSet[] resultSets;
 
     private void prepareBD(String query) throws SQLException {
         this.connection = Conection.conect();
@@ -54,7 +53,7 @@ public class ProductModel extends Conection {
         this.preparedStatement.setInt(5, productInfo.getAmountStock());
         this.preparedStatement.setString(6, productInfo.getDescription());
         this.preparedStatement.setString(7, productInfo.getIsVisible());
-        this.preparedStatement.setString(8, productInfo.getImage());
+        this.preparedStatement.setBytes(8, productInfo.getImage());
         processQuery("create");
         finishProcess();
     }
@@ -70,15 +69,15 @@ public class ProductModel extends Conection {
                     this.resultSet.getString("nombre_producto"),this.resultSet.getString("tipo_producto"),
                     this.resultSet.getInt("precio_producto"), this.resultSet.getInt("cantidad_existencias"),
                     this.resultSet.getString("descripcion"), this.resultSet.getString("esta_visible"),
-                    this.resultSet.getString("imagen"));
+                    this.resultSet.getBytes("imagen"));
         }
         finishProcess();
         return product;
     }
 
     public void updateProduct(Product productUpdate) throws SQLException {
-        String query = "UPDATE PRODUCT SET nombre_producto = ?, tipo_producto = ?, precio_producto = ?, cantidad_existencias = ?," +
-                "descripcion = ?, esta_visible = ?, imagen = ?";
+        String query = "UPDATE PRODUCTO SET nombre_producto = ?, tipo_producto = ?, precio_producto = ?, cantidad_existencias = ?," +
+                "descripcion = ?, esta_visible = ?, imagen = ? WHERE id_producto = ?";
         prepareBD(query);
         this.preparedStatement.setString(1, productUpdate.getProductName());
         this.preparedStatement.setString(2, productUpdate.getProductType());
@@ -86,16 +85,27 @@ public class ProductModel extends Conection {
         this.preparedStatement.setInt(4, productUpdate.getAmountStock());
         this.preparedStatement.setString(5, productUpdate.getDescription());
         this.preparedStatement.setString(6, productUpdate.getIsVisible());
-        this.preparedStatement.setString(7, productUpdate.getImage());
+        this.preparedStatement.setBytes(7, productUpdate.getImage());
+        this.preparedStatement.setString(8, productUpdate.getProductId());
         processQuery("update");
         finishProcess();
     }
-    /*
+
     public List<Product> findProductsVisibles() throws SQLException {
         String query = "SELECT * FROM PRODUCTO WHERE esta_visible = ?";
+        List<Product> productList = new ArrayList<>();
         prepareBD(query);
         this.preparedStatement.setString(1, "SI");
-
-
-    }*/
+        processQuery("query");
+        while(this.resultSet.next()){
+            Product product = new Product(this.resultSet.getString("id_producto"),
+                    this.resultSet.getString("nombre_producto"),this.resultSet.getString("tipo_producto"),
+                    this.resultSet.getInt("precio_producto"),this.resultSet.getInt("cantidad_existencias"),
+                    this.resultSet.getString("descripcion"),this.resultSet.getString("esta_visible"),
+                    this.resultSet.getBytes("imagen"));
+            productList.add(product);
+        }
+        finishProcess();
+        return productList;
+    }
 }
