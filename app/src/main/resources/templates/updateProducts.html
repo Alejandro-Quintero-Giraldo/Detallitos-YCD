@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8">
@@ -11,18 +11,20 @@
 
   <div class="container">
   
-    <div class="title">Actualizar Productos</div>
+    <div class="title" th:if="${action == 'create'}">Crear Producto</div>
 
-    <form method="post" th:action="@{/product/save}" th:object="${productCreate}">
+    <div class="title" th:if="${action == 'update'}">Actualizar Producto</div>
+
+    <form th:if="${action == 'create'}" method="post" th:action="@{/product/save}" th:object="${productAction}" enctype="multipart/form-data">
 
         <label for="productName">Nombre: </label><br>
-        <input type="text" id="productName" name="productName" th:field="*{productName}" placeholder="Nombre" required autofocus><br>
+        <input type="text" id="productName" name="productName"  th:field="*{productName}" placeholder="Nombre" required autofocus><br>
 
       <label for="productType">Tipo de producto: </label><br>
       <select id="productType" name="productType" th:field="*{productType}" required>
-        <option value="Cuadros">Cuadro</option>
-        <option value="Cojines">Cojin</option>
-        <option value="Mugs">Mug</option>
+        <option value="CUADROS">Cuadro</option>
+        <option value="COJINES">Cojin</option>
+        <option value="MUGS">Mug</option>
       </select><br>
 
     <label for="productPrice">Precio: </label><br>
@@ -37,8 +39,9 @@
     <textarea name="description" id="description" th:field="*{description}" placeholder="Descripcion" required></textarea>
     <br>
 
-    <label for="image">Imagen: </label><br>
-    <input type="file"  id="image" name="image" /><br>
+     <input type="hidden" value="" th:field="*{image}" />
+    <label for="file">Imagen: </label><br>
+    <input type="file"  id="file" name="file" /><br>
 
     <label for="isVisible">¿Será visible a los usuarios?: </label><br>
     <select name="isVisible" id="isVisible" th:field="*{isVisible}" required>
@@ -51,9 +54,56 @@
 
   </form>
 
-  <div class="success" th:if="${param.success}">
+    <form th:if="${action == 'update'}" method="post" th:action="@{/product/put}" enctype="multipart/form-data">
+      <input type="hidden" th:value="${productUpdate.productId}" th:name="productId">
+      <label for="productName">Nombre: </label><br>
+      <input type="text" th:value="${productUpdate.productName}"  th:name="productName" placeholder="Nombre" required><br>
+
+      <label for="productType">Tipo de producto: </label><br>
+      <select th:name="productType" th:value="${productUpdate.productType}" required>
+        <option th:selected="${productUpdate.productType.toUpperCase() == 'CUADROS'} ? true : false" value="CUADROS">Cuadro</option>
+        <option th:selected="${productUpdate.productType.toUpperCase() == 'COJINES'} ? true : false" value="COJINES">Cojin</option>
+        <option th:selected="${productUpdate.productType.toUpperCase() == 'MUGS'} ? true : false" value="MUGS">Mug</option>
+      </select><br>
+
+      <label for="productPrice">Precio: </label><br>
+      <input type="number" th:name="productPrice" th:value="${productUpdate.productPrice}"  placeholder="Precio" required><br>
+
+
+      <label for="amountStock">Cantidad en stock: </label><br>
+      <input type="number"  th:name="amountStock" th:value="${productUpdate.amountStock}"  placeholder="Cantidad Existencias" required><br>
+
+
+      <label for="description">Descripcion: </label><br>
+      <textarea  th:name="description"  placeholder="Descripcion"  th:inline="text" required>[[${productUpdate.description}]]</textarea>
+
+      <br>
+      <label for="recentImg">Imagen actual</label>
+      <img  id="recentImg" th:src="@{/assets/products/}+${productUpdate.image}" width="200" height="200"/><br><br>
+
+      <input type="hidden" th:value="${productUpdate.image}" name="actualImage" />
+
+      <label for="fileUpdate">Imagen: </label><br>
+      <input type="file" name="fileUpdate" id="fileUpdate" /><br>
+
+      <label for="isVisible">¿Será visible a los usuarios?: </label><br>
+      <select th:name="isVisible" th:value="${productUpdate.isVisible}" required>
+        <option th:selected="${productUpdate.isVisible == 'SI'} ? true : false" value="SI">SI</option>
+        <option th:selected="${productUpdate.isVisible == 'NO'} ? true : false" value="NO">NO</option>
+      </select><br>
+
+
+      <input  th:if="${action == 'create'}" type="submit" value="Crear" class="button">
+      <input  th:if="${action == 'update'}" type="submit" value="Actualizar" class="button">
+
+    </form>
+
+    <div class="success" th:if="${param.success}">
     <strong><p>El producto se ha creado exitosamente</p></strong>
   </div>
+    <div class="success" th:if="${param.updated}">
+      <strong><p>El producto se ha actualizado exitosamente</p></strong>
+    </div>
   </div>
 </body>
 

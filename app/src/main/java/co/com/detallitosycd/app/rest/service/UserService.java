@@ -46,15 +46,10 @@ public class UserService implements IUserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        System.out.println("entra al method");
         User user = userRepository.findUserByEmail(username);
-        System.out.println("siguio");
         if (user == null) {
-            System.out.println("entra al ex");
             throw  new UsernameNotFoundException("Correo electrónico o contraseña incorrecto");
         }
-        //System.out.println("paso");
-        System.out.println("pasa al load");
         return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),
                 mapAuthorities(user.getEmail()));
     }

@@ -11,7 +11,7 @@ public class Conection {
     
     
     public static Connection conect(){
-        String dataBase = "detallitosycd";
+        String dataBase = "detallitosycdg";
         String server = "jdbc:mysql://localhost/"+dataBase;
         String userDataBase = "root";
         String pass = "";
