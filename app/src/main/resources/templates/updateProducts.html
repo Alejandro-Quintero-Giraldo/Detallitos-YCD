@@ -46,7 +46,7 @@
 
      <input type="hidden" value="" th:field="*{image}" />
     <label for="file">Imagen: </label><br>
-    <input type="file"  id="file" name="file" /><br>
+    <input type="file"  id="file" name="file" required/><br>
 
     <label for="isVisible">¿Será visible a los usuarios?: </label><br>
     <select name="isVisible" id="isVisible" th:field="*{isVisible}" required>
@@ -89,7 +89,7 @@
       <input type="hidden" th:value="${productUpdate.image}" name="actualImage" />
 
       <label for="fileUpdate">Imagen: </label><br>
-      <input type="file" name="fileUpdate" id="fileUpdate" /><br>
+      <input type="file" name="fileUpdate" id="fileUpdate" th /><br>
 
       <label for="isVisible">¿Será visible a los usuarios?: </label><br>
       <select th:name="isVisible" th:value="${productUpdate.isVisible}" required>

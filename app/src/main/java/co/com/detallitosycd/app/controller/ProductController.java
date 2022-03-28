@@ -37,7 +37,7 @@ public class ProductController {
         return new Product();
     }
 
-    @GetMapping("/create/")
+    @GetMapping("/create/action")
     public String createPage(Model model){
         model.addAttribute("action", "create");
         return "updateProducts";
@@ -54,7 +54,7 @@ public class ProductController {
         productModel = new ProductModel();
         productModel.createProduct(productCreate);
 
-        return "redirect:/product/create?success";
+        return "redirect:/product/create/action?success";
 
     }
 
@@ -107,21 +107,23 @@ public class ProductController {
                                 @RequestParam("description") String description,
                                 @RequestParam("isVisible") String isVisible,
                                 @RequestParam("actualImage") String actualImage,
-                                @RequestParam("fileUpdate") MultipartFile file) throws SQLException, IOException {
+                                @RequestParam(value = "fileUpdate") MultipartFile file) throws SQLException, IOException {
 
-        Product productUpdate = new Product(productId,productName,productType,productPrice,amountStock,description,isVisible,"");
-        boolean resultDelete = deleteFile(actualImage);
-        if(resultDelete){
-            String resultUpload = uploadFile(file);
-            if(resultUpload != null){
-                productUpdate.setImage(resultUpload);
+        Product productUpdate = new Product(productId, productName, productType, productPrice, amountStock, description, isVisible, "");
+        if (file != null && !file.isEmpty()) {
+            boolean resultDelete = deleteFile(actualImage);
+            if (resultDelete) {
+                String resultUpload = uploadFile(file);
+                if (resultUpload != null) {
+                    productUpdate.setImage(resultUpload);
+                }
             }
+        } else {
+            productUpdate.setImage(actualImage);
         }
-
         productModel = new ProductModel();
         productModel.updateProduct(productUpdate);
-        return "redirect:/product/update/"+productUpdate.getProductId()+"?updated";
-
+        return "redirect:/product/update/" + productUpdate.getProductId() + "?updated";
     }
 
     public String uploadFile(MultipartFile file) throws IOException {
