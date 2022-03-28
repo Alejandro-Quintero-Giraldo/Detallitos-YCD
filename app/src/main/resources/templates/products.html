@@ -40,7 +40,7 @@
 	<div th:each="product : ${productList}">
 		<div class="card">
 			<figure>
-				<img th:src="@{/assets/products/}+${product.image}" th:alt="${product.image}">
+				<img th:src="@{/image_products/}+${product.image}" th:alt="${product.image}">
 			</figure>
 			<div class="contenido-card">
 				<h3 th:text="${product.productName}"></h3>

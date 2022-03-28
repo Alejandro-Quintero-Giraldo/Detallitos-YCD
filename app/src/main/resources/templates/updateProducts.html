@@ -79,7 +79,7 @@
 
       <br>
       <label for="recentImg">Imagen actual</label>
-      <img  id="recentImg" th:src="@{/assets/products/}+${productUpdate.image}" width="200" height="200"/><br><br>
+      <img  id="recentImg" th:src="@{/image_products/}+${productUpdate.image}" width="200" height="200"/><br><br>
 
       <input type="hidden" th:value="${productUpdate.image}" name="actualImage" />
 

@@ -44,7 +44,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/","/register","/saveUser",
                 "/product/{id}","/product/",
                 "/assets/**",
-                "/styles/**"
+                "/styles/**",
+                "/image_products/**"
                 ).permitAll()
                 .antMatchers("/product/create", "/product/save",
                         "/product/update/{id}", "/product/put")

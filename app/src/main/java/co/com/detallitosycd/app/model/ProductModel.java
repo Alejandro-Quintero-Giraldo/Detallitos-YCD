@@ -108,4 +108,21 @@ public class ProductModel extends Conection {
         finishProcess();
         return productList;
     }
+
+    public List<Product> findAllProducts() throws  SQLException {
+        String query = "SELECT * FROM PRODUCTO";
+        List<Product> productList = new ArrayList<>();
+        prepareBD(query);
+        processQuery("query");
+        while(this.resultSet.next()){
+            Product product = new Product(this.resultSet.getString("id_producto"),
+                    this.resultSet.getString("nombre_producto"),this.resultSet.getString("tipo_producto"),
+                    this.resultSet.getInt("precio_producto"),this.resultSet.getInt("cantidad_existencias"),
+                    this.resultSet.getString("descripcion"),this.resultSet.getString("esta_visible"),
+                    this.resultSet.getString("imagen"));
+            productList.add(product);
+        }
+        finishProcess();
+        return productList;
+    }
 }
