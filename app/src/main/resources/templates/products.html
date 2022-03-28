@@ -12,20 +12,7 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-		  <div class="navbar-header">
-			<a class="navbar-brand" href="#">DETALLITOS YCDG</a>
-		  </div>
-		  <ul class="nav navbar-nav">
-			<li class="active"><a href="#">INICIO</a></li>
-		  </ul>
-		  <ul class="nav navbar-nav navbar-right">
-			<li><a href="#"><span class="glyphicon glyphicon-user"></span> INICIAR SESION</a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> REGISTRARSE</a></li>
-		  </ul>
-		</div>
-	  </nav>
+	<div th:replace="/fragments/navbar :: navbar"></div>
 	<div class="title-cards">
 			<h2>Productos</h2>
 	</div>
@@ -33,7 +20,7 @@
 <div class="productos">
 	<!--   Tarjetas-->
 	<center sec:authorize="hasRole('ROLE_ADMINISTRATOR')">
-		<a th:href="@{/product/create}" ><button class="button">Crear Nuevo Producto</button></a>
+		<a th:href="@{/product/create/}" ><button class="button">Crear Nuevo Producto</button></a>
 	</center><br><br>
 	<div class="container-card">
 
@@ -44,7 +31,7 @@
 			</figure>
 			<div class="contenido-card">
 				<h3 th:text="${product.productName}"></h3>
-				<p th:text="${product.productPrice}"></p>
+				<p th:text="'$'+${product.productPrice}"></p>
 				<a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/product/update/}+${product.productId}">Actualizar</a>
 				<a th:href="@{/product/} + ${product.productId}">Ver</a>
 			</div>
@@ -53,7 +40,7 @@
 </div>
 </div>
 <!-- Footer --> 
-<div th:replace="index :: footer"></div>
+<div th:replace="/fragments/footer :: footer"></div>
 <!--Fin de Footer-->
 
 

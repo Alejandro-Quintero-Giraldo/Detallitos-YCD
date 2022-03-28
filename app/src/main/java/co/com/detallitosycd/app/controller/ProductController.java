@@ -37,7 +37,7 @@ public class ProductController {
         return new Product();
     }
 
-    @GetMapping("/create")
+    @GetMapping("/create/")
     public String createPage(Model model){
         model.addAttribute("action", "create");
         return "updateProducts";

@@ -1,18 +1,45 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
-    <title>Producto</title>
-</head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>visualizar productos</title>
+	<link rel="stylesheet" th:href="@{/styles/viewProducts.css}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>	
 <body>
-    <p>Producto</p>
-    <p th:text="${oneProduct.productName}"></p>
-    <p th:text="${oneProduct.productId}"></p>
-    <p th:text="${oneProduct.productType}"></p>
-    <p th:text="${oneProduct.productPrice}"></p>
-    <p th:text="${oneProduct.amountStock}"></p>
-    <p th:text="${oneProduct.description}"></p>
-    <p th:text="${oneProduct.isVisible}"></p>
+
+	<div th:replace="/fragments/navbar :: navbar"></div>
+    <div class="main-container-info">
+
+            <div class="card">
+                <img th:src="@{/image_products/}+${oneProduct.image}" th:alt="${oneProduct.image}" width="20%" height="20%">
+            </div>
+        <div class="container-info">
+        <strong><p class="name_attribute" th:text="${oneProduct.productName}"></p></strong><br>
+
+
+            <p class="precio1" th:text="'$'+${oneProduct.productPrice}"></p>
+
+                <strong><p class="name_attribute"  sec:authorize="hasRole('ROLE_ADMINISTRATOR')" for="lname">Cantidad en stock</p></strong><br>
+                <p class="value_attribute" sec:authorize="hasRole('ROLE_ADMINISTRATOR')" id="lname"
+                       th:text="${oneProduct.amountStock}"><br>
+                <strong><p class="name_attribute" >Tipo de producto</p></strong><br>
+                <p class="value_attribute" th:text="${oneProduct.productType.toLowerCase()}"><br>
+                <!--<input type="submit" value="AÑADIR AL CARRITO" class="button"><br>-->
+
+        <strong><p class="name_attribute" >Descripcion De Productos</p></strong>
+
+		<p class="value_attribute"  th:text="${oneProduct.description}"></p>
+        </div>
+    </div>
+<!-- Footer --> 
+<div th:replace="/fragments/footer :: footer"></div>
+<!--Fin de Footer-->
+
 
 </body>
 </html>

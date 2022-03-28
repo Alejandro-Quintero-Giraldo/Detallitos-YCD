@@ -5,22 +5,23 @@
     <title>Registro DetallitosYCD</title>
     <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
     <link rel="stylesheet" th:href="@{styles/forms.css}">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<br>
-<br>
-<br>
-<div th:if="${param.success}">
-    <p class="text-success">Su usuario se ha creado correctamente</p>
+<div th:replace="/fragments/navbar :: navbar"></div>
+
+<div th:if="${param.success}" class="content-message">
+    <p class="text-white">Su usuario se ha creado correctamente</p>
 </div>
 
-<div th:if="${param.idExists}">
-    <p class="text-success">Este usuario ya existe</p>
+<div th:if="${param.idExists}" class="content-error">
+    <p class="text-white">Este usuario ya existe</p>
 </div>
 
-<div th:if="${param.emailExist}">
-    <p class="text-success">El correo electrónico ya está en uso</p>
+<div th:if="${param.emailExist}" class="content-error">
+    <p class="text-white">El correo electrónico ya está en uso</p>
 </div>
 
 <form class="formulario" th:action="@{/saveUser}"  th:object="${userRegister}" method="POST">
@@ -46,9 +47,9 @@
         <div class="input-contenedor">
             <input type="password" th:field="*{password}" name="password" placeholder="Contraseña" required>
         </div>
-        <input type="submit" value="Registrarse" class="button">
+        <input type="submit" value="Registrarse" class="button"><br>
         <p>Al enviar tus datos estarán seguros y no serán revelados.</p>
-        <p>¿Ya tienes una Cuenta? <a class="link" th:href="@{/login}">Iniciar Session</a></p>
+        <p>¿Ya tienes una Cuenta? <a class="link" th:href="@{/login}">Iniciar Sesion</a></p>
     </div>
 </form>
 <br>

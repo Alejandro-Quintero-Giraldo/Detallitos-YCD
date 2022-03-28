@@ -1,7 +1,7 @@
 body {
     font-family: "Segoe UI";
     margin: 0;
-    background: url(https://images.alphacoders.com/877/thumb-1920-877413.jpg);
+    background: url(https://img.freepik.com/foto-gratis/textura-fondo-portada-libro-hecha-lona-gris-claro_98725-1145.jpg?size=626&e);
     background-size: cover;
     background-attachment: fixed;
 }
@@ -17,7 +17,7 @@ body {
 .formulario{
     font-family: "Segoe UI";
     background: #F6F6F6;
-    margin-top: 150px;
+    margin-top: 2%;
     padding: 3px;
 }
 h1{
@@ -56,6 +56,7 @@ input[type="password"]{
     padding: 15px 20px;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 1%;
 }
 .button:hover{
     font-family: "Segoe UI";
@@ -75,6 +76,26 @@ p{
     font-family: "Segoe UI";
     color: cadetblue;
 }
+
+.content-message {
+    background-color: #2ECC71;
+    width:50%;
+        margin-left: 25%;
+    border-radius: 7px;
+}
+
+.content-error {
+    width:50%;
+    margin-left: 25%;
+    border-radius: 7px;
+    background-color: #E74C3C ;
+}
+
+.text-white{
+    font-size: 16pt;
+    color: #ffffff;
+ }
+
 @media(min-width:768px){
     .formulario{
         margin: auto;
