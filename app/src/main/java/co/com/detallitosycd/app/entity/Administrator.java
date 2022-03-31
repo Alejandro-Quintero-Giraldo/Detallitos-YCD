@@ -7,29 +7,17 @@ import javax.persistence.*;
 public class Administrator {
 
     @Id
-    @Column(name = "id_administrador")
+    @Column(name = "id_administrador", length = 12, nullable = false)
     private String idAdministrator;
 
-    @Column(name = "nombre_administrador")
-    private String nameAdministrator;
-
-    @Column(name = "celular")
-    private String cellphone;
-
-    @Column(name = "direccion")
-    private String address;
-
-    @Column(name = "correo_electronico")
+    @Column(name = "correo_electronico", length = 50, nullable = false)
     private String email;
 
-    @Column(name = "empresa_nit")
+    @Column(name = "empresa_nit", length = 11, nullable = false)
     private String companyNIT;
 
-    public Administrator(String idAdministrator, String nameAdministrator, String cellphone, String address, String email, String companyNIT) {
+    public Administrator(String idAdministrator, String email, String companyNIT) {
         this.idAdministrator = idAdministrator;
-        this.nameAdministrator = nameAdministrator;
-        this.cellphone = cellphone;
-        this.address = address;
         this.email = email;
         this.companyNIT = companyNIT;
     }
@@ -43,30 +31,6 @@ public class Administrator {
 
     public void setIdAdministrator(String idAdministrator) {
         this.idAdministrator = idAdministrator;
-    }
-
-    public String getNameAdministrator() {
-        return nameAdministrator;
-    }
-
-    public void setNameAdministrator(String nameAdministrator) {
-        this.nameAdministrator = nameAdministrator;
-    }
-
-    public String getCellphone() {
-        return cellphone;
-    }
-
-    public void setCellphone(String cellphone) {
-        this.cellphone = cellphone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getEmail() {

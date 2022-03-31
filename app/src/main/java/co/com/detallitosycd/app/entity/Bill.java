@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Bill {
 
     @Id
-    @Column(name = "id_factura")
+    @Column(name = "id_factura", length = 12, nullable = false)
     private String billId;
 
     @Column(name = "fecha_factura")
@@ -17,13 +17,13 @@ public class Bill {
     @Column(name = "precio_final")
     private Integer finalPrice;
 
-    @Column(name = "usuario_id")
+    @Column(name = "usuario_id", length = 12, nullable = false)
     private String userId;
 
-    @Column(name = "empresa_nit")
+    @Column(name = "empresa_nit", length = 11, nullable = false)
     private String companyNIT;
 
-    @Column(name = "entrega_id")
+    @Column(name = "entrega_id", length = 12)
     private String deliverId;
 
     public Bill(String billId, LocalDateTime dateBill, Integer finalPrice, String userId, String companyNIT, String deliverId) {

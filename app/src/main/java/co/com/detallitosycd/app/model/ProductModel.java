@@ -48,7 +48,7 @@ public class ProductModel extends Conection {
         prepareBD(query);
         this.preparedStatement.setString(1, productInfo.getProductId());
         this.preparedStatement.setString(2, productInfo.getProductName());
-        this.preparedStatement.setString(3, productInfo.getProductType());
+        this.preparedStatement.setString(3, productInfo.getIdProductType());
         this.preparedStatement.setInt(4, productInfo.getProductPrice());
         this.preparedStatement.setInt(5, productInfo.getAmountStock());
         this.preparedStatement.setString(6, productInfo.getDescription());
@@ -80,7 +80,7 @@ public class ProductModel extends Conection {
                 "descripcion = ?, esta_visible = ?, imagen = ? WHERE id_producto = ?";
         prepareBD(query);
         this.preparedStatement.setString(1, productUpdate.getProductName());
-        this.preparedStatement.setString(2, productUpdate.getProductType());
+        this.preparedStatement.setString(2, productUpdate.getIdProductType());
         this.preparedStatement.setInt(3,productUpdate.getProductPrice());
         this.preparedStatement.setInt(4, productUpdate.getAmountStock());
         this.preparedStatement.setString(5, productUpdate.getDescription());

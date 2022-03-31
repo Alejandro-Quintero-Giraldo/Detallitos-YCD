@@ -7,34 +7,34 @@ import javax.persistence.*;
 public class Product {
 
     @Id
-    @Column(name = "id_producto")
+    @Column(name = "id_producto", length = 12, nullable = false)
     private String productId;
 
-    @Column(name = "nombre_producto")
+    @Column(name = "nombre_producto", length = 50, nullable = false)
     private String productName;
 
-    @Column(name = "tipo_producto")
-    private String productType;
+    @Column(name = "tipo_producto", length = 10, nullable = false)
+    private String idProductType;
 
-    @Column(name = "precio_producto")
+    @Column(name = "precio_producto", nullable = false)
     private Integer productPrice;
 
-    @Column(name = "cantidad_existencias")
+    @Column(name = "cantidad_existencias", nullable = false)
     private Integer amountStock;
 
-    @Column(name = "descripcion")
+    @Column(name = "descripcion", nullable = false)
     private String description;
 
-    @Column(name = "imagen")
+    @Column(name = "imagen",length = 100, nullable = false)
     private String image;
 
-    @Column(name = "esta_visible")
+    @Column(name = "esta_visible", length = 2, nullable = false)
     private String isVisible;
 
     public Product(String productId, String productName, String productType, Integer productPrice, Integer amountStock, String description, String isVisible, String image) {
         this.productId = productId;
         this.productName = productName;
-        this.productType = productType;
+        this.idProductType = productType;
         this.productPrice = productPrice;
         this.amountStock = amountStock;
         this.description = description;
@@ -45,7 +45,7 @@ public class Product {
     public Product(String productId, String productName, String productType, Integer productPrice, Integer amountStock, String description, String isVisible) {
         this.productId = productId;
         this.productName = productName;
-        this.productType = productType;
+        this.idProductType = productType;
         this.productPrice = productPrice;
         this.amountStock = amountStock;
         this.description = description;
@@ -87,12 +87,12 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getProductType() {
-        return productType;
+    public String getIdProductType() {
+        return idProductType;
     }
 
-    public void setProductType(String productType) {
-        this.productType = productType;
+    public void setIdProductType(String idProductType) {
+        this.idProductType = idProductType;
     }
 
     public Integer getProductPrice() {

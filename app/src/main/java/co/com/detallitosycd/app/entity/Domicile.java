@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 public class Domicile {
 
     @Id
-    @Column(name = "id_domicilio")
+    @Column(name = "id_domicilio", length = 12, nullable = false)
     private String domicileId;
 
-    @Column(name = "direccion_entrega")
+    @Column(name = "direccion_entrega", length = 100, nullable = false)
     private String deliveryAddress;
 
-    @Column(name = "encargado_entrega")
+    @Column(name = "encargado_entrega", length = 12, nullable = false)
     private String deliveryPerson;
 
     @Column(name = "hora_llegada")

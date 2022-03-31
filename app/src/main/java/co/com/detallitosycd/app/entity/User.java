@@ -8,22 +8,22 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @Column(name = "id_usuario")
+    @Column(name = "id_usuario", length = 12, nullable = false)
     private String userId;
 
-    @Column(name="nombre_usuario")
+    @Column(name="nombre_usuario", length = 50, nullable = false)
     private String userName;
 
-    @Column(name = "celular")
+    @Column(name = "celular", length = 12, nullable = false)
     private String cellphone;
 
-    @Column(name = "direccion")
+    @Column(name = "direccion", length = 50, nullable = false)
     private String address;
 
-    @Column(name = "correo_electronico")
+    @Column(name = "correo_electronico", length = 50, nullable = false )
     private String email;
 
-    @Column(name = "contraseña")
+    @Column(name = "contraseña", length = 30)
     private String password;
 
     public User(String userId, String userName, String cellphone, String address, String email, String password) {

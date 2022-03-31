@@ -7,16 +7,16 @@ import javax.persistence.*;
 public class Company {
 
     @Id
-    @Column(name = "nit")
+    @Column(name = "nit", length = 11, nullable = false)
     private String NIT;
 
-    @Column(name  = "nombre_empresa")
+    @Column(name  = "nombre_empresa", length = 20, nullable = false)
     private String nameCompany;
 
-    @Column(name = "celular")
+    @Column(name = "celular", length = 12, nullable = false)
     private String cellphone;
 
-    @Column(name = "correo_electronico")
+    @Column(name = "correo_electronico", length = 50, nullable = false)
     private String email;
 
     public Company(String NIT, String nameCompany, String cellphone, String email) {
