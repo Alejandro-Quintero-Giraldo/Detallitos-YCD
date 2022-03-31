@@ -3,6 +3,7 @@ package co.com.detallitosycd.app.controller;
 import co.com.detallitosycd.app.entity.User;
 import co.com.detallitosycd.app.rest.service.UserService;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,29 +59,31 @@ public class UserController {
 
     @GetMapping("validate")
     public String validateUser(User userDTO) {
-        //userModel = new UserModel();
-        System.out.println("\n\n"+userDTO.getEmail()+"\n"+userDTO.getPassword());
-        //User user = userModel.login(userDTO);
         UserDetails user = userService.loadUserByUsername(userDTO.getEmail());
-        //System.out.println("User: \n\n"+user.getUserName());
         if(user == null){
             return "redirect:/login?error";
         }
-        //System.out.println("\n\n"+user.getUserName());
-        //model.addAttribute("username", user.getUserName());
         return "redirect:/home";
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(User user) throws Exception {
-        //userModel = new UserModel();
+    public String saveUser(User user) {
         User verifyUserId = userService.findUserByUserId(user.getUserId());
         if(verifyUserId != null) return "redirect:/register?idExists";
         User verifyUserEmail = userService.findByEmail(user.getEmail());
         if(verifyUserEmail != null) return "redirect:/register?emailExist";
-        User newUser = userService.save(user);
-        //userModel.register(user);
+        userService.save(user);
         return "redirect:/register?success";
+    }
+
+    @GetMapping("/withoutAdmin")
+    public String getUsersWithoutAdmin(Model model){
+        List<User> userList = userService.findUserWithoutAdmin();
+        model.addAttribute("userList", userList);
+
+        //TODO: PONER NOMBRE HTML EN EL CONTROLADOR DE USUARIO SIN ADMIN, AGREGAR ID DE EMPRESA EN UN INPUT VACÍO
+        //TODO: AGREGAR DOCUMENTACIÓN DEL PROYECTO AL GIT
+        return "";
     }
 
     private UserDetails checkSession(){
@@ -91,55 +94,5 @@ public class UserController {
         }
         return userDetails;
     }
-    /*
-	@RequestMapping("login")
-    protected void proccesLogin(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
-        try {
-            if(action != null){
-                switch(action) {
-                    case "login":
-                        login(request, response);
-                        break;
-                    case "logout":
-                        logout(request, response);
-                        break;
-                    default: 
-                        response.sendRedirect("./view/index.html");
-                }
-            } else {
-                response.sendRedirect("./view/index.html");
-            }
-        } catch(Exception e){
-            try {
-                this.getServletConfig().getServletContext().getRequestDispatcher("/index.html").forward(request, response);
-            } catch(Exception exception){
-                LOGGER.warning("Error: "+ exception.getMessage());
-            }
-        }
-    }
-
-    private void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        HttpSession session;
-        UserDTO userDTO = getUser(request);
-        UserModel userModel = new UserModel();
-        User user = userModel.login(userDTO);
-        if(user != null && user.getUserName() == "Admin"){
-            session = request.getSession();
-            session.setAttribute("user: ",user);
-            request.setAttribute("message", "");
-            this.getServletConfig().getServletContext().getRequestDispatcher("./view/home.html").forward(request, response);
-        } else if(user != null){
-            session = request.getSession();
-            session.setAttribute("user",user);
-            this.getServletConfig().getServletContext().getRequestDispatcher("./view/home.html").forward(request, response);
-        } else {
-            request.setAttribute("message", "Credenciales no válidas");
-            request.getRequestDispatcher("./view/index.html").forward(request,response);
-        }
-    }
-    */
     
 }

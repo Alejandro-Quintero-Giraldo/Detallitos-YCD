@@ -48,7 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/image_products/**"
                 ).permitAll()
                 .antMatchers("/product/create/", "/product/save",
-                        "/product/update/{id}", "/product/put")
+                        "/product/update/{id}", "/product/put","/withoutAdmin",
+                        "/administrator/save")
                 .hasRole("ADMINISTRATOR")
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login")

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {
@@ -42,6 +43,13 @@ public class UserService implements IUserService {
     @Override
     public User findByEmail(String email) {
         return userRepository.findUserByEmail(email);
+    }
+
+    @Override
+    public List<User> findUserWithoutAdmin() {
+        return userRepository.findAllByOrderByUserName()
+                .stream().filter(user -> !administratorRepository.existsById(user.getUserId()))
+                .collect(Collectors.toList());
     }
 
     @Override

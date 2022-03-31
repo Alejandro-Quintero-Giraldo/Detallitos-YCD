@@ -25,8 +25,8 @@
         <label for="productName">Nombre: </label><br>
         <input type="text" id="productName" name="productName"  th:field="*{productName}" placeholder="Nombre" required autofocus><br>
 
-      <label for="productType">Tipo de producto: </label><br>
-      <select id="productType" name="productType" th:field="*{productType}" required>
+      <label for="idProductType">Tipo de producto: </label><br>
+      <select id="idProductType" name="idProductType" th:field="*{idProductType}" required>
         <option value="CUADROS">Cuadro</option>
         <option value="COJINES">Cojin</option>
         <option value="MUGS">Mug</option>
@@ -64,11 +64,11 @@
       <label for="productName">Nombre: </label><br>
       <input type="text" th:value="${productUpdate.productName}"  th:name="productName" placeholder="Nombre" required><br>
 
-      <label for="productType">Tipo de producto: </label><br>
-      <select th:name="productType" th:value="${productUpdate.productType}" required>
-        <option th:selected="${productUpdate.productType.toUpperCase() == 'CUADROS'} ? true : false" value="CUADROS">Cuadro</option>
-        <option th:selected="${productUpdate.productType.toUpperCase() == 'COJINES'} ? true : false" value="COJINES">Cojin</option>
-        <option th:selected="${productUpdate.productType.toUpperCase() == 'MUGS'} ? true : false" value="MUGS">Mug</option>
+      <label for="idProductType">Tipo de producto: </label><br>
+      <select th:name="idProductType" th:value="${productUpdate.idProductType}" required>
+        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'CUADROS'} ? true : false" value="CUADROS">Cuadro</option>
+        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'COJINES'} ? true : false" value="COJINES">Cojin</option>
+        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'MUGS'} ? true : false" value="MUGS">Mug</option>
       </select><br>
 
       <label for="productPrice">Precio: </label><br>

@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @EnableJpaRepositories
 @EntityScan
 @Repository
@@ -14,5 +16,7 @@ public interface UserRepository  extends JpaRepository<User, String> {
     User findUserByEmail(String email);
 
     User findUserByUserId(String id);
+
+    List<User> findAllByOrderByUserName();
 
 }

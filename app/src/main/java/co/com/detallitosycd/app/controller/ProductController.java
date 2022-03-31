@@ -19,12 +19,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/product")
 public class ProductController {
 
+    private static final Logger LOGGER = Logger.getLogger("co.com.detallitosycd.app.controller.product");
     private ProductModel productModel;
 
     @ModelAttribute("productAction")
@@ -101,7 +104,7 @@ public class ProductController {
     @PostMapping("/put")
     public String updateProduct(@RequestParam("productId") String productId,
                                 @RequestParam("productName") String productName,
-                                @RequestParam("productType") String productType,
+                                @RequestParam("idProductType") String productType,
                                 @RequestParam("productPrice") Integer productPrice,
                                 @RequestParam("amountStock") Integer amountStock,
                                 @RequestParam("description") String description,
@@ -134,29 +137,39 @@ public class ProductController {
         String builder = System.getProperty("user.home") +
                 File.separator +
                 "Documents" + File.separator +
-                "image_products" + File.separator +
-                file.getOriginalFilename();
+                "image_products";
+        File directory = new File(builder);
+        verifyIfDirectoryExists(directory);
+        builder += File.separator + file.getOriginalFilename();
 
         Path path = Paths.get(builder);
-        if(Files.exists(path)){
-            return renameFileIfExist(file, builder);
-        } else {
-            Files.write(path, file.getBytes());
-            return file.getOriginalFilename();
+        String fileName = file.getOriginalFilename();
+        int counter = 0;
+        while(Files.exists(path)){
+            counter += 1;
+            builder = renameFileIfExist(builder);
+            path = Paths.get(builder);
+            fileName = builder.substring(builder.length() - (file.getOriginalFilename().length()+counter));
+        }
+        Files.write(path, file.getBytes());
+        return fileName;
+
+    }
+
+    private void verifyIfDirectoryExists(File directory) {
+        if(!directory.exists()){
+            boolean result = directory.mkdir();
+            if(result){
+                LOGGER.log(Level.INFO,"directory created successfully in Documents - image_products");
+            }
         }
     }
 
-    private String renameFileIfExist(MultipartFile file, String builder) throws IOException {
-        Path path;
-        List<String> list = new ArrayList<>();
+    private String renameFileIfExist(String builder)  {
         String newFileName = builder.substring(0, builder.length()-4)+"1";
         String extension = builder.substring(builder.length()-4);
-        list.add(newFileName);
-        list.add(extension);
-        builder = list.get(0) + list.get(1);
-        path = Paths.get(builder);
-        Files.write(path, file.getBytes());
-        return file.getOriginalFilename().substring(0,file.getOriginalFilename().length()-4)+"1"+extension;
+        builder = newFileName + extension;
+        return builder;
     }
 
     public boolean deleteFile(String originalFileName){
