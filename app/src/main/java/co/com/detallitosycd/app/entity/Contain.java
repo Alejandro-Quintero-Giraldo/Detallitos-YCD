@@ -1,8 +1,18 @@
 package co.com.detallitosycd.app.entity;
 
-public class Contain {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "contiene", uniqueConstraints = @UniqueConstraint(columnNames = {"id_factura", "id_producto"}))
+public class Contain implements Serializable {
+
+    @Id
+    @Column(name = "id_factura")
     private String idBill;
+
+    @Id
+    @Column(name = "id_producto")
     private String idProduct;
     private Integer amountPurchased;
     private Integer subTotal;

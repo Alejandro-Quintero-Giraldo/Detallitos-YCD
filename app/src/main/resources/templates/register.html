@@ -8,20 +8,38 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
 </head>
 <body>
 <div th:replace="/fragments/navbar :: navbar"></div>
 
-<div th:if="${param.success}" class="content-message">
-    <p class="text-white">Su usuario se ha creado correctamente</p>
+<div th:if="${param.success}">
+    <script>Swal.fire({
+        title: "¡Usuario registrado exitosamente!",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#a5dc86 ',
+        icon: 'success'
+    })</script>
 </div>
 
-<div th:if="${param.idExists}" class="content-error">
-    <p class="text-white">Este usuario ya existe</p>
+<div th:if="${param.idExists}" >
+    <script>Swal.fire({
+        title: "¡Este usuario ya existe!",
+        text: "El documento ingresado ya pertenece a otro usuario. Por favor inténtelo nuevamente",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#f27474 ',
+        icon: 'error'
+    })</script>
 </div>
 
-<div th:if="${param.emailExist}" class="content-error">
-    <p class="text-white">El correo electrónico ya está en uso</p>
+<div th:if="${param.emailExist}">
+    <script>Swal.fire({
+        title: "¡Este correo electrónico ya existe!",
+        text: "El correo electrónico ingresado ya pertenece a otro usuario. Por favor inténtelo nuevamente",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#f27474 ',
+        icon: 'error'
+    })</script>
 </div>
 
 <form class="formulario" th:action="@{/saveUser}"  th:object="${userRegister}" method="POST">
