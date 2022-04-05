@@ -19,9 +19,6 @@ public class Product {
     @Column(name = "precio_producto", nullable = false)
     private Integer productPrice;
 
-    @Column(name = "cantidad_existencias", nullable = false)
-    private Integer amountStock;
-
     @Column(name = "descripcion", nullable = false)
     private String description;
 
@@ -31,23 +28,21 @@ public class Product {
     @Column(name = "esta_visible", length = 2, nullable = false)
     private String isVisible;
 
-    public Product(String productId, String productName, String productType, Integer productPrice, Integer amountStock, String description, String isVisible, String image) {
+    public Product(String productId, String productName, String productType, Integer productPrice, String description, String isVisible, String image) {
         this.productId = productId;
         this.productName = productName;
         this.idProductType = productType;
         this.productPrice = productPrice;
-        this.amountStock = amountStock;
         this.description = description;
         this.isVisible = isVisible;
         this.image = image;
     }
 
-    public Product(String productId, String productName, String productType, Integer productPrice, Integer amountStock, String description, String isVisible) {
+    public Product(String productId, String productName, String productType, Integer productPrice, String description, String isVisible) {
         this.productId = productId;
         this.productName = productName;
         this.idProductType = productType;
         this.productPrice = productPrice;
-        this.amountStock = amountStock;
         this.description = description;
         this.isVisible = isVisible;
     }
@@ -101,14 +96,6 @@ public class Product {
 
     public void setProductPrice(Integer productPrice) {
         this.productPrice = productPrice;
-    }
-
-    public Integer getAmountStock() {
-        return amountStock;
-    }
-
-    public void setAmountStock(Integer amountStock) {
-        this.amountStock = amountStock;
     }
 
     public String getDescription() {

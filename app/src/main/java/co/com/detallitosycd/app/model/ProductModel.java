@@ -43,17 +43,16 @@ public class ProductModel extends Conection {
     }
 
     public void createProduct(Product productInfo) throws SQLException {
-        String query = "INSERT INTO PRODUCTO(id_producto, nombre_producto,tipo_producto,precio_producto,cantidad_existencias," +
-                "descripcion, esta_visible, imagen ) VALUES (?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO PRODUCTO(id_producto, nombre_producto,tipo_producto,precio_producto," +
+                "descripcion, esta_visible, imagen ) VALUES (?,?,?,?,?,?,?)";
         prepareBD(query);
         this.preparedStatement.setString(1, productInfo.getProductId());
         this.preparedStatement.setString(2, productInfo.getProductName());
         this.preparedStatement.setString(3, productInfo.getIdProductType());
         this.preparedStatement.setInt(4, productInfo.getProductPrice());
-        this.preparedStatement.setInt(5, productInfo.getAmountStock());
-        this.preparedStatement.setString(6, productInfo.getDescription());
-        this.preparedStatement.setString(7, productInfo.getIsVisible());
-        this.preparedStatement.setString(8, productInfo.getImage());
+        this.preparedStatement.setString(5, productInfo.getDescription());
+        this.preparedStatement.setString(6, productInfo.getIsVisible());
+        this.preparedStatement.setString(7, productInfo.getImage());
         processQuery("create");
         finishProcess();
     }
@@ -67,7 +66,7 @@ public class ProductModel extends Conection {
         if(this.resultSet.next()){
             product = new Product(this.resultSet.getString("id_producto"),
                     this.resultSet.getString("nombre_producto"),this.resultSet.getString("tipo_producto"),
-                    this.resultSet.getInt("precio_producto"), this.resultSet.getInt("cantidad_existencias"),
+                    this.resultSet.getInt("precio_producto"),
                     this.resultSet.getString("descripcion"), this.resultSet.getString("esta_visible"),
                     this.resultSet.getString("imagen"));
         }
@@ -76,17 +75,16 @@ public class ProductModel extends Conection {
     }
 
     public void updateProduct(Product productUpdate) throws SQLException {
-        String query = "UPDATE PRODUCTO SET nombre_producto = ?, tipo_producto = ?, precio_producto = ?, cantidad_existencias = ?," +
+        String query = "UPDATE PRODUCTO SET nombre_producto = ?, tipo_producto = ?, " +
                 "descripcion = ?, esta_visible = ?, imagen = ? WHERE id_producto = ?";
         prepareBD(query);
         this.preparedStatement.setString(1, productUpdate.getProductName());
         this.preparedStatement.setString(2, productUpdate.getIdProductType());
         this.preparedStatement.setInt(3,productUpdate.getProductPrice());
-        this.preparedStatement.setInt(4, productUpdate.getAmountStock());
-        this.preparedStatement.setString(5, productUpdate.getDescription());
-        this.preparedStatement.setString(6, productUpdate.getIsVisible());
-        this.preparedStatement.setString(7, productUpdate.getImage());
-        this.preparedStatement.setString(8, productUpdate.getProductId());
+        this.preparedStatement.setString(4, productUpdate.getDescription());
+        this.preparedStatement.setString(5, productUpdate.getIsVisible());
+        this.preparedStatement.setString(6, productUpdate.getImage());
+        this.preparedStatement.setString(7, productUpdate.getProductId());
         processQuery("update");
         finishProcess();
     }
@@ -100,7 +98,7 @@ public class ProductModel extends Conection {
         while(this.resultSet.next()){
             Product product = new Product(this.resultSet.getString("id_producto"),
                     this.resultSet.getString("nombre_producto"),this.resultSet.getString("tipo_producto"),
-                    this.resultSet.getInt("precio_producto"),this.resultSet.getInt("cantidad_existencias"),
+                    this.resultSet.getInt("precio_producto"),
                     this.resultSet.getString("descripcion"),this.resultSet.getString("esta_visible"),
                     this.resultSet.getString("imagen"));
             productList.add(product);
@@ -117,7 +115,7 @@ public class ProductModel extends Conection {
         while(this.resultSet.next()){
             Product product = new Product(this.resultSet.getString("id_producto"),
                     this.resultSet.getString("nombre_producto"),this.resultSet.getString("tipo_producto"),
-                    this.resultSet.getInt("precio_producto"),this.resultSet.getInt("cantidad_existencias"),
+                    this.resultSet.getInt("precio_producto"),
                     this.resultSet.getString("descripcion"),this.resultSet.getString("esta_visible"),
                     this.resultSet.getString("imagen"));
             productList.add(product);

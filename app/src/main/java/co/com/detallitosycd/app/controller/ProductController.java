@@ -106,13 +106,12 @@ public class ProductController {
                                 @RequestParam("productName") String productName,
                                 @RequestParam("idProductType") String productType,
                                 @RequestParam("productPrice") Integer productPrice,
-                                @RequestParam("amountStock") Integer amountStock,
                                 @RequestParam("description") String description,
                                 @RequestParam("isVisible") String isVisible,
                                 @RequestParam("actualImage") String actualImage,
                                 @RequestParam(value = "fileUpdate") MultipartFile file) throws SQLException, IOException {
 
-        Product productUpdate = new Product(productId, productName, productType, productPrice, amountStock, description, isVisible, "");
+        Product productUpdate = new Product(productId, productName, productType, productPrice, description, isVisible, "");
         if (file != null && !file.isEmpty()) {
             boolean resultDelete = deleteFile(actualImage);
             if (resultDelete) {

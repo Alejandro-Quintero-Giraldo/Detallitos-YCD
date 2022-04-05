@@ -1,11 +1,7 @@
 /*Esto es solo para codepen*/
-@import url(https://fonts.googleapis.com/css?family=Frauces);
 @import url(https://fonts.googleapis.com/css?family=Bitter);
 
 /*Las fuentes originales son estas*/
-@font-face {
-  font-family: "Segoe UI";
-}
 @font-face {
   font-family: "Segoe UI";
 }
@@ -58,14 +54,12 @@ p {
 .menu{
   position: absolute;
   top: 80px;
-  left: ;
   background: #212121;
   width: 100%;
   list-style: none;
   padding: 20px;
   margin: 0;
   z-index: 999;
-  opacity: ;
   visibility: hidden;
   transition: all 0.5s;
 }
@@ -607,4 +601,27 @@ p {
     }to{
         transform: rotateY(360deg);
     }
+}
+
+.info-cont {
+    display:flex;
+    justify-content: flex-end;
+}
+
+.info-product {
+    display:none;
+}
+
+.info-product-show {
+  position: absolute;
+  width: 30%;
+  min-width: 200px;
+  height: 30%;
+  min-height:300px;
+  border-radius: 7px;
+  border: 2px solid #000000;
+  margin-right: 3%;
+  z-index: 5;
+  background-color: #ffffff;
+  display:block;
 }

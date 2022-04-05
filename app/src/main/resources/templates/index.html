@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/showInfoProduct.js" th:src="@{/js/showInfoProduct.js}"></script>
     <title>Detallitos YCD</title>
 </head>
 <body>
@@ -60,30 +61,32 @@
                 <div class="carrousel">
                     <div class="content-all">
                         <div class="content-carrousel">
-                            <figure><img src=""></figure>
 
+                        <figure><img src="https://www.thegiftcompany.com.co/wp-content/uploads/2020/08/Mug-profesionales.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()" onclick="window.location.assign('/product/')"></figure>
 
-                            <!--  --------->
+                        <figure><img src="https://http2.mlstatic.com/D_NQ_NP_778738-MCO43438455808_092020-O.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
 
-                        <figure><img src="https://www.thegiftcompany.com.co/wp-content/uploads/2020/08/Mug-profesionales.jpg"></figure>
+                        <figure><img src="https://i0.wp.com/arteyregalosperu.com/wp-content/uploads/2021/07/cuadro-spotify-personalizado-peru-lima-1.jpg?fit=1080%2C1080&ssl=1" onmouseover="showInfoProduct()" height="200px"></figure>
 
-                        <figure><img src="https://http2.mlstatic.com/D_NQ_NP_778738-MCO43438455808_092020-O.jpg"></figure>
+                        <figure><img src="https://http2.mlstatic.com/D_NQ_NP_712028-MCO43438162650_092020-O.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()" height="200px"></figure>
 
-                        <figure><img src="https://i0.wp.com/arteyregalosperu.com/wp-content/uploads/2021/07/cuadro-spotify-personalizado-peru-lima-1.jpg?fit=1080%2C1080&ssl=1" height="200px"></figure>
+                        <figure><img src="https://sublistamp.com/20511-home_default/cojin-para-mejor-amiga.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
 
-                        <figure><img src="https://http2.mlstatic.com/D_NQ_NP_712028-MCO43438162650_092020-O.jpg" height="200px"></figure>
+                        <figure><img src="https://tussorpresas.com/wp-content/uploads/2020/10/cojin-hasta-infinito-g-1.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
 
-                        <figure><img src="https://sublistamp.com/20511-home_default/cojin-para-mejor-amiga.jpg"></figure>
+                        <figure><img src="https://ae01.alicdn.com/kf/H453f98758d3b40a8a5470ff8faf743dfX/Tazas-de-caf-de-Panda-taza-de-t-de-cer-mica.jpg_q50.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
 
-                        <figure><img src="https://tussorpresas.com/wp-content/uploads/2020/10/cojin-hasta-infinito-g-1.jpg"></figure>
+                        <figure><img src="https://www.dhresource.com/600x600/f2/albu/g6/M00/FD/F3/rBVaR1vRjUCABeytAADMXitTWbE992.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()" height="200px"></figure>
 
-                        <figure><img src="https://ae01.alicdn.com/kf/H453f98758d3b40a8a5470ff8faf743dfX/Tazas-de-caf-de-Panda-taza-de-t-de-cer-mica.jpg_q50.jpg"></figure>
-
-                        <figure><img src="https://www.dhresource.com/600x600/f2/albu/g6/M00/FD/F3/rBVaR1vRjUCABeytAADMXitTWbE992.jpg" height="200px"></figure>
-
-                        <figure><img src="https://app.pymebot.com/upload/ecommerce/fproduct_132_1621890178154090.jpg" height="200px"></figure>
+                        <figure><img src="https://app.pymebot.com/upload/ecommerce/fproduct_132_1621890178154090.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()" height="200px"></figure>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="info-cont">
+            <div class="info-product" id="container-info-product">
+                <h2>Esto es un título</h2><br>
+                <p>Esto es un párrafo</p>
             </div>
         </div>
     </section></center>
@@ -92,7 +95,7 @@
     <br><br><br><br><br><br><br>
     <section class="container-testimonials">
         <h3 class="section__title">¡Quejas y Reclamos!</h3>
-        <img src="http://www.pqrs.dsierra.com/images/pqrsLogo.png" alt="" class="testimonials__img">
+        <img src="http://www.pqrs.dsierra.com/images/pqrsLogo.png" alt="reclamos" class="testimonials__img">
     </section>
     <section class="newsletter">
         <h2 class="section__title">Escríbenos</h2>
