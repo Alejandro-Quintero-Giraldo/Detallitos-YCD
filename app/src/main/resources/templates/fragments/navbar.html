@@ -6,10 +6,12 @@
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <title></title>
-  <link rel="stylesheet" th:href="@{/styles/estilo.css}">
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" th:href="@{/styles/navbar.css}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -20,16 +22,20 @@
         <a class="navbar-brand" href="#">DETALLITOS YCDG</a>
       </div>
       <ul class="nav navbar-nav">
-        <li class="active"><a href="/">INICIO</a></li>
-        <li><a href="/product/">PRODUCTOS</a></li>
+        <li class=""><a href="/" class="option" data-text="&nbsp;&nbsp;&nbsp;INICIO">&nbsp;&nbsp;&nbsp;INICIO&nbsp;</a></li>
+        <li><a href="/product/" class="option" data-text="&nbsp;&nbsp;&nbsp;PRODUCTOS">&nbsp;&nbsp;&nbsp;PRODUCTOS&nbsp;</a></li>
       </ul>
       <ul th:if="${#authorization.expression('isAuthenticated()')}" class="nav navbar-nav navbar-right">
         <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li> -->
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> CERRAR SESION</a></li>
+        <li><a href="/logout" class="option" data-text="&nbsp;&nbsp;&nbsp;CERRAR&nbsp;SESION">&nbsp;&nbsp;&nbsp;CERRAR SESION&nbsp;<span
+              class="glyphicon glyphicon-log-out"></span></a></li>
       </ul>
       <ul th:unless="${#authorization.expression('isAuthenticated()')}" class="nav navbar-nav navbar-right">
-        <li><a href="/register"><span class="glyphicon glyphicon-user"></span> REGISTRARSE</a></li>
-        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> INICIAR SESION</a></li>
+        <li><a href="/register" class="option"
+            data-text="&nbsp;&nbsp;&nbsp;REGISTRARSE"></span>&nbsp;&nbsp;&nbsp;REGISTRARSE&nbsp;<span
+              class="glyphicon glyphicon-user"></span></a></li>
+        <li><a href="/login" class="option" data-text="&nbsp;&nbsp;&nbsp;INICIAR&nbsp;SESION">&nbsp;&nbsp;&nbsp;INICIAR SESION&nbsp;<span
+              class="glyphicon glyphicon-log-in"></span></a></li>
       </ul>
     </div>
   </nav>

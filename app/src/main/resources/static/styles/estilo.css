@@ -1,9 +1,9 @@
-/*Esto es solo para codepen*/
 @import './footer.css';
+@import './navbar.css';
 
-/*Las fuentes originales son estas*/
 @font-face {
   font-family: "Segoe UI";
+  src: '';
 }
 * {
   box-sizing: border-box;
