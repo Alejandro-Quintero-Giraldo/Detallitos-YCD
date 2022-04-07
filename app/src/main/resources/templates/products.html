@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org"
-		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>Productos</title>
 	<link rel="stylesheet" th:href="@{/styles/products.css}">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -11,20 +12,21 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<script src="../static/util/sweetalert.js" th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
 </head>
+
 <body>
 
 	<div th:replace="/fragments/navbar :: navbar"></div>
 	<div th:if="${param.fileError}">
 		<script>Swal.fire({
-			title: "¡ERROR!",
-			text: "La imagen ingresada para el producto, supera el tamaño máximo (10MB). Por favor inténtelo nuevamente",
-			confirmButtonText: "¡Aceptar!",
-			confirmButtonColor: '#f27474 ',
-			icon: 'error'
-    })</script>
+				title: "¡ERROR!",
+				text: "La imagen ingresada para el producto, supera el tamaño máximo (10MB). Por favor inténtelo nuevamente",
+				confirmButtonText: "¡Aceptar!",
+				confirmButtonColor: '#f27474 ',
+				icon: 'error'
+			})</script>
 	</div>
 	<div class="title-cards">
-			<h2>Productos</h2>
+		<h2>Productos</h2>
 		<p>Estos son productos que se han hecho antes,
 			puede usarse como referencia para el producto que tu desees</p>
 	</div>
@@ -68,4 +70,5 @@
 
 
 </body>
+
 </html>

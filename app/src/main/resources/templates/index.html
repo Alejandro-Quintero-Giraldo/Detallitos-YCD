@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" th:href="@{/styles/estilo.css}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -10,102 +12,129 @@
     <script type="text/javascript" src="../static/js/showInfoProduct.js" th:src="@{/js/showInfoProduct.js}"></script>
     <title>Detallitos YCD</title>
 </head>
+
 <body>
 
-<div th:replace="/fragments/navbar :: navbar"></div>
+    <div th:replace="/fragments/navbar :: navbar"></div>
 
 
-<main class="main">
-    <section class="welcome">
+    <main class="main">
+        <section class="welcome">
+            <br><br><br>
+            <h2><b>¡BIENVENIDOS!</b></h2>
+            <p>A continuación Encontrarás Información De Nosotros Como Microempresa</p>
+        </section>
         <br><br><br>
-        <h2><b>¡BIENVENIDOS!</b></h2>
-        <p>A continuación Encontrarás Información De Nosotros Como Microempresa</p>
-    </section>
-    <br><br><br>
-    <section class="information_products">
+        <section class="information_products">
+            <center>
+                <p>Como microempresa realizamos tres productos personalizables para todo momento y fecha especial. Estos
+                    productos son:</p>
+                <p><b>Mugs: </b>estructura de porcelana que aplica el arte decorativo por medio de frases, iconos
+                    animados y fotografía .</p>
+                <p><b>Cojines: </b>estructura de algodón que aplica el arte decorativo por medio de frases y
+                    fotografías.</p>
+                <p><b>Cuadros: </b>estructura plana de madera que aplica el arte decorativo por medio de la enmarcación
+                    de frases y fotografía .</p>
+            </center>
+        </section>
+
+        <section class="container-design">
+            <div class="design__item">
+                <h3 class="design__title">Productos Destacados</h3>
+                <img src="https://www.zankyou.com.pe/images/card-main/429/c4c0/550/475/w/627304/-/1518547326.png" alt=""
+                    class="design__img">
+            </div>
+            <div class="design__item">
+                <h3 class="design__title">Catálogos de Productos</h3>
+                <img src="https://i.pinimg.com/originals/89/df/f5/89dff56dd598ff1b2a55d3c4f2b42346.jpg" alt=""
+                    class="design__img">
+            </div>
+            <a th:href="@{/product/}" class="design__item">
+                <h3 class="design__title">Productos</h3>
+                <img src="https://http2.mlstatic.com/D_NQ_NP_722553-MPE26480979989_122017-O.jpg" alt="productos"
+                    class="design__img">
+            </a>
+            <div class="design__item">
+                <h3 class="design__title">¿Quiénes Somos?</h3>
+                <img th:src="@{/assets/logoDetallitosYCD.jpeg}" alt="imagen" class="design__img">
+            </div>
+        </section>
+        <br>
+        <br>
+        <br>
+        <br>
         <center>
-            <p>Como microempresa realizamos tres productos personalizables para todo momento y fecha especial. Estos productos son:</p>
-            <p><b>Mugs: </b>estructura de porcelana que aplica el arte decorativo por medio de frases, iconos animados y  fotografía .</p>
-            <p><b>Cojines: </b>estructura de algodón que aplica el arte decorativo por medio de frases y  fotografías.</p>
-            <p><b>Cuadros: </b>estructura plana de madera que aplica el arte decorativo por medio de la enmarcación de frases y  fotografía .</p>
-        </center>
-    </section>
+            <section class="section-carrousel">
+                <div class="carrousel-container">
+                    <div class="carrousel">
+                        <div class="content-all">
+                            <div class="content-carrousel">
 
-    <section class="container-design">
-        <div class="design__item">
-            <h3 class="design__title">Productos Destacados</h3>
-            <img src="https://www.zankyou.com.pe/images/card-main/429/c4c0/550/475/w/627304/-/1518547326.png" alt=""
-                 class="design__img">
-        </div>
-        <div class="design__item">
-            <h3 class="design__title">Catálogos de Productos</h3>
-            <img src="https://i.pinimg.com/originals/89/df/f5/89dff56dd598ff1b2a55d3c4f2b42346.jpg" alt=""
-                 class="design__img">
-        </div>
-        <a th:href="@{/product/}" class="design__item">
-            <h3 class="design__title">Productos</h3>
-            <img src="https://http2.mlstatic.com/D_NQ_NP_722553-MPE26480979989_122017-O.jpg" alt="productos" class="design__img">
-        </a>
-        <div class="design__item">
-            <h3 class="design__title">¿Quiénes Somos?</h3>
-            <img th:src="@{/assets/logoDetallitosYCD.jpeg}" alt="imagen" class="design__img">
-        </div>
-    </section>
-    <br>
-    <br>
-    <br>
-    <br>
-    <center>
-        <section class="section-carrousel">
-            <div class="carrousel-container">
-                <div class="carrousel">
-                    <div class="content-all">
-                        <div class="content-carrousel">
+                                <figure><img
+                                        src="https://www.thegiftcompany.com.co/wp-content/uploads/2020/08/Mug-profesionales.jpg"
+                                        onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"
+                                        onclick="window.location.assign('/product/')"></figure>
 
-                        <figure><img src="https://www.thegiftcompany.com.co/wp-content/uploads/2020/08/Mug-profesionales.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()" onclick="window.location.assign('/product/')"></figure>
+                                <figure><img src="https://http2.mlstatic.com/D_NQ_NP_778738-MCO43438455808_092020-O.jpg"
+                                        onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
 
-                        <figure><img src="https://http2.mlstatic.com/D_NQ_NP_778738-MCO43438455808_092020-O.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
+                                <figure><img
+                                        src="https://i0.wp.com/arteyregalosperu.com/wp-content/uploads/2021/07/cuadro-spotify-personalizado-peru-lima-1.jpg?fit=1080%2C1080&ssl=1"
+                                        onmouseover="showInfoProduct()" height="200px"></figure>
 
-                        <figure><img src="https://i0.wp.com/arteyregalosperu.com/wp-content/uploads/2021/07/cuadro-spotify-personalizado-peru-lima-1.jpg?fit=1080%2C1080&ssl=1" onmouseover="showInfoProduct()" height="200px"></figure>
+                                <figure><img src="https://http2.mlstatic.com/D_NQ_NP_712028-MCO43438162650_092020-O.jpg"
+                                        onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()" height="200px">
+                                </figure>
 
-                        <figure><img src="https://http2.mlstatic.com/D_NQ_NP_712028-MCO43438162650_092020-O.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()" height="200px"></figure>
+                                <figure><img src="https://sublistamp.com/20511-home_default/cojin-para-mejor-amiga.jpg"
+                                        onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
 
-                        <figure><img src="https://sublistamp.com/20511-home_default/cojin-para-mejor-amiga.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
+                                <figure><img
+                                        src="https://tussorpresas.com/wp-content/uploads/2020/10/cojin-hasta-infinito-g-1.jpg"
+                                        onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
 
-                        <figure><img src="https://tussorpresas.com/wp-content/uploads/2020/10/cojin-hasta-infinito-g-1.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
+                                <figure><img
+                                        src="https://ae01.alicdn.com/kf/H453f98758d3b40a8a5470ff8faf743dfX/Tazas-de-caf-de-Panda-taza-de-t-de-cer-mica.jpg_q50.jpg"
+                                        onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
 
-                        <figure><img src="https://ae01.alicdn.com/kf/H453f98758d3b40a8a5470ff8faf743dfX/Tazas-de-caf-de-Panda-taza-de-t-de-cer-mica.jpg_q50.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()"></figure>
+                                <figure><img
+                                        src="https://www.dhresource.com/600x600/f2/albu/g6/M00/FD/F3/rBVaR1vRjUCABeytAADMXitTWbE992.jpg"
+                                        onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()" height="200px">
+                                </figure>
 
-                        <figure><img src="https://www.dhresource.com/600x600/f2/albu/g6/M00/FD/F3/rBVaR1vRjUCABeytAADMXitTWbE992.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()" height="200px"></figure>
-
-                        <figure><img src="https://app.pymebot.com/upload/ecommerce/fproduct_132_1621890178154090.jpg" onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()" height="200px"></figure>
+                                <figure><img
+                                        src="https://app.pymebot.com/upload/ecommerce/fproduct_132_1621890178154090.jpg"
+                                        onmouseleave="hideInfoProduct()" onmouseover="showInfoProduct()" height="200px">
+                                </figure>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="info-cont">
-            <div class="info-product" id="container-info-product">
-                <h2>Esto es un título</h2><br>
-                <p>Esto es un párrafo</p>
-            </div>
-        </div>
-    </section></center>
+                <div class="info-cont">
+                    <div class="info-product" id="container-info-product">
+                        <h2>Esto es un título</h2><br>
+                        <p>Esto es un párrafo</p>
+                    </div>
+                </div>
+            </section>
+        </center>
+        <br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br>
+        <section class="container-testimonials">
+            <h3 class="section__title">¡Quejas y Reclamos!</h3>
+            <img src="http://www.pqrs.dsierra.com/images/pqrsLogo.png" alt="reclamos" class="testimonials__img">
+        </section>
+        <section class="newsletter">
+            <h2 class="section__title">Escríbenos</h2>
+            <form action="" method="post" class="form">
+                <input type="email" placeholder="" class="form__mail">
+                <input type="submit" class="form__submit" value="ENVIAR">
+            </form>
+        </section>
+    </main>
     <br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br>
-    <section class="container-testimonials">
-        <h3 class="section__title">¡Quejas y Reclamos!</h3>
-        <img src="http://www.pqrs.dsierra.com/images/pqrsLogo.png" alt="reclamos" class="testimonials__img">
-    </section>
-    <section class="newsletter">
-        <h2 class="section__title">Escríbenos</h2>
-        <form action="" method="post" class="form">
-            <input type="email" placeholder="" class="form__mail">
-            <input type="submit" class="form__submit" value="ENVIAR">
-        </form>
-    </section>
-</main>
-<br><br><br><br><br><br><br>
-<div th:replace="/fragments/footer :: footer"></div>
+    <div th:replace="/fragments/footer :: footer"></div>
 </body>
+
 </html>

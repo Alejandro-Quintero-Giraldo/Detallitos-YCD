@@ -5,8 +5,10 @@ body {
     background-size: cover;
     background-attachment: fixed;
 }
+@font-face {
+  font-family: "Segoe UI";
+}
 * {
-    font-family: "Segoe UI";
     box-sizing: border-box;
 }
 .contenedor{
@@ -103,3 +105,4 @@ p{
         margin-top: 150px;
         border-radius: 2%;
     }
+}

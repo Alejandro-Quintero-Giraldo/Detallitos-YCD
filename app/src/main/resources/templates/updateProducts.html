@@ -3,8 +3,9 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet"  th:href="@{/styles/style.css}">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" th:href="@{/styles/style.css}">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -16,15 +17,17 @@
   <div th:replace="/fragments/navbar :: navbar"></div>
 
   <div class="container">
-  
+
     <div class="title" th:if="${action == 'create'}">Crear Producto</div>
 
     <div class="title" th:if="${action == 'update'}">Actualizar Producto</div>
 
-    <form th:if="${action == 'create'}" method="post" th:action="@{/product/save}" th:object="${productAction}" enctype="multipart/form-data">
+    <form th:if="${action == 'create'}" method="post" th:action="@{/product/save}" th:object="${productAction}"
+      enctype="multipart/form-data">
 
-        <label for="productName">Nombre: </label><br>
-        <input type="text" id="productName" name="productName"  th:field="*{productName}" placeholder="Nombre" required autofocus><br>
+      <label for="productName">Nombre: </label><br>
+      <input type="text" id="productName" name="productName" th:field="*{productName}" placeholder="Nombre" required
+        autofocus><br>
 
       <label for="idProductType">Tipo de producto: </label><br>
       <select id="idProductType" name="idProductType" th:field="*{idProductType}" required>
@@ -33,54 +36,62 @@
         <option value="MUGS">Mug</option>
       </select><br>
 
-    <label for="productPrice">Precio: </label><br>
-    <input type="number" id="productPrice" name="productPrice" th:field="*{productPrice}" placeholder="Precio" required><br>
+      <label for="productPrice">Precio: </label><br>
+      <input type="number" id="productPrice" name="productPrice" th:field="*{productPrice}" placeholder="Precio"
+        required><br>
 
-    <label for="description">Descripcion: </label><br>
-    <textarea name="description" id="description" th:field="*{description}" placeholder="Descripcion" required></textarea>
-    <br>
+      <label for="description">Descripcion: </label><br>
+      <textarea name="description" id="description" th:field="*{description}" placeholder="Descripcion"
+        required></textarea>
+      <br>
 
-     <input type="hidden" value="" th:field="*{image}" />
-    <label for="file">Imagen: </label><br>
-    <input type="file"  id="file" name="file" accept=".png, .jpg, .jpeg" required/><br>
+      <input type="hidden" value="" th:field="*{image}" />
+      <label for="file">Imagen: </label><br>
+      <input type="file" id="file" name="file" accept=".png, .jpg, .jpeg" required /><br>
 
-    <label for="isVisible">¿Será visible a los usuarios?: </label><br>
-    <select name="isVisible" id="isVisible" th:field="*{isVisible}" required>
-      <option selected value="SI">SI</option>
-      <option value="NO">NO</option>
-    </select><br>
+      <label for="isVisible">¿Será visible a los usuarios?: </label><br>
+      <select name="isVisible" id="isVisible" th:field="*{isVisible}" required>
+        <option selected value="SI">SI</option>
+        <option value="NO">NO</option>
+      </select><br>
 
 
-    <input type="submit" value="Crear" class="button">
+      <input type="submit" value="Crear" class="button">
 
-  </form>
+    </form>
 
     <form th:if="${action == 'update'}" method="post" th:action="@{/product/put}" enctype="multipart/form-data">
       <input type="hidden" th:value="${productUpdate.productId}" th:name="productId">
       <label for="productName">Nombre: </label><br>
-      <input type="text" th:value="${productUpdate.productName}"  th:name="productName" placeholder="Nombre" required><br>
+      <input type="text" th:value="${productUpdate.productName}" th:name="productName" placeholder="Nombre"
+        required><br>
 
       <label for="idProductType">Tipo de producto: </label><br>
       <select th:name="idProductType" th:value="${productUpdate.idProductType}" required>
-        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'CUADROS'} ? true : false" value="CUADROS">Cuadro</option>
-        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'COJINES'} ? true : false" value="COJINES">Cojin</option>
-        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'MUGS'} ? true : false" value="MUGS">Mug</option>
+        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'CUADROS'} ? true : false" value="CUADROS">
+          Cuadro</option>
+        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'COJINES'} ? true : false" value="COJINES">
+          Cojin</option>
+        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'MUGS'} ? true : false" value="MUGS">Mug
+        </option>
       </select><br>
 
       <label for="productPrice">Precio: </label><br>
-      <input type="number" th:name="productPrice" th:value="${productUpdate.productPrice}"  placeholder="Precio" required><br>
+      <input type="number" th:name="productPrice" th:value="${productUpdate.productPrice}" placeholder="Precio"
+        required><br>
 
       <label for="description">Descripcion: </label><br>
-      <textarea  th:name="description"  placeholder="Descripcion"  th:inline="text" required>[[${productUpdate.description}]]</textarea>
+      <textarea th:name="description" placeholder="Descripcion" th:inline="text"
+        required>[[${productUpdate.description}]]</textarea>
 
       <br>
       <label for="recentImg">Imagen actual</label><br>
-      <img  id="recentImg" th:src="@{/image_products/}+${productUpdate.image}" width="200" height="200"/><br><br>
+      <img id="recentImg" th:src="@{/image_products/}+${productUpdate.image}" width="200" height="200" /><br><br>
 
       <input type="hidden" th:value="${productUpdate.image}" name="actualImage" />
 
       <label for="fileUpdate">Imagen: </label><br>
-      <input type="file" name="fileUpdate" id="fileUpdate" accept=".png, .jpg, .jpeg"  /><br>
+      <input type="file" name="fileUpdate" id="fileUpdate" accept=".png, .jpg, .jpeg" /><br>
 
       <label for="isVisible">¿Será visible a los usuarios?: </label><br>
       <select th:name="isVisible" th:value="${productUpdate.isVisible}" required>
@@ -89,28 +100,28 @@
       </select><br><br><br><br>
 
 
-      <input  th:if="${action == 'create'}" type="submit" value="Crear" class="button">
-      <input  th:if="${action == 'update'}" type="submit" value="Actualizar" class="button">
+      <input th:if="${action == 'create'}" type="submit" value="Crear" class="button">
+      <input th:if="${action == 'update'}" type="submit" value="Actualizar" class="button">
 
     </form>
 
     <div th:if="${param.success}">
       <script>Swal.fire({
-        title: "¡Producto creado!",
-        text: "El producto se ha creado exitosamente",
-        confirmButtonText: "¡Aceptar!",
-        confirmButtonColor: '#a5dc86',
-        icon: 'success'
-    })</script>
-  </div>
+          title: "¡Producto creado!",
+          text: "El producto se ha creado exitosamente",
+          confirmButtonText: "¡Aceptar!",
+          confirmButtonColor: '#a5dc86',
+          icon: 'success'
+        })</script>
+    </div>
     <div th:if="${param.updated}">
       <script>Swal.fire({
-        title: "¡Producto actualizado!",
-        text: "El producto se ha actualizado exitosamente",
-        confirmButtonText: "¡Aceptar!",
-        confirmButtonColor: '#a5dc86',
-        icon: 'success'
-    })</script>
+          title: "¡Producto actualizado!",
+          text: "El producto se ha actualizado exitosamente",
+          confirmButtonText: "¡Aceptar!",
+          confirmButtonColor: '#a5dc86',
+          icon: 'success'
+        })</script>
     </div>
   </div>
 </body>

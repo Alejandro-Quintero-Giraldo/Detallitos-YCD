@@ -1,50 +1,57 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <link th:src="@{/styles/footer.css}">
     <title></title>
 </head>
+
 <body>
-<footer  th:fragment="footer" class="main-footer">
-    <div class="container">
-        <div class="column column--50-25">
-            <h2 class="footer__title">DETALLITOSYCD</h2>
-            <p class="footer__txt">Somos DetallitosYCD una microempresa que brinda a la sociedad cuadros, cojines y mugs personalizados para fechas especiales. Nos ubicamos en la ciudad de Medellín. Y puedes encontrar nuestros productos en la actual página.</p>
-        </div>
-        <div class="column column--50-25">
-            <h2 class="footer__title">REDES SOCIALES</h2>
-            <div class="footer__socials">
-                <div class="social-icon">
-                    <img th:src="@{/assets/facebook.png}" width="45" height="45">
-                    <a class="social__link" href="">Facebook</a>
+    <footer th:fragment="footer" class="main-footer">
+        <div class="container">
+            <div class="column column--50-25">
+                <h2 class="footer__title">DETALLITOSYCD</h2>
+                <p class="footer__txt">Somos DetallitosYCD una microempresa que brinda a la sociedad cuadros, cojines y
+                    mugs personalizados para fechas especiales. Nos ubicamos en la ciudad de Medellín. Y puedes
+                    encontrar nuestros productos en la actual página.</p>
+            </div>
+            <div class="column column--50-25">
+                <h2 class="footer__title">REDES SOCIALES</h2>
+                <div class="footer__socials">
+                    <div class="social-icon">
+                        <img th:src="@{/assets/facebook.png}" width="45" height="45">
+                        <a class="social__link" href="">Facebook</a>
+                    </div>
+                    <div class="social-icon">
+                        <img th:src="@{/assets/instagram.png}" width="45" height="45">
+                        <a class="social__link" href="">Instagram</a>
+                    </div>
+                    <div class="social-icon">
+                        <img th:src="@{/assets/whatsapp.png}" width="45" height="45"
+                            src="../static/assets/whatsapp.png">
+                        <a class="social__link" href="">WhatsApp</a>
+                    </div>
                 </div>
-                <div class="social-icon">
-                    <img th:src="@{/assets/instagram.png}" width="45" height="45">
-                    <a class="social__link" href="">Instagram</a>
+            </div>
+            <div class="column column--50-25">
+                <h2 class="footer__title">CONTÁCTANOS</h2>
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p class="contact__txt">DetallitosYCD</p>
                 </div>
-                <div class="social-icon">
-                    <img th:src="@{/assets/whatsapp.png}" width="45" height="45" src="../static/assets/whatsapp.png">
-                    <a class="social__link" href="">WhatsApp</a>
+                <div class="contact-icon">
+                    <i class="fas fa-phone-alt"></i>
+                    <p class="contact__txt">3000587390</p>
+                </div>
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                    <p class="contact__txt">detallitosYCD@gmail.com</p>
                 </div>
             </div>
         </div>
-        <div class="column column--50-25">
-            <h2 class="footer__title">CONTÁCTANOS</h2>
-            <div class="contact-icon">
-                <i class="fas fa-map-marker-alt"></i>
-                <p class="contact__txt">DetallitosYCD</p>
-            </div>
-            <div class="contact-icon">
-                <i class="fas fa-phone-alt"></i>
-                <p class="contact__txt">3000587390</p>
-            </div>
-            <div class="contact-icon">
-                <i class="fas fa-envelope"></i>
-                <p class="contact__txt">detallitosYCD@gmail.com</p>
-            </div>
-        </div>
-    </div>
-    <p class="copy"><b>© 2022 PROYECTO DETALLITOSYCD</b><span class="color-span"></span></p>
-</footer>
+        <p class="copy"><b>© 2022 PROYECTO DETALLITOSYCD</b><span class="color-span"></span></p>
+    </footer>
 </body>
+
 </html>

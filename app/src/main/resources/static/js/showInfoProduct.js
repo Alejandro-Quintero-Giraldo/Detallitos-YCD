@@ -5,7 +5,8 @@ function showInfoProduct() {
     containerInfo.className = "info-product-show";
 }
 
-function hideInfoProduct(){
+function hideInfoProduct() {
     var containerInfo = document.getElementById('container-info-product');
     containerInfo.className = "info-product";
+    window.on
 }
