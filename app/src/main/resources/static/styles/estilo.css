@@ -178,16 +178,16 @@ p {
 .form{
   margin: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 20px;
-  max-width: 600px;
+  width: 100%;
 }
 .form__mail{
   display: block;
   background: #ddd;
   padding: 15px;
-  width: 75%;
+  min-width: 40%;
   border: none;
   font-size: 1em;
   font-family: "Segoe UI";
@@ -197,8 +197,8 @@ p {
   background: #5C4B48;
   border: none;
   padding: 15px;
-  width: 20%;
   color: white;
+  margin: 5%;
   font-size: 1em;
   font-family: "Segoe UI";
 }

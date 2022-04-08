@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import reactor.util.annotation.Nullable;
 
 @Controller
 public class UserController {
@@ -25,7 +26,12 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/")
-    public String index(){
+    public String index(Model model){
+        UserDetails userCredentials = checkSession();
+        if(userCredentials != null){
+            User user = userService.findUserByUserId(userCredentials.getUsername());
+            model.addAttribute("user", user);
+        }
         return "index";
     }
 
@@ -63,7 +69,7 @@ public class UserController {
         if(user == null){
             return "redirect:/login?error";
         }
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     @PostMapping("/saveUser")

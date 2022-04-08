@@ -10,6 +10,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../static/js/showInfoProduct.js" th:src="@{/js/showInfoProduct.js}"></script>
+    <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
+    <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
+    <div th:replace="/fragments/emailJS :: emailJS"></div>
+    <script type="text/javascript" th:src="@{/js/emailManagement.js}"></script>
+    <script th:src="@{/js/localStorage.js}" type="text/javascript"></script>
+    <script th:if="${user}" th:inline="javascript">
+        if(getLocalStorage() === null){
+            var userId = [[${user.getUserId()}]]
+            setLocalStorage(userId);
+        }
+        var user = [[${user.getUserName()}]];
+        var email = [[${user.getEmail()}]];
+    </script>
     <title>Detallitos YCD</title>
 </head>
 
@@ -126,11 +139,17 @@
             <img src="http://www.pqrs.dsierra.com/images/pqrsLogo.png" alt="reclamos" class="testimonials__img">
         </section>
         <section class="newsletter">
-            <h2 class="section__title">Escríbenos</h2>
-            <form action="" method="post" class="form">
-                <input type="email" placeholder="" class="form__mail">
-                <input type="submit" class="form__submit" value="ENVIAR">
-            </form>
+            <h2 class="section__title">Escríbenos tus dificultades con la plataforma</h2>
+            <div class="form">
+                <input type="text" id="input-support" onchange="handleInputChange()" placeholder="Escriba su problema"
+                    class="form__mail col-4" />
+                <div th:if="${#authorization.expression('isAuthenticated()')}" class="col-2">
+                    <input type="submit" class="form__submit" value="ENVIAR" th:onclick="sendEmail(user, email)" />
+                </div>
+                <div th:unless="${#authorization.expression('isAuthenticated()')}" class="col-2">
+                    <input type="submit" class="form__submit" value="ENVIAR" onclick="alertSupportLoginRequired()" />
+                </div>
+            </div>
         </section>
     </main>
     <br><br><br><br><br><br><br>

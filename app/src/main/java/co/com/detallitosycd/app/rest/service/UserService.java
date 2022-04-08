@@ -58,7 +58,7 @@ public class UserService implements IUserService {
         if (user == null) {
             throw  new UsernameNotFoundException("Correo electrónico o contraseña incorrecto");
         }
-        return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),
+        return new org.springframework.security.core.userdetails.User(user.getUserId(),user.getPassword(),
                 mapAuthorities(user.getEmail()));
     }
 

@@ -76,3 +76,13 @@ function alertProductUpdated() {
         icon: 'success'
     })
 }
+
+function alertSupportLoginRequired(){
+    Swal.fire({
+        title: "¡Inicie sesión!",
+        text: "Para enviar un mensaje a nuestro equipo de soporte, debe iniciar sesion",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#3fc3ee',
+        icon: 'info'
+    })
+}

@@ -1,0 +1,12 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:fragment="emailJS">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <script type="text/javascript">
+            (function () {
+                emailjs.init("jo_oZdVvIkkcI18xs");
+            })();
+        </script>
+    </div>
+</head>
+</html>
