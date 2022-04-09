@@ -35,19 +35,19 @@
 
             <div class="input-contenedor">
                 <i class="fas fa-user icon"></i>
-                <input type="text" th:field="*{userId}" name="userId" placeholder="Identificación" required>
+                <input type="number" th:field="*{userId}" name="userId" placeholder="Identificación" autofocus required>
             </div>
             <div class="input-contenedor">
                 <input type="text" th:field="*{userName}" name="userName" placeholder="Nombre Completo" required>
             </div>
             <div class="input-contenedor">
-                <input type="text" th:field="*{cellphone}" name="cellphone" placeholder="Celular" required>
+                <input type="number" th:field="*{cellphone}" name="cellphone" placeholder="Celular" required>
             </div>
             <div class="input-contenedor">
                 <input type="text" th:field="*{address}" name="address" placeholder="Dirección" required>
             </div>
             <div class="input-contenedor">
-                <input type="text" th:field="*{email}" name="email" placeholder="Correo Electronico" required>
+                <input type="email" th:field="*{email}" name="email" placeholder="Correo Electronico" required>
             </div>
             <div class="input-contenedor">
                 <input type="password" th:field="*{password}" name="password" placeholder="Contraseña" required>

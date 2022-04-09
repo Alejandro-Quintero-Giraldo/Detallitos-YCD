@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartException;
 public class FileHandlerException {
 
     @ExceptionHandler(MultipartException.class)
-    public String handleMultipartException(MultipartException e){
+    public String handleMultipartException(){
         return "redirect:/product/?fileError";
     }
 }

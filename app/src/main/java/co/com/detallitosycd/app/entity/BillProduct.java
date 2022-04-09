@@ -71,4 +71,11 @@ public class BillProduct implements Serializable {
         this.subTotal = subTotal;
         this.especifications = especifications;
     }
+
+    public BillProduct(String idBill, String idProduct, Integer amountPurchased, String especifications) {
+        this.idBill = idBill;
+        this.idProduct = idProduct;
+        this.amountPurchased = amountPurchased;
+        this.especifications = especifications;
+    }
 }

@@ -26,14 +26,8 @@ public class Bill {
     @Column(name = "entrega_id", length = 12)
     private String deliverId;
 
-    public Bill(String billId, LocalDateTime dateBill, Integer finalPrice, String userId, String companyNIT, String deliverId) {
-        this.billId = billId;
-        this.dateBill = dateBill;
-        this.finalPrice = finalPrice;
-        this.userId = userId;
-        this.companyNIT = companyNIT;
-        this.deliverId = deliverId;
-    }
+    @Column(name = "estado_id", length = 12, nullable = false)
+    private String stateId;
 
     public String getBillId() {
         return billId;
@@ -81,5 +75,23 @@ public class Bill {
 
     public void setDeliverId(String deliverId) {
         this.deliverId = deliverId;
+    }
+
+    public String getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(String stateId) {
+        this.stateId = stateId;
+    }
+
+    public Bill(String billId, LocalDateTime dateBill, Integer finalPrice, String userId, String companyNIT, String deliverId, String stateId) {
+        this.billId = billId;
+        this.dateBill = dateBill;
+        this.finalPrice = finalPrice;
+        this.userId = userId;
+        this.companyNIT = companyNIT;
+        this.deliverId = deliverId;
+        this.stateId = stateId;
     }
 }

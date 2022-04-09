@@ -23,7 +23,7 @@ public class User {
     @Column(name = "correo_electronico", length = 50, nullable = false )
     private String email;
 
-    @Column(name = "contraseña", length = 30)
+    @Column(name = "contraseña")
     private String password;
 
     public User(String userId, String userName, String cellphone, String address, String email, String password) {

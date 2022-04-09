@@ -85,10 +85,11 @@ public class CatalogueModel {
     }
 
     public void updateCatalogue(Catalogue catalogue) throws SQLException {
-        String query = "UPDATE CATALOGO SET nombre_catalogo = ?, descripcion = ?";
+        String query = "UPDATE CATALOGO SET nombre_catalogo = ?, descripcion = ? WHERE id_catalogo = ?";
         prepareBD(query);
         this.preparedStatement.setString(1,catalogue.getCatalogueName());
         this.preparedStatement.setString(2, catalogue.getDescription());
+        this.preparedStatement.setString(3, catalogue.getCatalogueId());
         processQuery("update");
         finishProcess();
     }

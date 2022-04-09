@@ -32,12 +32,23 @@ h1{
     font-size: 40px;
 }
 input[type="text"],
-input[type="password"]{
+input[type="password"],
+input[type="number"],
+input[type="email"]{
     font-family: "Segoe UI";
     font-size: 20px;
-    width: 82%;
+    width: 100%;
     padding: 10px;
     border: none;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+   -moz-appearance:textfield;
 }
 .input-contenedor{
     font-family: "Segoe UI";

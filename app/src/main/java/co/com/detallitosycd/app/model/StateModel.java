@@ -1,19 +1,21 @@
 package co.com.detallitosycd.app.model;
 
-import co.com.detallitosycd.app.entity.Company;
+import co.com.detallitosycd.app.entity.State;
 import co.com.detallitosycd.app.model.conection.Conection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class CompanyModel {
+public class StateModel {
 
-    private static final Logger LOGGER = Logger.getLogger("co.com.detallitosycd.app.model.company");
 
+    private static final Logger LOGGER = Logger.getLogger("co.com.detallitosycd.app.model.state");
 
     private Connection connection;
     private PreparedStatement preparedStatement;
@@ -24,8 +26,10 @@ public class CompanyModel {
         this.preparedStatement = connection.prepareStatement(query);
     }
 
-    private void processQuery() throws SQLException {
-        this.resultSet = this.preparedStatement.executeQuery();
+    private void processQuery(String action) throws SQLException {
+        if(action.equals("query")){
+            this.resultSet = this.preparedStatement.executeQuery();
+        }
         LOGGER.log(Level.INFO, this.preparedStatement.toString());
     }
 
@@ -38,18 +42,30 @@ public class CompanyModel {
         this.connection = null;
     }
 
-    public Company findCompanyByNit(String nit) throws SQLException {
-        String query = "SELECT * FROM EMPRESA WHERE nit = ?";
+    public State findStateById(String id) throws SQLException {
+        String query = "SELECT * FROM ESTADO WHERE id_estado = ?";
         prepareBD(query);
-        this.preparedStatement.setString(1, nit);
-        processQuery();
-        Company company = null;
+        this.preparedStatement.setString(1,id);
+        processQuery("query");
+        State state = null;
         if(this.resultSet.next()){
-            company = new Company(this.resultSet.getString("nit"), this.resultSet.getString("nombre_empresa"),
-                    this.resultSet.getString("celular"), this.resultSet.getString("correo_electronico"));
+            state = new State(this.resultSet.getString("id_estado"),this.resultSet.getString("nombre_estado"));
         }
         finishProcess();
-        return company;
+        return state;
+    }
+
+    public List<State> findAllState() throws SQLException {
+        String query = "SELECT * FROM ESTADO";
+        prepareBD(query);
+        processQuery("query");
+        List<State> stateList = new ArrayList<>();
+        while(this.resultSet.next()){
+            State state = new State(this.resultSet.getString("id_estado"),this.resultSet.getString("nombre_estado"));
+            stateList.add(state);
+        }
+        finishProcess();
+        return stateList;
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ProductModel extends Conection {
+public class ProductModel {
 
     private static final Logger LOGGER = Logger.getLogger("co.com.detallitosycd.app.model.product");
 

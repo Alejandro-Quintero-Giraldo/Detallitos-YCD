@@ -10,6 +10,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
     <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
+    <script th:src="@{/js/localStorage.js}"></script>
+    <script>clearLocalStorage();</script>
 </head>
 <body>
 
@@ -28,7 +30,7 @@
     <div class="contenedor">
         <div class="input-contenedor">
             <i class="fas fa-user icon"></i>
-            <input type="text" name="username"  placeholder="Correo Electronico" required>
+            <input type="text" name="username"  placeholder="Correo Electronico"  autofocus required>
         </div>
         <div class="input-contenedor">
             <i class="fas fa-key icon"></i>
