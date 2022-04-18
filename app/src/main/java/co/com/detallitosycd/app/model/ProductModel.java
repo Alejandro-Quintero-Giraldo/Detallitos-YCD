@@ -25,7 +25,7 @@ public class ProductModel {
     private void processQuery(String action) throws SQLException {
         if(action.equals("query")){
             this.resultSet = this.preparedStatement.executeQuery();
-        } else if(action.equals("create") || action.equals("update")){
+        } else if(action.equals("create") || action.equals("update") || action.equals("delete")){
             this.preparedStatement.execute();
         } else if(action.equals("products")) {
             this.resultSet = this.preparedStatement.executeQuery();
@@ -123,4 +123,13 @@ public class ProductModel {
         finishProcess();
         return productList;
     }
+
+    public void deleteProductById(String id) throws SQLException {
+        String query = "DELETE FROM PRODUCTO WHERE id_producto = ?";
+        prepareBD(query);
+        this.preparedStatement.setString(1, id);
+        processQuery("delete");
+        finishProcess();
+    }
+
 }

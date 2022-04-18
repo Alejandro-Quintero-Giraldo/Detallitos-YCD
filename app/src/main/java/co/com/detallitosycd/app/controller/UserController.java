@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,6 @@ public class UserController {
         return "index";
     }
 
-
     @GetMapping("/login")
     public String loginPage(Model model){
         if(checkSession() != null){
@@ -45,16 +45,8 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("home")
-    public String homePage(Model model){
-        return "home";
-    }
-
     @RequestMapping("register")
     public String registerPage(){
-        if(checkSession() != null){
-            return "redirect:/";
-        }
         return "register";
     }
 
@@ -66,7 +58,7 @@ public class UserController {
     @GetMapping("validate")
     public String validateUser(User userDTO) {
         UserDetails user = userService.loadUserByUsername(userDTO.getEmail());
-        if(user == null){
+        if (user == null) {
             return "redirect:/login?error";
         }
         return "redirect:/";
@@ -74,6 +66,7 @@ public class UserController {
 
     @PostMapping("/saveUser")
     public String saveUser(User user) {
+        System.out.println("\nEste es el controller\n");
         User verifyUserId = userService.findUserByUserId(user.getUserId());
         if(verifyUserId != null) return "redirect:/register?idExists";
         User verifyUserEmail = userService.findByEmail(user.getEmail());
@@ -90,6 +83,11 @@ public class UserController {
         //TODO: PONER NOMBRE HTML EN EL CONTROLADOR DE USUARIO SIN ADMIN, AGREGAR ID DE EMPRESA EN UN INPUT VACÍO
         //TODO: AGREGAR DOCUMENTACIÓN DEL PROYECTO AL GIT
         return "";
+    }
+
+    @GetMapping("/accessDenied")
+    public String accessDeniedPage(){
+        return "accessDenied";
     }
 
     private UserDetails checkSession(){

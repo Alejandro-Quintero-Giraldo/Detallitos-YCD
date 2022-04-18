@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements IUserService {
 
-    private BCryptPasswordEncoder passwordEncoder;
-
     @Autowired
     private UserRepository userRepository;
 
@@ -29,7 +27,7 @@ public class UserService implements IUserService {
 
     @Override
     public User save(User userDTO) {
-        passwordEncoder = new BCryptPasswordEncoder();
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = new User(userDTO.getUserId(),userDTO.getUserName(), userDTO.getCellphone(), userDTO.getAddress(),
                 userDTO.getEmail(), passwordEncoder.encode(userDTO.getPassword()));
         return userRepository.save(user);

@@ -86,3 +86,21 @@ function alertSupportLoginRequired(){
         icon: 'info'
     })
 }
+
+const alertAccessDenied = () => {
+    Swal.fire({
+        title: "¡Acceso denegado!",
+        text: "Se le ha denegado el acceso a esta página. Si se trata de un error comuniquese con el Administrador de la aplicación",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#f27474',
+        icon: 'error',
+        showLoaderOnConfirm: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+    }).then((result) => {
+        if(result.isConfirmed){
+            window.location.assign('/');
+        }
+    })
+}

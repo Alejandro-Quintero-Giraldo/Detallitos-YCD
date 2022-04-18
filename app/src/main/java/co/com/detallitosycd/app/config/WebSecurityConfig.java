@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws  Exception {
         http.authorizeRequests().antMatchers(
-                "/","/register","/saveUser",
+                "/","/saveUser",
                 "/product/{id}","/product/","/catalogue/",
                 "/catalogue/{id}",
                 "/assets/**",
@@ -55,13 +55,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/administrator/save", "/catalogue/create", "/catalogue/save",
                         "/catalogue/update/{id}", "/catalogue/put", "/catalogue/delete/{id}")
                 .hasRole("ADMINISTRATOR")
+                .antMatchers("/login", "/register").anonymous()
                 .anyRequest().denyAll()
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
-                .permitAll();
+                .permitAll()
+                .and().exceptionHandling().accessDeniedPage("/accessDenied");
     }
 
 }
