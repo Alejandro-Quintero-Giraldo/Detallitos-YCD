@@ -32,9 +32,12 @@ class UserServiceTest {
     @Autowired
     private UserService userService;
 
+    private User userMocked  = new User("1234567890", "randomName",
+            "randomCellphone", "randomAddress","randomMail",
+            "randomPass");
+
     @Test
     void shouldSaveUser(){
-        User userMocked  = new User("1234567890", "randomName", "randomCellphone", "randomAddress","randomMail", "randomPass");
         Mockito.when(passwordEncoder.encode(anyString())).thenReturn(userMocked.getPassword());
         Mockito.when(userRepository.save(any(User.class))).thenReturn(userMocked);
         User newUser = userService.save(userMocked);
@@ -44,7 +47,6 @@ class UserServiceTest {
 
     @Test
     void shouldFindById(){
-        User userMocked  = new User("1234567890", "randomName", "randomCellphone", "randomAddress","randomMail", "randomPass");
 
         Mockito.when(userRepository.findUserByUserId("1234567890")).thenReturn(userMocked);
         User userFind = userService.findUserByUserId(userMocked.getUserId());
@@ -53,8 +55,15 @@ class UserServiceTest {
     }
 
     @Test
+    void shouldFindByEmail(){
+        Mockito.when(userRepository.findUserByEmail("randomMail")).thenReturn(userMocked);
+        User userFind = userService.findByEmail(userMocked.getEmail());
+        Assertions.assertEquals(userFind.getEmail(), userMocked.getEmail());
+    }
+
+    @Test
     void shouldLoginUser(){
-        User userMocked = new User("1234567890", "randomName", "randomCellphone", "randomAddress","randomMail", "randomPass");
+
         Administrator administratorMock = new Administrator("1234567890", "randomMail","123");
 
         Mockito.when(userRepository.findUserByEmail(userMocked.getEmail())).thenReturn(userMocked);

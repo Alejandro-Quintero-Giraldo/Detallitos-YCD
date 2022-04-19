@@ -13,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
@@ -45,16 +44,15 @@ class UserControllerTest {
     }
 
     @Test
-    @WithAnonymousUser
+    @WithUserDetails("Administrator User")
     void shouldSaveUser() throws Exception {
         User userMock = new User("12345678901", "Ricardo", "123456", "calle 34",
                 "ricardo@mail.com","123456");
         Mockito.when(userService.findUserByUserId(userMock.getUserId())).thenReturn(null);
         Mockito.when(userService.findByEmail(userMock.getEmail())).thenReturn(null);
-        System.out.println("\nEste es el punto de la pinche prueba\n");
         mockMvc.perform(post("/saveUser")
-                        .contentType(MediaType.ALL)
-                        .accept(MediaType.ALL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(userMock)))
                 .andExpect(status().isOk())
                 .andExpect(view().name("register"))
@@ -66,7 +64,17 @@ class UserControllerTest {
     @WithAnonymousUser
     void shouldShowLoginPage() throws Exception {
         mockMvc.perform(get("/login"))
+                .andExpect(status().isOk())
                 .andExpect(view().name("login"));
+    }
+
+    @Test
+    @WithUserDetails("Basic User")
+    void shouldShowLoginPageWithBasicUser() throws Exception {
+        mockMvc.perform(get("/login"))
+                .andExpect(redirectedUrl("/"))
+                .andExpect(status().isOk());
+                //.andExpect(view().name("index"));
     }
 
 

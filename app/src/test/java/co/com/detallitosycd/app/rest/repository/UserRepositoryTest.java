@@ -33,4 +33,13 @@ class UserRepositoryTest {
         Assertions.assertEquals(user2.getUserId(), userId);
         Mockito.verify(userRepository, Mockito.times(1)).findUserByUserId(userId);
     }
+
+    @Test
+    void findByEmail(){
+        String userEmail = "randomEmail";
+        Mockito.when(userRepository.findUserByEmail(userEmail)).thenReturn(user);
+        User user3 = userRepository.findUserByEmail(userEmail);
+        Assertions.assertEquals(user3.getEmail(), userEmail);
+        Mockito.verify(userRepository, Mockito.times(1)).findUserByEmail(userEmail);
+    }
 }

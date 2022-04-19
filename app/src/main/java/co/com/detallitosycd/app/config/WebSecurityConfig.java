@@ -40,30 +40,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws  Exception {
+
         http.authorizeRequests().antMatchers(
-                "/","/saveUser",
+                "/",
                 "/product/{id}","/product/","/catalogue/",
                 "/catalogue/{id}",
                 "/assets/**",
                 "/styles/**",
                 "/js/**",
                 "/util/**",
-                "/image_products/**"
+                "/image_products/**","/register","/saveUser"
                 ).permitAll()
                 .antMatchers("/product/create/action", "/product/save",
                         "/product/update/{id}", "/product/put","/withoutAdmin",
                         "/administrator/save", "/catalogue/create", "/catalogue/save",
                         "/catalogue/update/{id}", "/catalogue/put", "/catalogue/delete/{id}")
                 .hasRole("ADMINISTRATOR")
-                .antMatchers("/login", "/register").anonymous()
+                //.antMatchers("/login").anonymous()
                 .anyRequest().denyAll()
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
-                .permitAll()
-                .and().exceptionHandling().accessDeniedPage("/accessDenied");
+                .permitAll();
+                //.and().exceptionHandling().accessDeniedPage("/accessDenied");
     }
 
 }
