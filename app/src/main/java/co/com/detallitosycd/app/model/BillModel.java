@@ -59,7 +59,8 @@ public class BillModel {
                 });
         bill.setBillId(LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMAAAA-hhmmss")));
         billProductModel.createBillProduct(new BillProduct(bill.getBillId(), productId,amountPurchased,null,especifications));
-
+        String query = "INSERT INTO FACTURA(id_factura, fecha_factura, usuario_id, empresa_nit, estado_id) VALUES(?,?,?,?,?)";
+        prepareBD(query);
     }
 
 }

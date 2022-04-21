@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @GetMapping("validate")
-    public String validateUser(User userDTO) {
+    public String validateUser(@RequestBody User userDTO) {
         UserDetails user = userService.loadUserByUsername(userDTO.getEmail());
         if (user == null) {
             return "redirect:/login?error";
@@ -59,7 +59,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PostMapping("/saveUser")
+    @PostMapping("saveUser")
     public String saveUser(User user) {
         System.out.println("\nEste es el controller\n");
         User verifyUserId = userService.findUserByUserId(user.getUserId());

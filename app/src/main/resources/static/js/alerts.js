@@ -94,10 +94,10 @@ const alertAccessDenied = () => {
         confirmButtonText: "¡Aceptar!",
         confirmButtonColor: '#f27474',
         icon: 'error',
-        showLoaderOnConfirm: true,
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
+        width: "50%"
     }).then((result) => {
         if(result.isConfirmed){
             window.location.assign('/');

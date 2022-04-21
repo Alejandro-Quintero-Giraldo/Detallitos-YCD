@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers(
                 "/",
-                "/product/{id}","/product/","/catalogue/",
+                "/product/{id}","/product/","/catalogue/","/validate",
                 "/catalogue/{id}",
                 "/assets/**",
                 "/styles/**",
@@ -63,8 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
-                .permitAll();
-                //.and().exceptionHandling().accessDeniedPage("/accessDenied");
+                .permitAll()
+                .and().exceptionHandling().accessDeniedPage("/accessDenied");
     }
 
 }
