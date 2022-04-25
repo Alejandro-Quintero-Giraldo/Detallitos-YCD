@@ -15,14 +15,13 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.authentication;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -52,16 +51,42 @@ class UserControllerTest {
     void shouldSaveUser() throws Exception {
         User userMock = new User("12345678901", "Ricardo", "123456", "calle 34",
                 "ricardo@mail.com","123456");
+        /*UserController userController  = new UserController() {
+            @ModelAttribute
+            public User userRegister() {
+                return userMock;
+            }
+        };*/
+
         Mockito.when(userService.findUserByUserId(userMock.getUserId())).thenReturn(null);
         Mockito.when(userService.findByEmail(userMock.getEmail())).thenReturn(null);
+
         mockMvc.perform(post("/saveUser")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .requestAttr("userDTO", objectMapper.writeValueAsString(userMock)))
-                //.andExpect(status().isOk())
-                .andExpect(view().name("register"))
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("userId", userMock.getUserId())
+                        .param("userName", userMock.getUserName())
+                        .param("cellphone", userMock.getCellphone())
+                        .param("address", userMock.getAddress())
+                        .param("email", userMock.getEmail())
+                        .param("password", userMock.getPassword()))
                 .andExpect(redirectedUrl("/register?success"));
 
+    }
+
+    @Test
+    @WithAnonymousUser
+    void shouldValidateLoginUserSuccess() throws Exception{
+        User userMock = new User("12345678901", "Ricardo", "123456", "calle 34",
+                "ricardo@mail.com","123456");
+        org.springframework.security.core.userdetails.User userMocked =
+                new org.springframework.security.core.userdetails.User("Ricardo", "123456", List.of(new SimpleGrantedAuthority("ROLE_USER")));
+        Mockito.when(userService.loadUserByUsername(userMock.getEmail())).thenReturn(userMocked);
+
+        mockMvc.perform(get("/validate")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(userMock)))
+                .andExpect(redirectedUrl("/"));
     }
 
     @Test
@@ -79,21 +104,7 @@ class UserControllerTest {
                 .andExpect(redirectedUrl("/"));
     }
 
-    @Test
-    @WithAnonymousUser
-    void shouldValidateLoginUserSuccess() throws Exception{
-        User userMock = new User("12345678901", "Ricardo", "123456", "calle 34",
-                "ricardo@mail.com","123456");
-        org.springframework.security.core.userdetails.User userMocked =
-                new org.springframework.security.core.userdetails.User("Ricardo", "123456", List.of(new SimpleGrantedAuthority("ROLE_USER")));
-        Mockito.when(userService.loadUserByUsername(userMock.getEmail())).thenReturn(userMocked);
 
-        mockMvc.perform(get("/validate")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(userMock)))
-                .andExpect(redirectedUrl("/"));
-    }
 
 
 /*
