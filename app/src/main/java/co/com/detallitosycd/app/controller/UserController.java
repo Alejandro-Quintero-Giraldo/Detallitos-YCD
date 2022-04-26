@@ -60,8 +60,7 @@ public class UserController {
     }
 
     @PostMapping("saveUser")
-    public String saveUser(User user) {
-        System.out.println("\nEste es el controller\n");
+    public String saveUserAction(User user) {
         User verifyUserId = userService.findUserByUserId(user.getUserId());
         if(verifyUserId != null) return "redirect:/register?idExists";
         User verifyUserEmail = userService.findByEmail(user.getEmail());
@@ -83,6 +82,30 @@ public class UserController {
     @GetMapping("/accessDenied")
     public String accessDeniedPage(){
         return "accessDenied";
+    }
+
+    @GetMapping("forgotPass")
+    public String forgotPass(){
+        return "";
+    }
+
+    @PutMapping("changePassword")
+    public String changePassword(@RequestParam("userId") String userId, @RequestParam("cellphone") String cellphone,
+                                 @RequestParam("email") String email){
+        User user = userService.findByEmail(email);
+        if(user == null){
+            return "redirect:/forgotPass?notFound";
+        }
+        if(user.getUserId().equals(userId) && user.getCellphone().equals(cellphone)){
+            return "redirect:/newPassword";
+        } else {
+            return "redirect:/forgotPass?badCredentials";
+        }
+    }
+
+    @GetMapping("newPassword")
+    public String newPassword(){
+        return "";
     }
 
     private UserDetails checkSession(){
