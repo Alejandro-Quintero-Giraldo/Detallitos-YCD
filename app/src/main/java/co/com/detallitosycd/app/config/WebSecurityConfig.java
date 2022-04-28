@@ -63,8 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
-                .permitAll()
-                .and().exceptionHandling().accessDeniedPage("/accessDenied");
+                .permitAll();
+                //.and().exceptionHandling().accessDeniedPage("/accessDenied");
     }
 
 }

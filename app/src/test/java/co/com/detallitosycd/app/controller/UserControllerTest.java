@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -47,7 +48,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithAnonymousUser
+   // @WithAnonymousUser
     void shouldSaveUser() throws Exception {
         User userMock = new User("12345678901", "Ricardo", "123456", "calle 34",
                 "ricardo@mail.com","123456");
@@ -69,6 +70,7 @@ class UserControllerTest {
                         .param("address", userMock.getAddress())
                         .param("email", userMock.getEmail())
                         .param("password", userMock.getPassword()))
+                .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/register?success"));
 
     }
