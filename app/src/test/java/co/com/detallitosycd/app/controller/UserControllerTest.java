@@ -48,7 +48,7 @@ class UserControllerTest {
     }
 
     @Test
-   // @WithAnonymousUser
+    @WithAnonymousUser
     void shouldSaveUser() throws Exception {
         User userMock = new User("12345678901", "Ricardo", "123456", "calle 34",
                 "ricardo@mail.com","123456");

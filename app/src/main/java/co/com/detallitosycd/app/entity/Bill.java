@@ -1,5 +1,7 @@
 package co.com.detallitosycd.app.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -11,7 +13,9 @@ public class Bill {
     @Column(name = "id_factura", length = 12, nullable = false)
     private String billId;
 
+
     @Column(name = "fecha_factura")
+    @DateTimeFormat(pattern = "dd/MM/aaaa hh:mm:ss")
     private LocalDateTime dateBill;
 
     @Column(name = "precio_final")

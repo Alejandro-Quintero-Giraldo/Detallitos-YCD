@@ -6,11 +6,9 @@ import co.com.detallitosycd.app.entity.Product;
 import co.com.detallitosycd.app.entity.State;
 import co.com.detallitosycd.app.model.conection.Conection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,15 +50,63 @@ public class BillModel {
         this.connection = null;
     }
 
+    public  String searchIdAvailableState() throws SQLException {
+        return stateModel.findAllState().stream()
+                .filter(state -> state.getStateName().equals("DISPONIBLE"))
+                .findFirst().get().getStateId();
+    }
+
     public void createBill(Bill bill, Integer amountPurchased, String especifications,String productId) throws SQLException {
-        List<State> stateList = stateModel.findAllState();
-        stateList.forEach(state -> {
-                    if (state.getStateName().equals("DISPONIBLE")) bill.setStateId(state.getStateId());
-                });
+        bill.setStateId(searchIdAvailableState());
         bill.setBillId(LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMAAAA-hhmmss")));
+        bill.setDateBill(LocalDateTime.now());
         billProductModel.createBillProduct(new BillProduct(bill.getBillId(), productId,amountPurchased,null,especifications));
         String query = "INSERT INTO FACTURA(id_factura, fecha_factura, usuario_id, empresa_nit, estado_id) VALUES(?,?,?,?,?)";
         prepareBD(query);
+        this.preparedStatement.setString(1, bill.getBillId());
+        this.preparedStatement.setDate(2, (Date) Date.from(bill.getDateBill().atZone(ZoneId.systemDefault()).toInstant()));
+        this.preparedStatement.setString(3, bill.getUserId());
+        this.preparedStatement.setString(4, bill.getCompanyNIT());
+        this.preparedStatement.setString(5, bill.getStateId());
+        processQuery("create");
+        finishProcess();
     }
+
+    public Bill findBillById(String billId) throws SQLException {
+        String query = "SELECT * FROM FACTURA WHERE id_factura = ?";
+        prepareBD(query);
+        this.preparedStatement.setString(1, billId);
+        processQuery("query");
+        Bill bill = null;
+        if(this.resultSet.next()){
+            bill = new Bill(this.resultSet.getString("id_factura"),
+                    this.resultSet.getDate("fecha_factura").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),
+                    this.resultSet.getInt("precio_final"),this.resultSet.getString("usuario_id"),
+                    this.resultSet.getString("empresaNIT"), this.resultSet.getString("id_entrega"),
+                    this.resultSet.getString("estado_id"));
+        }
+        finishProcess();
+        return  bill;
+    }
+
+    public Bill findAvailableBill() throws  SQLException {
+        String query = "SELECT * FROM FACTURA WHERE id_estado = ?";
+        String stateAvailableId = searchIdAvailableState();
+        prepareBD(query);
+        this.preparedStatement.setString(1, stateAvailableId);
+        processQuery("query");
+        Bill bill = null;
+        if(this.resultSet.next()){
+            bill = new Bill(this.resultSet.getString("id_factura"),
+                    this.resultSet.getDate("fecha_factura").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),
+                    this.resultSet.getInt("precio_final"),this.resultSet.getString("usuario_id"),
+                    this.resultSet.getString("empresaNIT"), this.resultSet.getString("id_entrega"),
+                    this.resultSet.getString("estado_id"));
+        }
+        finishProcess();
+        return bill;
+    }
+
+
 
 }
