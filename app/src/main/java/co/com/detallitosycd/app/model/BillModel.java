@@ -107,6 +107,12 @@ public class BillModel {
         return bill;
     }
 
+    public void putProductInAnAvailableBill(String activeBillId, String productId,
+                                            String especifications, Integer amountPurchased) throws SQLException {
+        billProductModel.createBillProduct(new BillProduct(activeBillId,productId,amountPurchased, null, especifications));
+
+    }
+
 
 
 }
