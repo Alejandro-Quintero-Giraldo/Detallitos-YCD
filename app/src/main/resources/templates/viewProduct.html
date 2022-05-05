@@ -30,13 +30,20 @@
                 <strong>
                     <p class="name_attribute">Tipo de producto</p>
                 </strong><br>
-            <p class="value_attribute" th:text="${oneProduct.idProductType.toLowerCase()}"></p><br>
-                <!--<input type="submit" value="AÑADIR AL CARRITO" class="button"><br>-->
+            <p class="value_attribute" th:text="${oneProduct.idProductType}"></p><br>
                 <strong>
                     <p class="name_attribute">Descripcion De Productos</p>
 
                     <p class="value_attribute" th:text="${oneProduct.description}"></p>
                 </strong>
+            <form th:action="@{/bill/create}" method="post">
+                <label for="amountPurchased">Cantidad</label>
+                <input type="number" value="1" id="amountPurchased" name="amountPurchased" min="1" />
+
+                <input type="hidden" th:value="${oneProduct.productId}" name="productId" />
+                <input type="hidden" value="randomEspecifications" name="especifications" />
+                <input type="submit" value="AÑADIR AL CARRITO" class="button"><br>
+            </form>
         </div>
     </div>
     <!-- Footer -->

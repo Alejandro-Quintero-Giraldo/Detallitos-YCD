@@ -98,4 +98,9 @@ public class Bill {
         this.deliverId = deliverId;
         this.stateId = stateId;
     }
+
+    public Bill(String userId, String companyNIT) {
+        this.userId = userId;
+        this.companyNIT = companyNIT;
+    }
 }

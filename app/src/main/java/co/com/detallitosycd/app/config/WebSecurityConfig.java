@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/", "/register","/saveUser",
                 "/product/{id}","/product/","/catalogue/","/validate",
                 "/catalogue/{id}",
+                "/bill/available", "/bill/create",
                 "/assets/**",
                 "/styles/**",
                 "/js/**",

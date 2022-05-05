@@ -27,9 +27,10 @@ body{
 }
   
 .button{
-    background: linear-gradient(135deg, #ffffff, #db6ea8);
-    height: 10px;
-    margin: 1% 0
+    background: #db6ea8;
+    height: 10%;
+    margin: 1% 0;
+    font-color: #000;
 }
   
 label{
@@ -64,3 +65,4 @@ label{
     font-style: capitalize;
     font-size: 16pt;
 }
+

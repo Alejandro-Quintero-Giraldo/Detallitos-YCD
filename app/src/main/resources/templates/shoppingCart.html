@@ -11,6 +11,9 @@
         <div th:if="${activeBill != null}">
 
         </div>
+        <div th:unless="${activeBill != null}">
+            <p>No tienes facturas iniciadas. Agrega un producto al carrito para iniciar una factura</p>
+        </div>
     </div>
 
     <div th:replace="/fragments/footer :: footer"></div>

@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class BillModel {
 
@@ -25,6 +26,7 @@ public class BillModel {
     private ProductModel productModel;
     private BillProductModel billProductModel;
     private StateModel stateModel;
+
 
 
     private void prepareBD(String query) throws SQLException {
@@ -50,16 +52,19 @@ public class BillModel {
         this.connection = null;
     }
 
-    public  String searchIdAvailableState() throws SQLException {
+    public String searchIdAvailableState() throws SQLException {
+        stateModel = new StateModel();
         return stateModel.findAllState().stream()
                 .filter(state -> state.getStateName().equals("DISPONIBLE"))
-                .findFirst().get().getStateId();
+                .findAny().get().getStateId();
     }
 
     public void createBill(Bill bill, Integer amountPurchased, String especifications,String productId) throws SQLException {
         bill.setStateId(searchIdAvailableState());
-        bill.setBillId(LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMAAAA-hhmmss")));
+        bill.setBillId(LocalDateTime.now().format(DateTimeFormatter.ofPattern("ddMMyyyy-hhmmss")));
+        System.out.println("billID "+bill.getBillId());
         bill.setDateBill(LocalDateTime.now());
+        billProductModel = new BillProductModel();
         billProductModel.createBillProduct(new BillProduct(bill.getBillId(), productId,amountPurchased,null,especifications));
         String query = "INSERT INTO FACTURA(id_factura, fecha_factura, usuario_id, empresa_nit, estado_id) VALUES(?,?,?,?,?)";
         prepareBD(query);
@@ -90,7 +95,7 @@ public class BillModel {
     }
 
     public Bill findAvailableBill() throws  SQLException {
-        String query = "SELECT * FROM FACTURA WHERE id_estado = ?";
+        String query = "SELECT * FROM FACTURA WHERE estado_id = ?";
         String stateAvailableId = searchIdAvailableState();
         prepareBD(query);
         this.preparedStatement.setString(1, stateAvailableId);
@@ -110,7 +115,6 @@ public class BillModel {
     public void putProductInAnAvailableBill(String activeBillId, String productId,
                                             String especifications, Integer amountPurchased) throws SQLException {
         billProductModel.createBillProduct(new BillProduct(activeBillId,productId,amountPurchased, null, especifications));
-
     }
 
 
