@@ -17,7 +17,6 @@ public class BillProduct implements Serializable {
 
     @Column(name = "cantidad_comprada", nullable = false)
     private Integer amountPurchased;
-
     @Column(name = "subtotal", nullable = false)
     private Integer subTotal;
 

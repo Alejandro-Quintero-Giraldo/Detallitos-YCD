@@ -3,18 +3,13 @@ package co.com.detallitosycd.app.controller;
 import co.com.detallitosycd.app.entity.Bill;
 import co.com.detallitosycd.app.entity.BillProduct;
 import co.com.detallitosycd.app.entity.Product;
-import co.com.detallitosycd.app.model.BillModel;
-import co.com.detallitosycd.app.model.BillProductModel;
-import co.com.detallitosycd.app.model.CompanyModel;
-import co.com.detallitosycd.app.model.ProductModel;
+import co.com.detallitosycd.app.entity.State;
+import co.com.detallitosycd.app.model.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,12 +29,18 @@ public class BillController {
                              @RequestParam("especifications") String especifications,
                              @RequestParam("productId") String productId) throws SQLException {
         billModel = new BillModel();
-        CompanyModel companyModel = new CompanyModel();
-        Bill existsBill = billModel.findAvailableBill();
+        Bill existsBill = billModel.findAvailableBill(checkSession() != null
+                ? checkSession().getUsername() : null);
         if(existsBill != null){
-            billModel.putProductInAnAvailableBill(existsBill.getBillId(),productId,especifications,amountPurchased);
+            boolean result = billModel.putProductInAnAvailableBill(existsBill.getBillId(),productId,especifications,amountPurchased);
+            if(!result){
+                return "redirect:/bill/available?productExist";
+            }
         } else {
-            Bill bill = new Bill(checkSession().getUsername(), companyModel.findCompanyByNit("123").getNIT());
+            CompanyModel companyModel = new CompanyModel();
+            Bill bill = new Bill(checkSession() != null
+                    ? checkSession().getUsername() : null,
+                    companyModel.findCompanyByNit("123").getNIT());
             billModel.createBill(bill, amountPurchased,especifications,productId);
         }
         return "redirect:/bill/available";
@@ -48,7 +49,9 @@ public class BillController {
     @GetMapping("available")
     public String getAvailableBill(Model model) throws SQLException {
         billModel = new BillModel();
-        Bill existBill = billModel.findAvailableBill();
+        BillProductModel billProductModel = new BillProductModel();
+        Bill existBill = billModel.findAvailableBill(checkSession() != null
+                ? checkSession().getUsername() : null);
         if(existBill != null){
             model.addAttribute("activeBill", existBill);
             List<BillProduct> billProductList =  billProductModel.findBillProductsByBillId(existBill.getBillId());
@@ -59,6 +62,31 @@ public class BillController {
             model.addAttribute("activeBill", null);
         }
         return "shoppingCart";
+    }
+
+    @PostMapping("close")
+    public String closeBill(@RequestParam("billId") String billId) throws SQLException {
+        billModel = new BillModel();
+        StateModel stateModel = new StateModel();
+        Bill bill = billModel.findBillById(billId);
+        State state = stateModel.findStateById(bill.getStateId());
+        if(state.getStateName().equals("DISPONIBLE")){
+            State stateClose = stateModel.findAllState()
+                    .stream().filter(state1 -> state1.getStateName().equals("CERRADO"))
+                    .findAny().get();
+            billProductModel = new BillProductModel();
+            List<Product> productList = getProductList(billProductModel.findBillProductsByBillId(billId));
+            List<Integer> subtotalList = new ArrayList<>();
+            productList.forEach(product -> subtotalList.add(product.getProductPrice()));
+            Integer finalPrice = 0;
+            for (Integer subtotal : subtotalList) {
+                finalPrice += subtotal;
+            }
+            bill.setStateId(stateClose.getStateId());
+            bill.setFinalPrice(finalPrice);
+            billModel.updateBill(bill);
+        }
+        return "redirect:/bill/available";
     }
 
     private List<Product> getProductList(List<BillProduct> billProductList) {

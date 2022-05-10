@@ -104,3 +104,16 @@ const alertAccessDenied = () => {
         }
     })
 }
+
+const alertProductExistInBill = () => {
+    Swal.fire({
+            title: "¡El producto ya existe!",
+            text: "El producto agregado ya existe en la factura",
+            confirmButtonText: "¡Aceptar!",
+            confirmButtonColor: '#f27474',
+            icon: 'error',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+        });
+}
