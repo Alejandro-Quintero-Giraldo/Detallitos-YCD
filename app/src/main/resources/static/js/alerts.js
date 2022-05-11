@@ -117,3 +117,17 @@ const alertProductExistInBill = () => {
             allowEnterKey: false,
         });
 }
+
+const alertAskEspecificationsInBill = () => {
+    Swal.fire({
+                title: "¡Ingrese la información!",
+                text: "¿Qué especificaciones quieres añadir al producto que deseas? (opcional)",
+                confirmButtonText: "¡Aceptar!",
+                confirmButtonColor: '#3fc3ee',
+                icon: 'info',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
+
+            });
+}

@@ -75,11 +75,11 @@ public class BillController {
                     .stream().filter(state1 -> state1.getStateName().equals("CERRADO"))
                     .findAny().get();
             billProductModel = new BillProductModel();
-            List<Product> productList = getProductList(billProductModel.findBillProductsByBillId(billId));
             List<Integer> subtotalList = new ArrayList<>();
-            productList.forEach(product -> subtotalList.add(product.getProductPrice()));
+            billProductModel.findBillProductsByBillId(billId).forEach(billProduct -> subtotalList.add(billProduct.getSubTotal()));
             Integer finalPrice = 0;
             for (Integer subtotal : subtotalList) {
+                System.out.println("subtotal"+subtotal);
                 finalPrice += subtotal;
             }
             bill.setStateId(stateClose.getStateId());
