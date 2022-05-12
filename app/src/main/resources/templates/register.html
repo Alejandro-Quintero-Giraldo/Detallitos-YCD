@@ -35,22 +35,23 @@
 
             <div class="input-contenedor">
                 <i class="fas fa-user icon"></i>
-                <input type="number" th:field="*{userId}" name="userId" placeholder="Identificación" autofocus required>
+                <input type="number" th:field="*{userId}" name="userId" placeholder="Identificación"  pattern="([0-9])" autofocus required>
             </div>
             <div class="input-contenedor">
-                <input type="text" th:field="*{userName}" name="userName" placeholder="Nombre Completo" required>
+                <input type="text" th:field="*{userName}"  name="userName" placeholder="Nombre Completo" pattern="([A-Za-z ])"  required>
             </div>
             <div class="input-contenedor">
-                <input type="number" th:field="*{cellphone}" name="cellphone" placeholder="Celular" required>
+                <input type="number" th:field="*{cellphone}" name="cellphone" pattern="([0-9])" minlength="10" maxlength="10" placeholder="Celular" required>
             </div>
             <div class="input-contenedor">
-                <input type="text" th:field="*{address}" name="address" placeholder="Dirección" required>
+                <input type="text" th:field="*{address}" name="address"  placeholder="Dirección" minlength="10" maxlength="100"  required>
             </div>
             <div class="input-contenedor">
-                <input type="email" th:field="*{email}" name="email" placeholder="Correo Electronico" required>
+                <input type="email" th:field="*{email}" name="email" placeholder="Correo Electronico"
+                       pattern="([a-zA-Z0-9]([^ @&%$\\\/()=?¿!.,:;]|\d)+[a-zA-Z0-9][\.]){1,2}[a-zA-Z]{2,4}([\.][a-zA-Z]{2})?" required>
             </div>
             <div class="input-contenedor">
-                <input type="password" th:field="*{password}" name="password" placeholder="Contraseña" required>
+                <input type="password" th:field="*{password}" name="password" placeholder="Contraseña" minlength="8" required>
             </div>
             <input type="submit" value="Registrarse" class="button"><br>
             <p>Al enviar tus datos estarán seguros y no serán revelados.</p>

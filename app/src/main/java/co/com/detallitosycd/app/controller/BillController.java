@@ -27,10 +27,12 @@ public class BillController {
     @PostMapping("create")
     public String createBillOrPutProductInBill(@RequestParam("amountPurchased") Integer amountPurchased,
                              @RequestParam("especifications") String especifications,
-                             @RequestParam("productId") String productId) throws SQLException {
+                             @RequestParam("productId") String productId) throws SQLException, IllegalAccessException {
         billModel = new BillModel();
-        Bill existsBill = billModel.findAvailableBill(checkSession() != null
-                ? checkSession().getUsername() : null);
+        if(checkSession() == null){
+            return "redirect:/login";
+        }
+        Bill existsBill = billModel.findAvailableBill(checkSession().getUsername());
         if(existsBill != null){
             boolean result = billModel.putProductInAnAvailableBill(existsBill.getBillId(),productId,especifications,amountPurchased);
             if(!result){
@@ -79,7 +81,6 @@ public class BillController {
             billProductModel.findBillProductsByBillId(billId).forEach(billProduct -> subtotalList.add(billProduct.getSubTotal()));
             Integer finalPrice = 0;
             for (Integer subtotal : subtotalList) {
-                System.out.println("subtotal"+subtotal);
                 finalPrice += subtotal;
             }
             bill.setStateId(stateClose.getStateId());

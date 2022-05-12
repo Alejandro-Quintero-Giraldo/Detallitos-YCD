@@ -122,12 +122,51 @@ const alertAskEspecificationsInBill = () => {
     Swal.fire({
                 title: "¡Ingrese la información!",
                 text: "¿Qué especificaciones quieres añadir al producto que deseas? (opcional)",
-                confirmButtonText: "¡Aceptar!",
+                confirmButtonText: "Comprar",
                 confirmButtonColor: '#3fc3ee',
                 icon: 'info',
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 allowEnterKey: false,
-
+                input: 'text',
+                inputLabel: 'Especificaciones',
+                inputPlaceholder: 'Ingresa las especificaciones de tu producto',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                cancelButtonColor: '#f27474',
+                showLoaderOnConfirm: true,
+                inputAttributes: {
+                    autocapitalize: 'on',
+                    autocorrect: 'off'
+                },
+                preConfirm: (value) => {
+                    if(value.length != 0 && value.length < 10){
+                        Swal.showValidationMessage('Si vas a escribir especificaciones, tu respuesta debe tener al menos 10 caracteres')
+                    }
+                }
+            }).then((result) => {
+                if(result.isConfirmed){
+                console.log('value',result.value)
+                    Swal.fire({
+                        title: '¡Se ha registrado tu compra!',
+                        confirmButtonText: '¡Aceptar!',
+                        confirmButtonColor: '#a5dc86',
+                        icon: 'success'
+                    })
+                }
             });
+}
+
+const alertLoginRequired = () => {
+    Swal.fire({
+        title: "¡Inicie sesión!",
+        text: "Para realizar una compra debes iniciar sesión",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#3fc3ee',
+        icon: 'info'
+    }).then((result) => {
+        if (result.isConfirmed){
+            window.location.reload();
+        }
+    })
 }
