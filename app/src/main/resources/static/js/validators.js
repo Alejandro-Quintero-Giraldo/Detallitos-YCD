@@ -46,8 +46,18 @@ const formRegisterValidators = () => {
 }
 
 const validateLength = (value, lengthCondition, operator) => {
-    return operator === 'm' ? value < lengthCondition : value > lengthCondition;
+    return operator === 'm' ? value < lengthCondition : operator === 'M' ?  value > lengthCondition : null;
 }
+
+
+const validateMinLength = (value, lengthCondition) => {
+    return  value > lengthCondition;
+}
+
+const validateMaxLength = (value, lengthCondition) => {
+    return  value < lengthCondition;
+}
+
 
 const validateRegExp = (input, regExp) => {
     return input.match(regExp);

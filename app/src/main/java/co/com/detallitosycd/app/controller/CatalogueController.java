@@ -2,6 +2,7 @@ package co.com.detallitosycd.app.controller;
 
 import co.com.detallitosycd.app.entity.Catalogue;
 import co.com.detallitosycd.app.model.CatalogueModel;
+import co.com.detallitosycd.app.model.ProductCatalogueModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 public class CatalogueController {
 
     private CatalogueModel catalogueModel;
+    private ProductCatalogueModel productCatalogueModel;
 
     @GetMapping("/create")
     public String createPage(){
@@ -72,5 +74,11 @@ public class CatalogueController {
         catalogueModel = new CatalogueModel();
         catalogueModel.deleteCatalogue(id);
         return "?deleted";
+    }
+
+    @PostMapping("/addProduct")
+    public void addProductInCatalogue(@RequestParam("catalogueId") String catalogueId,
+                                        @RequestParam("productId") String productId){
+        productCatalogueModel = new ProductCatalogueModel();
     }
 }

@@ -170,3 +170,16 @@ const alertLoginRequired = () => {
         }
     })
 }
+
+const alertRegisterFailed = (message) => {
+    Swal.fire({
+        title: '¡Rellene los campos!',
+        text: message,
+        confirmButtonText: '¡Aceptar!',
+        confirmButtonColor: '#f27474',
+            icon: 'error',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+    })
+}
