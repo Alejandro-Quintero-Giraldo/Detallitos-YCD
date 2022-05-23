@@ -1,5 +1,5 @@
 
-const regExNumber = /[0-9][^.,$%&/()=!¡?¿"}{]/;
+const regExNumber = /[^.,]/ ///[0-9^.,$%&/()=!¡?¿"}{][]/;
 const regExName = /[a-zA-Z][^.,$%&/()=!¡?¿"}{]/;
 const regExAddress = /[A-Za-z\d# ]/;
 const regExEmail = /([a-zA-Z0-9]([^ @&%$\\\/()=?¿!.,:;]|\d)+[a-zA-Z0-9][\.]){1,2}[a-zA-Z]{2,4}([\.][a-zA-Z]{2})?/;
@@ -23,7 +23,7 @@ const formRegisterValidators = () => {
       validateInputNotNull(inputId) ? errorMessage = 'El identificador no puede estar vacío' 
     : validateMinLength(inputId.length, 8) ? errorMessage = 'El identificador debe tener mínimo 9 dígitos'
     : validateMaxLength(inputId.length, 11) ? errorMessage = 'El identificador debe tener máximo 10 dígitos'
-    : validateRegExp(inputId, regExNumber) ? errorMessage = 'El identificador tiene caracteres que no son permitidos'
+   // : validateRegExp(inputId, regExNumber) ? errorMessage = 'El identificador tiene caracteres que no son permitidos'
     : validateInputNotNull(inputname) ? errorMessage = 'El nombre no puede estar vacío'
     : validateRegExp(inputname,regExName) ? errorMessage = 'El nombre tiene caracteres que no son permitidos'
     : validateMinLength(inputname.length, 9) ? errorMessage = 'El nombre debe tener mínimo 10 caracteres'
@@ -68,4 +68,18 @@ const validateRegExp = (input, regExp) => {
 
 const validateInputNotNull = (input) => {
     return input === null || input === undefined || input === '';
+}
+
+const validateInputNumberNoPointComa = (event, input) => {
+    var code = (event.which) ? event.which : event.keyCode;
+    console.log('keypress', code);
+    if(code>=48 && code<=57) { 
+        errorMessage = '';
+      return true;
+    } else {
+        errorMessage = 'Ha añadido un caracter inválido en el '+ input;
+        isValid = false;
+        console.log('key ', errorMessage);
+      return false;
+    }
 }

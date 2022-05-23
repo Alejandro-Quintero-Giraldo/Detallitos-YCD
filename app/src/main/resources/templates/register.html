@@ -36,13 +36,13 @@
 
             <div class="input-contenedor">
                 <i class="fas fa-user icon"></i>
-                <input type="number" th:field="*{userId}"  onchange="formRegisterValidators()" name="userId" id="userId"  placeholder="Identificación"  required>
+                <input type="number" th:field="*{userId}" onkeypress="validateInputNumberNoPointComa(event, 'Documento')"  pattern="[0-9]+" onchange="formRegisterValidators()" name="userId" id="userId"  placeholder="Identificación"  required>
             </div>
             <div class="input-contenedor">
                 <input type="text" th:field="*{userName}" onchange="formRegisterValidators()" name="userName" id="userName"  placeholder="Nombre Completo"  required>
             </div>
             <div class="input-contenedor">
-                <input type="number" th:field="*{cellphone}" onchange="formRegisterValidators()" name="cellphone" id="cellphone" pattern="([0-9])"  placeholder="Celular" required>
+                <input type="number" th:field="*{cellphone}" onkeypress="validateInputNumberNoPointComa(event, 'Celular')" pattern="[0-9]+" onchange="formRegisterValidators()" name="cellphone" id="cellphone" placeholder="Celular" required>
             </div>
             <div class="input-contenedor">
                 <input type="text" th:field="*{address}" onchange="formRegisterValidators()" name="address" id="address"   placeholder="Dirección"  required>
