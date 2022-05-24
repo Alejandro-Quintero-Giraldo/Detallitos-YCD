@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrito de compras</title>
+    <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
+    <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
+</head>
+<body>
+    <div th:replace="/fragments/navbar :: navbar"></div>
+
+    <div th:if="${param.productExist}">
+        <script>alertProductExistInBill()</script>
+    </div>
+
+    <div class="container">
+        <div th:if="${activeBill != null}">
+            <span th:text="${activeBill.billId}"></span><br>
+            <span th:text="${activeBill.dateBill}"></span><br>
+            <span th:text="${activeBill.userId}"></span><br>
+            <span th:text="${activeBill.companyNIT}"></span><br>
+            <div th:each="product : ${products}">
+                <span th:text="${product.productId}"></span><br>
+                <span th:text="${product.productName}"></span><br>
+                <span th:text="${product.productPrice}"></span><br>
+                <span th:text="${product.description}"></span><br>
+                <span th:text="${product.image}"></span><br>
+            </div>
+            <div th:each="billProduct : ${billProducts}">
+                <span th:text="${billProduct.idProduct}"></span><br>
+                <span th:text="${billProduct.idBill}"></span><br>
+                <span th:text="${billProduct.amountPurchased}"></span><br>
+                <span th:text="${billProduct.subTotal}"></span><br>
+                <span th:text="${billProduct.especifications}"></span><br>
+            </div>
+            <form th:action="@{/bill/close}" method="post" >
+                <input type="hidden" name="billId" th:value="${activeBill.billId}" />
+                <div th:if="${#authorization.expression('isAuthenticated()')}">
+                    <input onclick="alertAskEspecificationsInBill()" value="button" />
+                </div>
+                <div th:unless="${#authorization.expression('isAuthenticated()')}">
+                    <input onclick="alertLoginRequired()" value="button" />
+                </div>
+            </form>
+            <!--<button onclick="alertAskEspecificationsInBill()">Verificar</button>-->
+        </div>
+        <div th:unless="${activeBill != null}">
+            <p>No tienes facturas iniciadas. Agrega un producto al carrito para iniciar una factura</p>
+        </div>
+    </div>
+
+    <div th:replace="/fragments/footer :: footer"></div>
+</body>
+</html>

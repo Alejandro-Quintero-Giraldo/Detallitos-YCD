@@ -47,6 +47,7 @@ public class BillProductModel {
     }
 
     public void createBillProduct(BillProduct billProduct) throws SQLException {
+        productModel = new ProductModel();
         Product product = productModel.findById(billProduct.getIdProduct());
         if(product == null){
             throw new IllegalArgumentException("El producto ingresado no existe en la base de datos");

@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/", "/register","/saveUser",
                 "/product/{id}","/product/","/catalogue/","/validate",
                 "/catalogue/{id}",
+                "/bill/available", "/bill/create", "/bill/close",
                 "/assets/**",
                 "/styles/**",
                 "/js/**",
@@ -56,15 +57,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/administrator/save", "/catalogue/create", "/catalogue/save",
                         "/catalogue/update/{id}", "/catalogue/put", "/catalogue/delete/{id}")
                 .hasRole("ADMINISTRATOR")
-                //.antMatchers("/login").anonymous()
+                .antMatchers("/login").anonymous()
                 .anyRequest().denyAll()
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().logout().invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
-                .permitAll();
-                //.and().exceptionHandling().accessDeniedPage("/accessDenied");
+                .permitAll()
+                .and().exceptionHandling().accessDeniedPage("/accessDenied");
     }
 
 }

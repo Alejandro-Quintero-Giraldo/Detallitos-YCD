@@ -12,12 +12,11 @@ public class BillProduct implements Serializable {
     private String idBill;
 
     @Id
-    @Column(name = "id_producto", length = 12, nullable = false)
+    @Column(name = "id_producto", length = 40, nullable = false)
     private String idProduct;
 
     @Column(name = "cantidad_comprada", nullable = false)
     private Integer amountPurchased;
-
     @Column(name = "subtotal", nullable = false)
     private Integer subTotal;
 

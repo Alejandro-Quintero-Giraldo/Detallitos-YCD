@@ -1,5 +1,7 @@
 package co.com.detallitosycd.app.entity;
 
+import org.thymeleaf.extras.springsecurity5.auth.Authorization;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,6 +21,14 @@ public class State {
 
     public void setStateId(String stateId) {
         this.stateId = stateId;
+    }
+
+    @Override
+    public String toString() {
+        return "State{" +
+                "stateId='" + stateId + '\'' +
+                ", stateName='" + stateName + '\'' +
+                '}';
     }
 
     public String getStateName() {

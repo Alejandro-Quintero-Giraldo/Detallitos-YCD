@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Product {
 
     @Id
-    @Column(name = "id_producto", length = 12, nullable = false)
+    @Column(name = "id_producto", length = 40, nullable = false)
     private String productId;
 
     @Column(name = "nombre_producto", length = 50, nullable = false)
