@@ -13,6 +13,7 @@
     <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
     <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
     <script th:src="@{/js/validators.js}" type="text/javascript"></script>
+    <div th:replace="/common/axios_config :: axios"></div>
 </head>
 
 <body>
@@ -36,24 +37,24 @@
 
             <div class="input-contenedor">
                 <i class="fas fa-user icon"></i>
-                <input type="number" th:field="*{userId}" onkeypress="validateInputNumberNoPointComa(event, 'Documento')"  pattern="[0-9]+" onchange="formRegisterValidators()" name="userId" id="userId"  placeholder="Identificación"  required>
+                <input type="number" th:field="*{userId}"  onkeypress="validateInputNumberNoPointComa(event, 'Documento')" onchange="formRegisterValidators()" pattern="[0-9]+" name="userId" id="userId"  placeholder="Identificación"  required>
             </div>
             <div class="input-contenedor">
-                <input type="text" th:field="*{userName}" onchange="formRegisterValidators()" name="userName" id="userName"  placeholder="Nombre Completo"  required>
+                <input type="text" th:field="*{userName}" onkeypress="formRegisterValidators()" onchange="formRegisterValidators()" name="userName" id="userName"  placeholder="Nombre Completo"  required>
             </div>
             <div class="input-contenedor">
-                <input type="number" th:field="*{cellphone}" onkeypress="validateInputNumberNoPointComa(event, 'Celular')" pattern="[0-9]+" onchange="formRegisterValidators()" name="cellphone" id="cellphone" placeholder="Celular" required>
+                <input type="number" th:field="*{cellphone}" onkeypress="validateInputNumberNoPointComa(event, 'Celular')" onchange="formRegisterValidators()" pattern="[0-9]+" name="cellphone" id="cellphone" placeholder="Celular" required>
             </div>
             <div class="input-contenedor">
-                <input type="text" th:field="*{address}" onchange="formRegisterValidators()" name="address" id="address"   placeholder="Dirección"  required>
+                <input type="text" th:field="*{address}" onkeypress="formRegisterValidators()" onchange="formRegisterValidators()" name="address" id="address"   placeholder="Dirección"  required>
             </div>
             <div class="input-contenedor">
-                <input type="email" th:field="*{email}" onchange="formRegisterValidators()" name="email" id="email"  placeholder="Correo Electronico" required>
+                <input type="email" th:field="*{email}" onkeypress="formRegisterValidators()" onchange="formRegisterValidators()" name="email" id="email"  placeholder="Correo Electronico" required>
             </div>
             <div class="input-contenedor">
-                <input type="password" th:field="*{password}" onchange="formRegisterValidators()" name="password" id="password" placeholder="Contraseña" required>
+                <input type="password" th:field="*{password}" onkeypress="formRegisterValidators()" onchange="formRegisterValidators()" name="password" id="password" placeholder="Contraseña" required>
             </div>
-            <input type="submit"  value="Registrarse" id="submit" class="button" onclick="alertRegisterFailed(formRegisterValidators())" disabled><br>
+            <input type="button"  value="Registrarse" id="submit" class="button" onclick="alertAnyError()" ><br>
             <p>Al enviar tus datos estarán seguros y no serán revelados.</p>
             <p>¿Ya tienes una Cuenta? <a class="link" th:href="@{/login}">Iniciar Sesion</a></p>
         </div>
