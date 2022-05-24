@@ -17,15 +17,18 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Segoe UI";
 }
+
 img {
   display: block;
-  max-width: 99%;
+  max-width: 97%;
   margin 3%;
-  border-radius 10%;
-  webkit-transform:rotateY(180deg);
-  box-shadow:0px 0px 15px 15px #FBE7E3;
+  display: inline-block;
+  vertical-align: middle;
 
+}
 
+.design__item img {
+    box-shadow: 0px 0px 35px #E8A9DA;
 }
 
 p {
@@ -36,6 +39,11 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+section-carrousel{
+margin: 30px;
+
 }
 /*Estilos de Main*/
 .main{
@@ -84,25 +92,21 @@ p {
   color: white;
 }
 .container-design {
-  margin: 20px 0;
-
-
+    margin-right: 70px;
+    margin-left: 70px;
 }
 .design__item{
   position: relative;
+  padding: 0px;
 
-  }
-
-
-
+}
 .design__item:before {
   content: "";
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.4);
+  background: none;
   position: absolute;
-  top: 0;
-  left: 0;
+padding: 0px;
 
 }
 .design__title{
@@ -110,11 +114,12 @@ p {
   top: 40%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  color: whitesmoke;
+  color: black;
   font-size: 1.8em;
   width: 100%;
   text-align: center;
 }
+
 .design__title:before {
   content: "";
   width: 200px;
@@ -265,9 +270,9 @@ p {
     height: 400px;
   }
   .container-design .design__img{
-    height: 100%;
+    height: 97%;
     width: 100%;
-    object-fit: cover;
+
   }
   .container-design, .container-tips{
     display: flex;
