@@ -48,7 +48,7 @@
                     <input type="submit" value="button" />
                 </div>
                 <div th:unless="${#authorization.expression('isAuthenticated()')}">
-                    <input onclick="alertLoginRequired()" value="button" />
+                    <input type="button" onclick="alertLoginRequired()" value="button" />
                 </div>
             </form>
         </div>

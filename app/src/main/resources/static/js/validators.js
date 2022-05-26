@@ -15,7 +15,7 @@ const formRegisterValidators = () => {
     const inputAddress = document.getElementById('address').value;
     const inputEmail = document.getElementById('email').value;
     const inputPassword = document.getElementById('password').value;
-    const inputSubmit = document.getElementById('submit');
+    
 
     errorMessage = ''
     console.log('inputname ', inputname.length, ' a', inputname);
@@ -70,19 +70,23 @@ const validateInputNotNull = (input) => {
 }
 
 const alertAnyError = () => {
-
+    const inputSubmit = document.getElementById('submit');
     formRegisterValidators();
+
     if (!isValid) {
+        inputSubmit.getAttribute('type') !== 'button' ? inputSubmit.setAttribute('type', 'button') : null 
         return alertRegisterFailed(errorMessage);
     } else {
-        axios.post('localhost:8080/saveUser', {
-            userId: document.getElementById('userId').value,
-            userName: document.getElementById('userName').value,
-            cellphone: document.getElementById('cellphone').value,
-            address: document.getElementById('address').value,
-            email: document.getElementById('email').value,
-            password: document.getElementById('password').value
-        })
+        
+        inputSubmit.setAttribute('type','submit');
+        // axios.post('localhost:8080/saveUser', {
+        //     userId: document.getElementById('userId').value,
+        //     userName: document.getElementById('userName').value,
+        //     cellphone: document.getElementById('cellphone').value,
+        //     address: document.getElementById('address').value,
+        //     email: document.getElementById('email').value,
+        //     password: document.getElementById('password').value
+        // })
     }
 }
 
@@ -97,6 +101,6 @@ const validateInputNumberNoPointComa = (event, input) => {
         errorMessage = 'Ha añadido un caracter inválido en el ' + input;
         isValid = false;
         console.log('key ', errorMessage);
-        return false;
+        return alertRegisterFailed(errorMessage);
     }
 }
