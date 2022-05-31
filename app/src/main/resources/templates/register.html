@@ -54,7 +54,7 @@
             <div class="input-contenedor">
                 <input type="password" th:field="*{password}" onkeypress="formRegisterValidators()" onchange="formRegisterValidators()" name="password" id="password" placeholder="Contraseña" required>
             </div>
-            <input type="button"  value="Registrarse" id="submit" class="button" onclick="alertAnyError()" ><br>
+            <input type="button"  value="Registrarse" id="submit" class="button" onclick="alertAnyError(false)" ><br>
             <p>Al enviar tus datos estarán seguros y no serán revelados.</p>
             <p>¿Ya tienes una Cuenta? <a class="link" th:href="@{/login}">Iniciar Sesion</a></p>
         </div>

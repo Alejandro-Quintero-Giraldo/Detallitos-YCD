@@ -1,14 +1,17 @@
 package co.com.detallitosycd.app.controller;
 
 import co.com.detallitosycd.app.entity.Catalogue;
+import co.com.detallitosycd.app.entity.Product;
 import co.com.detallitosycd.app.model.CatalogueModel;
 import co.com.detallitosycd.app.model.ProductCatalogueModel;
+import co.com.detallitosycd.app.model.ProductModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/catalogue")
@@ -16,6 +19,7 @@ public class CatalogueController {
 
     private CatalogueModel catalogueModel;
     private ProductCatalogueModel productCatalogueModel;
+    private ProductModel productModel;
 
     @GetMapping("/create")
     public String createPage(){
@@ -46,6 +50,12 @@ public class CatalogueController {
     public String findAllCatalogues(Model model) throws SQLException {
         catalogueModel = new CatalogueModel();
         List<Catalogue> catalogueList = catalogueModel.findAllCatalogues();
+        if(catalogueList.size() == 0){
+            List<Product> productList = productModel.findProductsVisibles();
+            if (productList.size() >= 9){
+            }
+            catalogueModel.createCatalogue(new Catalogue(UUID.randomUUID().toString(),"Productos destacados", "Este es el catalogo de productos destacados"));
+        }
         model.addAttribute("catalogueList", catalogueList);
         return "";
     }

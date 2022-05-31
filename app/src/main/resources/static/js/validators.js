@@ -15,7 +15,7 @@ const formRegisterValidators = () => {
     const inputAddress = document.getElementById('address').value;
     const inputEmail = document.getElementById('email').value;
     const inputPassword = document.getElementById('password').value;
-    
+    isValid = false
 
     errorMessage = ''
     console.log('inputname ', inputname.length, ' a', inputname);
@@ -31,17 +31,8 @@ const formRegisterValidators = () => {
                                     : validateMinLength(inputAddress.length, 7) ? errorMessage = 'La dirección debe tener mínimo 7 caracteres'
                                         : validateRegExp(inputAddress, regExAddress) ? errorMessage = 'La dirección tiene caracteres que no son permitidos'
                                             : validateMaxLength(inputAddress.length, 100) ? errorMessage = 'La dirección debe tener máximo 100 caracteres'
-                                                : validateInputNotNull(inputEmail) ? errorMessage = 'El correo no puede estar vacío'
-                                                    : validateRegExp(inputEmail, regExEmail) ? errorMessage = 'El email no cumple con el formato de un correo electrónico'
-                                                        : validateMinLength(inputPassword.length, 7) ? errorMessage = 'La contraseña debe tener mínimo 8 caracteres'
-                                                            : isValid = true
-    // if(isValid){
-    //     inputSubmit.removeAttribute('disabled');
-    //     console.log('Pasa expresiones regulares');
-    // } else {
-    //     inputSubmit.hasAttribute('disabled') ? null : inputSubmit.setAttribute('disabled', 'true');
-    //     console.log('inputId ', inputId.length, ' a', inputId)
-    // }
+                                                : validateEmailAndPassword(inputEmail, inputPassword);
+    
     console.log('errorMessage', errorMessage)
 }
 
@@ -69,16 +60,17 @@ const validateInputNotNull = (input) => {
     return input === null || input === undefined || input === '';
 }
 
-const alertAnyError = () => {
+const alertAnyError = (hasAlert) => {
     const inputSubmit = document.getElementById('submit');
-    formRegisterValidators();
-
     if (!isValid) {
-        inputSubmit.getAttribute('type') !== 'button' ? inputSubmit.setAttribute('type', 'button') : null 
+        inputSubmit.getAttribute('type') !== 'button' ? inputSubmit.setAttribute('type', 'button') : null
         return alertRegisterFailed(errorMessage);
     } else {
-        
-        inputSubmit.setAttribute('type','submit');
+
+        inputSubmit.setAttribute('type', 'submit');
+        if(hasAlert){
+            return alertAskEspecificationsInProduct();
+        }
         // axios.post('localhost:8080/saveUser', {
         //     userId: document.getElementById('userId').value,
         //     userName: document.getElementById('userName').value,
@@ -95,7 +87,6 @@ const validateInputNumberNoPointComa = (event, input) => {
     console.log('keypress', code);
     if (code >= 48 && code <= 57) {
         errorMessage = '';
-        formRegisterValidators();
         return true;
     } else {
         errorMessage = 'Ha añadido un caracter inválido en el ' + input;
@@ -103,4 +94,26 @@ const validateInputNumberNoPointComa = (event, input) => {
         console.log('key ', errorMessage);
         return alertRegisterFailed(errorMessage);
     }
+}
+
+const formLoginValidators = () => {
+    const inputEmail = document.getElementById('username').value;
+    const inputPassword = document.getElementById('password').value;
+    isValid = false
+    validateEmailAndPassword(inputEmail, inputPassword);
+
+}
+
+function validateEmailAndPassword(inputEmail, inputPassword) {
+    validateInputNotNull(inputEmail) ? errorMessage = 'El correo no puede estar vacío'
+        : validateRegExp(inputEmail, regExEmail) ? errorMessage = 'El email no cumple con el formato de un correo electrónico'
+            : validateMinLength(inputPassword.length, 7) ? errorMessage = 'La contraseña debe tener mínimo 8 caracteres'
+                : isValid = true;
+}
+
+const formViewProductValidators = () => {
+    const inputAmount = document.getElementById('amountPurchased').value;
+    isValid = false
+    validateInputNotNull(inputAmount) ? errorMessage = 'La cantidad no puede estar vacía'
+    : isValid = true
 }

@@ -36,13 +36,12 @@
             <form th:action="@{/bill/close}" method="post" >
                 <input type="hidden" name="billId" th:value="${activeBill.billId}" />
                 <div th:if="${#authorization.expression('isAuthenticated()')}">
-                    <input onclick="alertAskEspecificationsInBill()" value="button" />
+                    <input type="button" onclick="alertConfirmBill()" value="Comprar" id="submit" />
                 </div>
                 <div th:unless="${#authorization.expression('isAuthenticated()')}">
-                    <input onclick="alertLoginRequired()" value="button" />
+                    <input type="button" onclick="alertLoginRequired()" value="Comprar" />
                 </div>
             </form>
-            <!--<button onclick="alertAskEspecificationsInBill()">Verificar</button>-->
         </div>
         <div th:unless="${activeBill != null}">
             <p>No tienes facturas iniciadas. Agrega un producto al carrito para iniciar una factura</p>

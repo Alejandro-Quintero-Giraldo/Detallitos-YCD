@@ -77,7 +77,7 @@ function alertProductUpdated() {
     })
 }
 
-function alertSupportLoginRequired(){
+function alertSupportLoginRequired() {
     Swal.fire({
         title: "¡Inicie sesión!",
         text: "Para enviar un mensaje a nuestro equipo de soporte, debe iniciar sesion",
@@ -99,7 +99,7 @@ const alertAccessDenied = () => {
         allowEnterKey: false,
         width: "50%"
     }).then((result) => {
-        if(result.isConfirmed){
+        if (result.isConfirmed) {
             window.location.assign('/');
         }
     })
@@ -107,54 +107,63 @@ const alertAccessDenied = () => {
 
 const alertProductExistInBill = () => {
     Swal.fire({
-            title: "¡El producto ya existe!",
-            text: "El producto agregado ya existe en la factura",
-            confirmButtonText: "¡Aceptar!",
-            confirmButtonColor: '#f27474',
-            icon: 'error',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
-        });
+        title: "¡El producto ya existe!",
+        text: "El producto agregado ya existe en la factura",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#f27474',
+        icon: 'error',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+    });
 }
 
-const alertAskEspecificationsInBill = () => {
+const alertAskEspecificationsInProduct = () => {
     Swal.fire({
-                title: "¡Ingrese la información!",
-                text: "¿Qué especificaciones quieres añadir al producto que deseas? (opcional)",
-                confirmButtonText: "Comprar",
-                confirmButtonColor: '#3fc3ee',
-                icon: 'info',
-                allowOutsideClick: false,
+        title: "¡Ingrese la información!",
+        text: "¿Qué especificaciones quieres añadir al producto que deseas? (opcional)",
+        confirmButtonText: "Agregar",
+        confirmButtonColor: '#3fc3ee',
+        icon: 'info',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        input: 'text',
+        inputLabel: 'Especificaciones',
+        inputPlaceholder: 'Ingresa las especificaciones de tu producto',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#f27474',
+        showLoaderOnConfirm: true,
+        inputAttributes: {
+            autocapitalize: 'on',
+            autocorrect: 'off'
+        },
+        preConfirm: (value) => {
+            if (value.length != 0 && value.length < 10) {
+                Swal.showValidationMessage('Si vas a escribir especificaciones, tu respuesta debe tener al menos 10 caracteres')
+            }
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            console.log('value', result.value)
+            Swal.fire({
+                title: '¡Se ha registrado el producto a tu compra!',
+                confirmButtonText: '¡Aceptar!',
+                confirmButtonColor: '#a5dc86',
+                icon: 'success',
+                llowOutsideClick: false,
                 allowEscapeKey: false,
                 allowEnterKey: false,
-                input: 'text',
-                inputLabel: 'Especificaciones',
-                inputPlaceholder: 'Ingresa las especificaciones de tu producto',
-                showCancelButton: true,
-                cancelButtonText: 'Cancelar',
-                cancelButtonColor: '#f27474',
-                showLoaderOnConfirm: true,
-                inputAttributes: {
-                    autocapitalize: 'on',
-                    autocorrect: 'off'
-                },
-                preConfirm: (value) => {
-                    if(value.length != 0 && value.length < 10){
-                        Swal.showValidationMessage('Si vas a escribir especificaciones, tu respuesta debe tener al menos 10 caracteres')
-                    }
+            }).then(res => {
+                if (res.isConfirmed) {
+                    const inputEspecifications = document.getElementById('especifications');
+                    inputEspecifications.value = result.value;
+
                 }
-            }).then((result) => {
-                if(result.isConfirmed){
-                console.log('value',result.value)
-                    Swal.fire({
-                        title: '¡Se ha registrado tu compra!',
-                        confirmButtonText: '¡Aceptar!',
-                        confirmButtonColor: '#a5dc86',
-                        icon: 'success'
-                    })
-                }
-            });
+            })
+        }
+    });
 }
 
 const alertLoginRequired = () => {
@@ -165,7 +174,7 @@ const alertLoginRequired = () => {
         confirmButtonColor: '#3fc3ee',
         icon: 'info'
     }).then((result) => {
-        if (result.isConfirmed){
+        if (result.isConfirmed) {
             window.location.reload();
         }
     })
@@ -173,13 +182,45 @@ const alertLoginRequired = () => {
 
 const alertRegisterFailed = (message) => {
     Swal.fire({
-        title: '¡Rellene los campos!',
+        title: '¡El formulario es inválido!',
         text: message,
         confirmButtonText: '¡Aceptar!',
         confirmButtonColor: '#f27474',
-            icon: 'error',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            allowEnterKey: false,
+        icon: 'error',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: true,
+    })
+}
+
+const alertConfirmBill = () => {
+    Swal.fire({
+        title: '¿Está seguro de que desea realizar esta compra?',
+        confirmButtonText: "Comprar",
+        confirmButtonColor: '#3fc3ee',
+        icon: 'info',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#f27474',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const inputSubmit = document.getElementById('submit');
+            inputSubmit.setAttribute('type', 'submit');
+
+            Swal.fire({
+                title: '¡Se ha guardado tu compra!',
+                confirmButtonText: '¡Aceptar!',
+                confirmButtonColor: '#a5dc86',
+                icon: 'success'
+            }).then((res) => {
+                if (res.isConfirmed) {
+                    document.querySelector('#submit').click();
+                }
+            })
+
+        }
     })
 }
