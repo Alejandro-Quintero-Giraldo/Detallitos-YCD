@@ -27,9 +27,9 @@ public class BillController {
     @PostMapping("create")
     public String createBillOrPutProductInBill(@RequestParam("amountPurchased") Integer amountPurchased,
                              @RequestParam("especifications") String especifications,
-                             @RequestParam("productId") String productId) throws SQLException, IllegalAccessException {
+                             @RequestParam("productId") String productId) throws SQLException {
         billModel = new BillModel();
-        if(checkSession() == null){
+        if(checkSession() == null) {
             return "redirect:/login";
         }
         Bill existsBill = billModel.findAvailableBill(checkSession().getUsername());
@@ -45,7 +45,7 @@ public class BillController {
                     companyModel.findCompanyByNit("123").getNIT());
             billModel.createBill(bill, amountPurchased,especifications,productId);
         }
-        return "redirect:/bill/available";
+        return "redirect:/bill/available?productAdded";
     }
 
     @GetMapping("available")

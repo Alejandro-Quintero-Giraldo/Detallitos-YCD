@@ -147,21 +147,11 @@ const alertAskEspecificationsInProduct = () => {
     }).then((result) => {
         if (result.isConfirmed) {
             console.log('value', result.value)
-            Swal.fire({
-                title: '¡Se ha registrado el producto a tu compra!',
-                confirmButtonText: '¡Aceptar!',
-                confirmButtonColor: '#a5dc86',
-                icon: 'success',
-                llowOutsideClick: false,
-                allowEscapeKey: false,
-                allowEnterKey: false,
-            }).then(res => {
-                if (res.isConfirmed) {
-                    const inputEspecifications = document.getElementById('especifications');
-                    inputEspecifications.value = result.value;
-
-                }
-            })
+            const inputSubmit = document.getElementById('submit');
+            inputSubmit.setAttribute('type', 'submit');
+            const inputEspecifications = document.getElementById('especifications');
+            inputEspecifications.value = result.value;
+            document.querySelector('#submit').click();
         }
     });
 }
@@ -193,9 +183,22 @@ const alertRegisterFailed = (message) => {
     })
 }
 
+const alertProductAddedInBill = () => {
+    Swal.fire({
+        title: '¡Operación exitosa!',
+        text: '¡Se ha registrado el producto a tu compra!',
+        confirmButtonText: '¡Aceptar!',
+        confirmButtonColor: '#a5dc86',
+        icon: 'success',
+        llowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+    })
+}
 const alertConfirmBill = () => {
     Swal.fire({
-        title: '¿Está seguro de que desea realizar esta compra?',
+        title: 'Confirme la operación',
+        text: '¿Está seguro de que desea realizar esta compra?',
         confirmButtonText: "Comprar",
         confirmButtonColor: '#3fc3ee',
         icon: 'info',
@@ -211,16 +214,18 @@ const alertConfirmBill = () => {
             inputSubmit.setAttribute('type', 'submit');
 
             Swal.fire({
-                title: '¡Se ha guardado tu compra!',
+                title: '¡Se ha registrado tu compra!',
                 confirmButtonText: '¡Aceptar!',
                 confirmButtonColor: '#a5dc86',
-                icon: 'success'
+                icon: 'success',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false,
             }).then((res) => {
                 if (res.isConfirmed) {
                     document.querySelector('#submit').click();
                 }
             })
-
         }
     })
 }

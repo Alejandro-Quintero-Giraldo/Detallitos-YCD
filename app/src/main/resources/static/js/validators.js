@@ -66,11 +66,15 @@ const alertAnyError = (hasAlert) => {
         inputSubmit.getAttribute('type') !== 'button' ? inputSubmit.setAttribute('type', 'button') : null
         return alertRegisterFailed(errorMessage);
     } else {
-
-        inputSubmit.setAttribute('type', 'submit');
         if(hasAlert){
+            const inputAmount = document.getElementById('amountPurchased').value;
+            if(inputAmount > 10){
+                return alertRegisterFailed('El valor del campo cantidad es mayor a 10');
+            }
             return alertAskEspecificationsInProduct();
         }
+        inputSubmit.setAttribute('type', 'submit');
+        
         // axios.post('localhost:8080/saveUser', {
         //     userId: document.getElementById('userId').value,
         //     userName: document.getElementById('userName').value,

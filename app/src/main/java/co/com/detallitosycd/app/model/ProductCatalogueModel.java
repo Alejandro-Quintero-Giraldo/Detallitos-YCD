@@ -1,5 +1,7 @@
 package co.com.detallitosycd.app.model;
 
+import co.com.detallitosycd.app.entity.Catalogue;
+import co.com.detallitosycd.app.entity.Product;
 import co.com.detallitosycd.app.entity.ProductCatalogue;
 import co.com.detallitosycd.app.model.conection.Conection;
 
@@ -19,6 +21,8 @@ public class ProductCatalogueModel {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+    private ProductModel productModel;
+    private CatalogueModel catalogueModel;
 
     private void prepareBD(String query) throws SQLException {
         this.connection = Conection.conect();
@@ -45,13 +49,19 @@ public class ProductCatalogueModel {
         this.connection = null;
     }
 
-    public void createProductCatalogue(ProductCatalogue productCatalogue) throws SQLException {
+    public boolean createProductCatalogue(ProductCatalogue productCatalogue) throws SQLException {
+        Product product = productModel.findById(productCatalogue.getIdProduct());
+        Catalogue catalogue = catalogueModel.findCatalogueById(productCatalogue.getIdCatalogue());
+        if(product == null || catalogue == null){
+            return false;
+        }
         String query = "INSERT INTO PRODUCTO_CATALOGO(producto_id, catalogo_id) VALUES (?,?)";
         prepareBD(query);
         this.preparedStatement.setString(1, productCatalogue.getIdProduct());
         this.preparedStatement.setString(2, productCatalogue.getIdCatalogue());
         processQuery("create");
         finishProcess();
+        return true;
     }
 
     public List<ProductCatalogue> findProductCatalogueByCatalogueId(String id) throws SQLException {

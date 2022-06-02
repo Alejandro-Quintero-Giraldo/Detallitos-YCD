@@ -6,7 +6,6 @@ import co.com.detallitosycd.app.model.conection.Conection;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Level;
@@ -113,9 +112,11 @@ public class BillModel {
         boolean billProductExists = billProductList.stream()
                 .filter(billProduct1 -> billProduct1.getIdProduct().equals(productId))
                 .anyMatch(billProduct1 -> billProduct1 != null);
+        System.out.println("billProductExists "+billProductExists);
         if(billProductExists){
             return false;
         } else {
+            System.out.println("error");
             billProductModel.createBillProduct(new BillProduct(activeBillId, productId, amountPurchased, null, especifications));
             return true;
         }

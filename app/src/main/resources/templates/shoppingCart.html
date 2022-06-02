@@ -12,6 +12,9 @@
     <div th:if="${param.productExist}">
         <script>alertProductExistInBill()</script>
     </div>
+    <div th:if="${param.productAdded}">
+        <script>alertProductAddedInBill()</script>
+    </div>
 
     <div class="container">
         <div th:if="${activeBill != null}">

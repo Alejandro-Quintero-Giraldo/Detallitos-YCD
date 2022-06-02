@@ -1,6 +1,7 @@
 package co.com.detallitosycd.app.model;
 
 import co.com.detallitosycd.app.entity.Catalogue;
+import co.com.detallitosycd.app.entity.ProductCatalogue;
 import co.com.detallitosycd.app.model.conection.Conection;
 import org.w3c.dom.stylesheets.LinkStyle;
 
@@ -19,6 +20,7 @@ public class CatalogueModel {
     private Connection connection;
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
+    private ProductCatalogueModel productCatalogueModel;
 
     private void prepareBD(String query) throws SQLException {
         this.connection = Conection.conect();
@@ -78,6 +80,22 @@ public class CatalogueModel {
             Catalogue catalogue = new Catalogue(this.resultSet.getString("id_catalogo"),
                     this.resultSet.getString("nombre_catalogo"), this.resultSet.getString("descripcion"));
             catalogueList.add(catalogue);
+        }
+        finishProcess();
+        catalogueList.stream().sorted();
+        return catalogueList;
+    }
+
+    public List<Catalogue> findAllCataloguesVisibles() throws SQLException {
+        String query = "SELECT * FROM CATALOGO";
+        prepareBD(query);
+        processQuery("query");
+        List<Catalogue> catalogueList = new ArrayList<>();
+        while(this.resultSet.next()){
+            Catalogue catalogue = new Catalogue(this.resultSet.getString("id_catalogo"),
+                    this.resultSet.getString("nombre_catalogo"), this.resultSet.getString("descripcion"));
+            if(productCatalogueModel.findProductCatalogueByCatalogueId(catalogue.getCatalogueId()).size() > 0)
+                catalogueList.add(catalogue);
         }
         finishProcess();
         catalogueList.stream().sorted();
