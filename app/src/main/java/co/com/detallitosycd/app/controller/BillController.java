@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,9 +86,21 @@ public class BillController {
             }
             bill.setStateId(stateClose.getStateId());
             bill.setFinalPrice(finalPrice);
+            bill.setDateBill(LocalDateTime.now());
             billModel.updateBill(bill);
         }
         return "redirect:/bill/available";
+    }
+
+    @PostMapping("deleteProduct")
+    public String deleteProductInBill(@RequestParam("billId") String billId,
+                                      @RequestParam("productId") String productId) throws SQLException {
+        billProductModel = new BillProductModel();
+        boolean result = billProductModel.deleteBillProduct(billId, productId);
+        if(!result){
+            return "?error";
+        }
+        return "redirect:/bill/available?productDeleted";
     }
 
     private List<Product> getProductList(List<BillProduct> billProductList) {

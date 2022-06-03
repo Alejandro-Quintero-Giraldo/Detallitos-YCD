@@ -1,5 +1,6 @@
 package co.com.detallitosycd.app.model;
 
+import co.com.detallitosycd.app.entity.Bill;
 import co.com.detallitosycd.app.entity.BillProduct;
 import co.com.detallitosycd.app.entity.Product;
 import co.com.detallitosycd.app.model.conection.Conection;
@@ -97,12 +98,20 @@ public class BillProductModel {
         finishProcess();
     }
 
-    public void deleteBillProduct(String idBill, String idProduct) throws SQLException {
+    public boolean deleteBillProduct(String idBill, String idProduct) throws SQLException {
+        BillModel billModel = new BillModel();
+        productModel = new ProductModel();
+        Bill bill = billModel.findBillById(idBill);
+        Product product = productModel.findById(idProduct);
+        if(bill == null || product == null){
+            return false;
+        }
         String query = "DELETE FROM FACTURA_PRODUCTO WHERE id_factura = ? AND id_producto = ?";
         prepareBD(query);
         this.preparedStatement.setString(1, idBill);
         this.preparedStatement.setString(2, idProduct);
         processQuery("delete");
         finishProcess();
+        return true;
     }
 }

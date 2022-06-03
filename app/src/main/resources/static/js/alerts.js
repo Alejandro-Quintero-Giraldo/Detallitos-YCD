@@ -195,6 +195,20 @@ const alertProductAddedInBill = () => {
         allowEnterKey: false,
     })
 }
+
+const alertProductDeletedInBill = () => {
+    Swal.fire({
+        title: '¡Operación exitosa!',
+        text: '¡Se ha eliminado el producto de tu compra!',
+        confirmButtonText: '¡Aceptar!',
+        confirmButtonColor: '#a5dc86',
+        icon: 'success',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+    })
+}
+
 const alertConfirmBill = () => {
     Swal.fire({
         title: 'Confirme la operación',

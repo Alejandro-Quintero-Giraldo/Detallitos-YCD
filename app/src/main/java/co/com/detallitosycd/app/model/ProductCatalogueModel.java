@@ -34,8 +34,6 @@ public class ProductCatalogueModel {
             this.resultSet = this.preparedStatement.executeQuery();
         } else if(action.equals("create") || action.equals("update") || action.equals("delete")){
             this.preparedStatement.execute();
-        } else if(action.equals("products")) {
-            this.resultSet = this.preparedStatement.executeQuery();
         }
         LOGGER.log(Level.INFO, this.preparedStatement.toString());
     }
@@ -94,13 +92,19 @@ public class ProductCatalogueModel {
         return productCatalogueList;
     }
 
-    public void deleteProductCatalogue(ProductCatalogue productCatalogue) throws SQLException {
+    public boolean deleteProductCatalogue(ProductCatalogue productCatalogue) throws SQLException {
+        Product product = productModel.findById(productCatalogue.getIdProduct());
+        Catalogue catalogue = catalogueModel.findCatalogueById(productCatalogue.getIdCatalogue());
+        if(product == null || catalogue == null){
+            return false;
+        }
         String query = "DELETE FROM PRODUCTO_CATALOGO WHERE producto_id = ? AND catalogo_id = ?";
         prepareBD(query);
         this.preparedStatement.setString(1, productCatalogue.getIdProduct());
         this.preparedStatement.setString(2, productCatalogue.getIdCatalogue());
         processQuery("delete");
         finishProcess();
+        return true;
     }
 
 }

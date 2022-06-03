@@ -14,9 +14,11 @@
   color: white;
   text-transform: uppercase;
   font-family: "Segoe UI";
+  font-weight: bold;
+  min-width: 200px;
 }
 .column--50-25 {
-  width: 49%;
+  width: 55%;
   padding: 20px;
 }
 .footer__author{

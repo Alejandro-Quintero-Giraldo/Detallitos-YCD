@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de compras</title>
-    <link type="text/css" rel="stylesheet" th:href="@{/styles/shoppingCart.css}">
     <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
     <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
 </head>
-
 <body>
     <div th:replace="/fragments/navbar :: navbar"></div>
 
@@ -52,7 +48,7 @@
                 Tienes una factura iniciada sin productos. Agrega productos para realizar la compra
             </div>
             <div th:unless="${billProducts.size() == 0}">
-                <form th:action="@{/bill/close}" method="post">
+                <form th:action="@{/bill/close}" method="post" >
                     <input type="hidden" name="billId" th:value="${activeBill.billId}" />
                     <div th:if="${#authorization.expression('isAuthenticated()')}">
                         <input type="button" onclick="alertConfirmBill()" value="Comprar" id="submit" />
@@ -68,73 +64,6 @@
         </div>
     </div>
 
-
-    <br>
-    <br>
-    <h1>CARRITO DE COMPRAS</h1>
-    <center>
-        <div th:if="${activeBill != null}">
-            <table>
-                <thead>
-                    <tr>
-                        <th>PRODUCTO</th>
-                        <th>PRECIO</th>
-                        <th>CANTIDAD</th>
-                        <th>SUBTOTAL</th>
-                    </tr>
-                </thead>
-                <div th:if="${products.size() > 0 && billProducts.size() > 0}" th:remove="tag">
-                    <tr th:each="product : ${products}">
-                        <td th:text="${product.productName}"></td>
-                        <td th:text="'$ '+${product.productPrice}"></td>
-                        <div th:each="billProduct : ${billProducts}" th:remove="tag">
-                            <td
-                                th:text="${billProduct.amountPurchased}+${billProduct.amountPurchased > 1 ? ' unidades' : ' unidad'}">
-                            </td>
-                            <td th:text="'$ '+${billProduct.subTotal}"></td>
-                        </div>
-                    </tr>
-                </div>
-            </table>
-            <br>
-            <h1>EL TOTAL A PAGAR ES DE</h1>
-            <center>
-                <div class="container3">
-                    <br>
-                    <form>
-                        <label for="Entrega">Entrega:</label>
-                        <input type="text" id="Entrega" placeholder="Entrega" maxlength="5">
-                        <br>
-                        <br>
-                        <label for="Direccion de Domicilio">Direccion de Domicilio:</label>
-                        <input type="text" id="Direccion de Domicilio" placeholder="Direccion de Domicilio"
-                            maxlength="12">
-                        <br>
-                        <br>
-                        <label for="">Formas de Pago:</label>
-
-                        <select name="" id="">
-                            <option value="">EFECTIVO</option>
-
-                        </select>
-                        <br>
-                        <br>
-                        <label for="">TOTAL:</label>
-                        <input type="value" name="" id="$ 0" placeholder="$ 0,0" maxlength="6" readonly>
-                    </form>
-                </div>
-                <br>
-            </center>
-            <br>
-            <center>
-                <div>
-                    <button type="button" class="btn">FINALIZAR COMPRA</button>
-                </div>
-            </center>
-            <br>
-        </div>
-    </center>
     <div th:replace="/fragments/footer :: footer"></div>
 </body>
-
 </html>

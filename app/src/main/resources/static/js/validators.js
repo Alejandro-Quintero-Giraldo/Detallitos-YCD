@@ -74,7 +74,6 @@ const alertAnyError = (hasAlert) => {
             return alertAskEspecificationsInProduct();
         }
         inputSubmit.setAttribute('type', 'submit');
-        
         // axios.post('localhost:8080/saveUser', {
         //     userId: document.getElementById('userId').value,
         //     userName: document.getElementById('userName').value,

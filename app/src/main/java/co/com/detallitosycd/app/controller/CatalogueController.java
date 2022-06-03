@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Controller
@@ -60,22 +62,14 @@ public class CatalogueController {
         List<Catalogue> catalogueList = catalogueModel.findAllCataloguesVisibles();
         if(catalogueList.size() == 0){
             List<Product> productList = productModel.findProductsVisibles();
-            if (productList.size() >= 9){
-                Catalogue catalogue = new Catalogue(UUID.randomUUID().toString(),"Productos destacados", "Este es el catalogo de productos destacados");
-                catalogueModel.createCatalogue(catalogue);
-                 IntStream.range(0, 9)
-                        .mapToObj(index -> {
-                            try {
-                                 productCatalogueModel.createProductCatalogue(new ProductCatalogue(productList.get(index).getProductId(),catalogue.getCatalogueId()));
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-
-                        });
-            }
-
+            List<ProductCatalogue> productCatalogueList = new ArrayList<>();
+            Catalogue catalogue = new Catalogue(UUID.randomUUID().toString(),"Productos destacados", "Este es el catalogo de productos destacados");
+            productCatalogueList = createFeaturedProducts(productList, catalogue);
+            model.addAttribute("productList", productList);
+            model.addAttribute("productCatalogueList", productCatalogueList);
+            model.addAttribute("catalogueList", List.of(catalogue));
+            return "";
         }
-        model.addAttribute("catalogueList", catalogueList);
         return "";
     }
 
@@ -118,6 +112,46 @@ public class CatalogueController {
             return "?error";
         }
         return  "";
+    }
+
+    @DeleteMapping("/deleteProduct")
+    public String deleteProductInCatalogue(@RequestParam("catalogueId") String catalogueId,
+                                           @RequestParam("productId") String productId) throws SQLException {
+        productCatalogueModel = new ProductCatalogueModel();
+        boolean result = productCatalogueModel.deleteProductCatalogue(new ProductCatalogue(productId, catalogueId));
+        if(!result){
+            return "?error";
+        }
+        return "?deleteSuccess";
+    }
+
+    private List<ProductCatalogue> createFeaturedProducts(List<Product> productList, Catalogue catalogue) throws SQLException {
+        List<ProductCatalogue> productCatalogueList;
+        if (productList.size() >= 9){
+            productCatalogueList = createFeaturedProductsCatalogue(productList, catalogue, 9);
+        } else {
+            productCatalogueList = createFeaturedProductsCatalogue(productList, catalogue, productList.size());
+        }
+        return productCatalogueList;
+    }
+
+    private List<ProductCatalogue> createFeaturedProductsCatalogue(List<Product> productList, Catalogue catalogue, Integer numberProducts) throws SQLException {
+        catalogueModel.createCatalogue(catalogue);
+        return IntStream.range(0, numberProducts)
+                .mapToObj(index -> {
+                    try {
+                        ProductCatalogue productCatalogue = new ProductCatalogue(productList.get(index).getProductId(), catalogue.getCatalogueId());
+                        boolean result = productCatalogueModel.createProductCatalogue(productCatalogue);
+                        if(result){
+                            return productCatalogue;
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
     private List<Product> getProductList(List<ProductCatalogue> productCatalogueList) {
