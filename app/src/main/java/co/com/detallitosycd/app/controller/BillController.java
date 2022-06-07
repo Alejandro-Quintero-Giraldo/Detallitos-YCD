@@ -1,10 +1,9 @@
 package co.com.detallitosycd.app.controller;
 
-import co.com.detallitosycd.app.entity.Bill;
-import co.com.detallitosycd.app.entity.BillProduct;
-import co.com.detallitosycd.app.entity.Product;
-import co.com.detallitosycd.app.entity.State;
+import co.com.detallitosycd.app.entity.*;
 import co.com.detallitosycd.app.model.*;
+import co.com.detallitosycd.app.rest.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -23,6 +22,9 @@ public class BillController {
     private BillModel billModel;
     private BillProductModel billProductModel;
     private ProductModel productModel;
+
+    @Autowired
+    private UserService userService;
 
 
     @PostMapping("create")
@@ -56,7 +58,10 @@ public class BillController {
         Bill existBill = billModel.findAvailableBill(checkSession() != null
                 ? checkSession().getUsername() : null);
         if(existBill != null){
+            existBill.setFinalPrice(calculateFinalPrice(existBill.getBillId()));
             model.addAttribute("activeBill", existBill);
+            User user = userService.findUserByUserId(checkSession().getUsername());
+            model.addAttribute("user", user);
             List<BillProduct> billProductList =  billProductModel.findBillProductsByBillId(existBill.getBillId());
             List<Product> productList = getProductList(billProductList);
             model.addAttribute("billProducts", billProductList);
@@ -78,12 +83,7 @@ public class BillController {
                     .stream().filter(state1 -> state1.getStateName().equals("CERRADO"))
                     .findAny().get();
             billProductModel = new BillProductModel();
-            List<Integer> subtotalList = new ArrayList<>();
-            billProductModel.findBillProductsByBillId(billId).forEach(billProduct -> subtotalList.add(billProduct.getSubTotal()));
-            Integer finalPrice = 0;
-            for (Integer subtotal : subtotalList) {
-                finalPrice += subtotal;
-            }
+            Integer finalPrice = calculateFinalPrice(billId);
             bill.setStateId(stateClose.getStateId());
             bill.setFinalPrice(finalPrice);
             bill.setDateBill(LocalDateTime.now());
@@ -91,6 +91,8 @@ public class BillController {
         }
         return "redirect:/bill/available";
     }
+
+
 
     @PostMapping("deleteProduct")
     public String deleteProductInBill(@RequestParam("billId") String billId,
@@ -124,5 +126,17 @@ public class BillController {
             userDetails = (UserDetails) principal;
         }
         return userDetails;
+    }
+
+    private Integer calculateFinalPrice(String billId) throws SQLException {
+        List<Integer> subtotalList = new ArrayList<>();
+        billProductModel = new BillProductModel();
+        billProductModel.findBillProductsByBillId(billId)
+                .forEach(billProduct -> subtotalList.add(billProduct.getSubTotal()));
+        Integer finalPrice = 0;
+        for (Integer subtotal : subtotalList) {
+            finalPrice += subtotal;
+        }
+        return finalPrice;
     }
 }

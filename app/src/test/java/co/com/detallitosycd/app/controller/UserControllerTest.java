@@ -47,7 +47,7 @@ class UserControllerTest {
         objectMapper = new ObjectMapper();
     }
 
-    @Test
+ /*   @Test
     @WithAnonymousUser
     void shouldSaveUser() throws Exception {
         User userMock = new User("12345678901", "Ricardo", "123456", "calle 34",
@@ -57,7 +57,7 @@ class UserControllerTest {
             public User userRegister() {
                 return userMock;
             }
-        };*/
+        };
 
         Mockito.when(userService.findUserByUserId(userMock.getUserId())).thenReturn(null);
         Mockito.when(userService.findByEmail(userMock.getEmail())).thenReturn(null);
@@ -74,7 +74,7 @@ class UserControllerTest {
                 .andExpect(redirectedUrl("/register?success"));
 
     }
-
+*/
     @Test
     @WithAnonymousUser
     void shouldValidateLoginUserSuccess() throws Exception{

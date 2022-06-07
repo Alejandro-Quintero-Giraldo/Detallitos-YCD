@@ -2,6 +2,7 @@ package co.com.detallitosycd.app.controller;
 
 import co.com.detallitosycd.app.entity.Product;
 import co.com.detallitosycd.app.model.ProductModel;
+import org.apache.commons.compress.utils.FileNameUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystemException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -50,6 +52,7 @@ public class ProductController {
     public String createProduct(Product productCreate, @RequestParam(name = "file") MultipartFile file)
             throws SQLException, IOException {
         productCreate.setProductId(UUID.randomUUID().toString());
+        validateFileExtension(file);
         String resultUpload = uploadFile(file);
         if(resultUpload != null){
             productCreate.setImage(resultUpload);
@@ -113,6 +116,7 @@ public class ProductController {
 
         Product productUpdate = new Product(productId, productName, productType, productPrice, description, isVisible, "");
         if (file != null && !file.isEmpty()) {
+            validateFileExtension(file);
             boolean resultDelete = deleteFile(actualImage);
             if (resultDelete) {
                 String resultUpload = uploadFile(file);
@@ -126,6 +130,15 @@ public class ProductController {
         productModel = new ProductModel();
         productModel.updateProduct(productUpdate);
         return "redirect:/product/update/" + productUpdate.getProductId() + "?updated";
+    }
+
+    private void validateFileExtension(MultipartFile file) throws FileSystemException {
+        String extensionFile =  FileNameUtils.getExtension(file.getOriginalFilename());
+        System.out.println("extension "+extensionFile);
+        assert extensionFile != null;
+        if(!extensionFile.equals("png") && !extensionFile.equals("jpg") && !extensionFile.equals("jpeg")){
+            throw new FileSystemException("El archivo ingresado no tiene una extension aceptada");
+        }
     }
 
     public String uploadFile(MultipartFile file) throws IOException {

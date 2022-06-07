@@ -20,6 +20,9 @@
 	<div th:if="${param.fileError}">
 		<script>alertProductImageError()</script>
 	</div>
+	<div th:if="${param.extensionError}">
+		<script>alertExtensionImageError()</script>
+	</div>
 	<div class="title-cards">
 		<h2>Productos</h2>
 		<p>Estos son productos que se han hecho antes,

@@ -53,7 +53,10 @@ function alertProductImageError() {
         text: "La imagen ingresada para el producto, supera el tamaño máximo (10MB). Por favor inténtelo nuevamente",
         confirmButtonText: "¡Aceptar!",
         confirmButtonColor: '#f27474 ',
-        icon: 'error'
+        icon: 'error',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false
     })
 }
 
@@ -242,4 +245,23 @@ const alertConfirmBill = () => {
             })
         }
     })
+}
+
+const alertExtensionImageError = () => {
+    Swal.fire({
+        title: "¡ERROR!",
+        text: "La imagen ingresada no tiene una extensión de imagen. Por favor inténtelo nuevamente",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#f27474 ',
+        icon: 'error',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false
+    }).then((res) => {
+        if(res.isConfirmed){
+            console.log('Hecho');
+            window.history.back();
+        }
+    })
+
 }

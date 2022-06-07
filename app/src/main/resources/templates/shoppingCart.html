@@ -84,43 +84,39 @@
                     </tr>
                 </thead>
                 <div th:if="${products.size() > 0 && billProducts.size() > 0}" th:remove="tag">
-                    <tr th:each="product : ${products}">
+                    <tr th:each="product, i : ${products}">
                         <td th:text="${product.productName}"></td>
                         <td th:text="'$ '+${product.productPrice}"></td>
-                        <div th:each="billProduct : ${billProducts}" th:remove="tag">
-                            <td
-                                th:text="${billProduct.amountPurchased}+${billProduct.amountPurchased > 1 ? ' unidades' : ' unidad'}">
-                            </td>
-                            <td th:text="'$ '+${billProduct.subTotal}"></td>
-                        </div>
+
+                        <td th:text="${billProducts.get(i.index).amountPurchased}+${billProducts.get(i.index).amountPurchased > 1 ? ' unidades' : ' unidad'}"></td>
+                        <td th:text="'$ '+${billProducts.get(i.index).subTotal}"></td>
                     </tr>
                 </div>
             </table>
             <br>
-            <h1>EL TOTAL A PAGAR ES DE</h1>
+            <h1>INFORMACION CON RESPECTO A LA ENTREGA DE LOS PRODUCTOS</h1>
             <center>
                 <div class="container3">
                     <br>
                     <form>
                         <label for="Entrega">Entrega:</label>
-                        <input type="text" id="Entrega" placeholder="Entrega" maxlength="5">
-                        <br>
-                        <br>
-                        <label for="Direccion de Domicilio">Direccion de Domicilio:</label>
-                        <input type="text" id="Direccion de Domicilio" placeholder="Direccion de Domicilio"
-                            maxlength="12">
-                        <br>
-                        <br>
-                        <label for="">Formas de Pago:</label>
-
-                        <select name="" id="">
-                            <option value="">EFECTIVO</option>
-
+                        <select id="Entrega">
+                            <option selected>Local</option>
+                            <option>Domicilio</option>
                         </select>
                         <br>
                         <br>
-                        <label for="">TOTAL:</label>
-                        <input type="value" name="" id="$ 0" placeholder="$ 0,0" maxlength="6" readonly>
+                        <label for="Direccion de Domicilio">Direccion de Domicilio:</label>
+                        <input type="text" id="Direccion de Domicilio" th:value="${user.address}" placeholder="Direccion de Domicilio"
+                            maxlength="12">
+                        <br>
+                        <br>
+                        <label for="paymentType">Formas de Pago:</label>
+                        <input type="text" id="paymentType" value="EFECTIVO" readonly>
+                        <br>
+                        <br>
+                        <label for="finalPrice">TOTAL:</label>
+                        <input type="number" prefix="$ " dataformatas="" th:value="${activeBill.finalPrice}" name="finalPrice" id="finalPrice" readonly>
                     </form>
                 </div>
                 <br>
@@ -128,7 +124,7 @@
             <br>
             <center>
                 <div>
-                    <button type="button" class="btn">FINALIZAR COMPRA</button>
+                    <button type="button" class="btn">COMPRAR</button>
                 </div>
             </center>
             <br>
