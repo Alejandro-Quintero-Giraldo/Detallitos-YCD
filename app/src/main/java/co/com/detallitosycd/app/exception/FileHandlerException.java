@@ -1,4 +1,4 @@
-package co.com.detallitosycd.app.controller;
+package co.com.detallitosycd.app.exception;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -69,6 +69,10 @@ public class BillController {
         } else {
             model.addAttribute("activeBill", null);
         }
+
+
+
+
         return "shoppingCart";
     }
 

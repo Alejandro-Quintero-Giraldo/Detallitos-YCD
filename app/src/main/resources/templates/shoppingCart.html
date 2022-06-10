@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" th:href="@{/styles/shoppingCart.css}">
     <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
     <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
+    <script th:src="@{/js/shoppingCart.js}" type="text/javascript"></script>
 </head>
 
 <body>
@@ -99,15 +100,15 @@
                 <div class="container3">
                     <br>
                     <form>
-                        <label for="Entrega">Entrega:</label>
-                        <select id="Entrega">
-                            <option selected>Local</option>
-                            <option>Domicilio</option>
+                        <label for="deliver">Entrega:</label>
+                        <select id="deliver" onchange="putOrDeleteInputAddress()">
+                            <option selected value="local">Local</option>
+                            <option value="domicilio">Domicilio</option>
                         </select>
                         <br>
                         <br>
-                        <label for="Direccion de Domicilio">Direccion de Domicilio:</label>
-                        <input type="text" id="Direccion de Domicilio" th:value="${user.address}" placeholder="Direccion de Domicilio"
+                        <label for="domicile">Direccion de Domicilio:</label>
+                        <input type="text" id="domicile" th:value="${user.address}" disabled placeholder="Direccion de Domicilio"
                             maxlength="12">
                         <br>
                         <br>
@@ -116,7 +117,7 @@
                         <br>
                         <br>
                         <label for="finalPrice">TOTAL:</label>
-                        <input type="number" prefix="$ " dataformatas="" th:value="${activeBill.finalPrice}" name="finalPrice" id="finalPrice" readonly>
+                        <input type="number" prefix="$&nbsp;" dataformatas="" th:value="${activeBill.finalPrice}" name="finalPrice" id="finalPrice" readonly>
                     </form>
                 </div>
                 <br>
