@@ -24,8 +24,12 @@ public class CompanyModel {
         this.preparedStatement = connection.prepareStatement(query);
     }
 
-    private void processQuery() throws SQLException {
-        this.resultSet = this.preparedStatement.executeQuery();
+    private void processQuery(String type) throws SQLException {
+        if(type.equals("create")){
+            this.preparedStatement.execute();
+        } else if(type.equals("query")) {
+            this.resultSet = this.preparedStatement.executeQuery();
+        }
         LOGGER.log(Level.INFO, this.preparedStatement.toString());
     }
 
@@ -38,11 +42,22 @@ public class CompanyModel {
         this.connection = null;
     }
 
+    public void createCompany(Company company) throws SQLException {
+        String query = "INSERT INTO EMPRESA(nit, celular, correo_electronico, nombre_empresa) VALUES(?,?,?,?)";
+        prepareBD(query);
+        this.preparedStatement.setString(1, company.getNIT());
+        this.preparedStatement.setString(2, company.getCellphone());
+        this.preparedStatement.setString(3, company.getEmail());
+        this.preparedStatement.setString(4, company.getNameCompany());
+        processQuery("create");
+        finishProcess();
+    }
+
     public Company findCompanyByNit(String nit) throws SQLException {
         String query = "SELECT * FROM EMPRESA WHERE nit = ?";
         prepareBD(query);
         this.preparedStatement.setString(1, nit);
-        processQuery();
+        processQuery("query");
         Company company = null;
         if(this.resultSet.next()){
             company = new Company(this.resultSet.getString("nit"), this.resultSet.getString("nombre_empresa"),

@@ -1,5 +1,6 @@
 package co.com.detallitosycd.app.model;
 
+import co.com.detallitosycd.app.entity.Company;
 import co.com.detallitosycd.app.entity.State;
 import co.com.detallitosycd.app.model.conection.Conection;
 
@@ -29,6 +30,8 @@ public class StateModel {
     private void processQuery(String action) throws SQLException {
         if(action.equals("query")){
             this.resultSet = this.preparedStatement.executeQuery();
+        } else if(action.equals("create")){
+            this.preparedStatement.execute();
         }
         LOGGER.log(Level.INFO, this.preparedStatement.toString());
     }
@@ -40,6 +43,15 @@ public class StateModel {
         this.preparedStatement = null;
         if (this.connection != null && Boolean.FALSE.equals(this.connection.isClosed())) this.connection.close();
         this.connection = null;
+    }
+
+    public void createState(State state) throws SQLException {
+        String query = "INSERT INTO ESTADO(id_estado, nombre_estado) VALUES(?,?)";
+        prepareBD(query);
+        this.preparedStatement.setString(1, state.getStateId());
+        this.preparedStatement.setString(2, state.getStateName());
+        processQuery("create");
+        finishProcess();
     }
 
     public State findStateById(String id) throws SQLException {
@@ -66,6 +78,17 @@ public class StateModel {
         }
         finishProcess();
         return stateList;
+    }
+
+    public static void createInfoConstantInBD() throws SQLException {
+        CompanyModel companyModel = new CompanyModel();
+        Company company = companyModel.findCompanyByNit("123");
+        if(company == null){
+            StateModel stateModel = new StateModel();
+            companyModel.createCompany(new Company("123", "Detallitos YCDG", "123", "detallitosycdg@gamil.com"));
+            stateModel.createState(new State("111111111111", "DISPONIBLE"));
+            stateModel.createState(new State("222222222222", "CERRADO"));
+        }
     }
 
 }

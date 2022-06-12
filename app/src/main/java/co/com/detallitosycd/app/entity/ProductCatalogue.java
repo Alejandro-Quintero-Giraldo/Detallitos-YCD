@@ -8,11 +8,11 @@ import java.io.Serializable;
 public class ProductCatalogue implements Serializable {
 
     @Id
-    @Column(name = "producto_id")
+    @Column(name = "producto_id", length = 40, nullable = false)
     private String idProduct;
 
     @Id
-    @Column(name = "catalogo_id")
+    @Column(name = "catalogo_id", length = 12, nullable = false)
     private String idCatalogue;
 
     public String getIdProduct() {
