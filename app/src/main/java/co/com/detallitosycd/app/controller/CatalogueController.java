@@ -60,7 +60,7 @@ public class CatalogueController {
     public String findAllCatalogues(Model model) throws SQLException {
         catalogueModel = new CatalogueModel();
         List<Catalogue> catalogueList = catalogueModel.findAllCataloguesVisibles();
-        if(catalogueList.size() == 0){
+       // if(catalogueList.size() == 0){
             List<Product> productList = productModel.findProductsVisibles();
             List<ProductCatalogue> productCatalogueList = new ArrayList<>();
             Catalogue catalogue = new Catalogue(UUID.randomUUID().toString(),"Productos destacados", "Este es el catalogo de productos destacados");
@@ -68,9 +68,9 @@ public class CatalogueController {
             model.addAttribute("productList", productList);
             model.addAttribute("productCatalogueList", productCatalogueList);
             model.addAttribute("catalogueList", List.of(catalogue));
-            return "";
-        }
-        return "";
+          //  return "";
+       // }
+        return "catalogo";
     }
 
     @GetMapping("/update/{id}")

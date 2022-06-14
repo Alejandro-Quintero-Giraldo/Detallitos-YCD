@@ -16,6 +16,7 @@ const putInput = () => {
         const inputDeliver = document.getElementById('deliver');
         const labelDomicile = document.createElement('label');
         const br1 = document.createElement('br');
+        
         const br2 = document.createElement('br');
         br1.id = 'br1';
         br2.id = 'br2';
@@ -27,6 +28,7 @@ const putInput = () => {
         inputDomicile.id = 'domicile';
         inputDomicile.placeholder = 'Dirección de domicilio';
         inputDomicile.value = address;
+        inputDomicile.name = 'addressDomicile';
         inputDomicile.setAttribute('required', true);
 
         inputDeliver.insertAdjacentElement("afterend", br1);

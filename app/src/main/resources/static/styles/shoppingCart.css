@@ -35,11 +35,12 @@ table {
 
 .container3 {
 	width: 30%;
-	height: 300PX;
+	min-height: 300PX;
 	margin: 2%;
 	background-color: #ffffff;
 	text-align: center;
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+	margin-bottom: 10%;
 }
 
 h1 {
@@ -139,4 +140,8 @@ form {
 	padding: 20px;
 	text-align: left;
 
+}
+
+.alert-message {
+	min-height: 500px;
 }

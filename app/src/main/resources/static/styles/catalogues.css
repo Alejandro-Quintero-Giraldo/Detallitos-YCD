@@ -1,6 +1,6 @@
 *{
     box-sizing: border-box;
-    background-color: #e8bff0;
+    background-color: #f7f7f7;
   }
   section{
     width: 100%;
@@ -8,7 +8,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
     padding: 50px 0;
-    box-shadow: 2px 2px 2px 1px rgb(0, 0, 0);
+    
   }
   section h2{
     width: 100%;

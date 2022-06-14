@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+<body>
+    <div class="container">
+        <header>Crear Productos</header>
+
+        <form action="#">
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title"></span>
+
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Nombre del producto</label>
+                            <input type="text" placeholder="producto" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Tipo de producto</label>
+
+                            <select aria-label="state"  name="cars" id="cars">
+                                <option value="volvo">Cuadro</option>
+                                <option value="saab">Mugs</option>
+                                <option value="mercedes">Cojin</option>
+                                <option value="audi">Retablo</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Precio</label>
+                            <input type="text" placeholder="$ 0.0" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Descripcion</label>
+                            <input type="txt" placeholder="Descripcion" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Sera Visible?</label>
+                            <select aria-label="state" required>
+                                <option disabled selected>Selecionar producto</option>
+                                <option>Cuadro personalizado</option>
+                                <option>Mugs</option>
+                                <option>Retablo personalizado</option>
+                            </select>
+                        </div>
+                        <br>
+                        <div class="input-file">
+                            <label>Imagen</label><br>
+                            <input type="file" aria-label="search">
+                        </div>
+
+                        <div class="buttons">
+                            <div class="backBtn">
+                                <i class="uil uil-navigator"></i>
+                                <span class="btnText">Volver</span>
+                            </div>
+
+                            <button type="button" class="sumbit">
+                                <span class="btnText">Crear</span>
+                                <i class="uil uil-navigator"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+</body>
+
+</html>

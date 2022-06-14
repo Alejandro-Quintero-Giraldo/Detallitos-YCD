@@ -13,7 +13,7 @@ public class Delivery {
     @Column(name =  "tipo_entrega", length = 10, nullable = false)
     private String deliveryType;
 
-    @Column(name = "domicilio_id", length = 12)
+    @Column(name = "domicilio_id", length = 12, nullable = true)
     private String domicileId;
 
     public Delivery(String deliveryId, String deliveryType, String domicileId) {

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class Bill {
 
     @Id
-    @Column(name = "id_factura", length = 12, nullable = false)
+    @Column(name = "id_factura", length = 15, nullable = false)
     private String billId;
 
 

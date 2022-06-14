@@ -13,7 +13,7 @@
     <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
     <script th:src="@{/js/shoppingCart.js}" type="text/javascript"></script>
     <script th:if="${user}" th:inline="javascript">
-        var address = [[${user.getAddress()}]];
+        var address = [[${ user.getAddress() }]];
     </script>
 </head>
 
@@ -28,51 +28,6 @@
     </div>
     <div th:if="${param.productDeleted}">
         <script>alertProductDeletedInBill()</script>
-    </div>
-
-    <div class="container">
-        <div th:if="${activeBill != null}">
-            <span th:text="${activeBill.billId}"></span><br>
-            <span th:text="${activeBill.dateBill}"></span><br>
-            <span th:text="${activeBill.userId}"></span><br>
-            <span th:text="${activeBill.companyNIT}"></span><br>
-            <div th:each="product : ${products}">
-                <span th:text="${product.productId}"></span><br>
-                <span th:text="${product.productName}"></span><br>
-                <span th:text="${product.productPrice}"></span><br>
-                <span th:text="${product.description}"></span><br>
-                <span th:text="${product.image}"></span><br>
-            </div>
-            <div th:each="billProduct : ${billProducts}">
-                <span th:text="${billProduct.idProduct}"></span><br>
-                <span th:text="${billProduct.idBill}"></span><br>
-                <span th:text="${billProduct.amountPurchased}"></span><br>
-                <span th:text="${billProduct.subTotal}"></span><br>
-                <span th:text="${billProduct.especifications}"></span><br>
-                <form th:action="@{/bill/deleteProduct}" method="post">
-                    <input type="hidden" name="productId" th:value="${billProduct.idProduct}">
-                    <input type="hidden" name="billId" th:value="${billProduct.idBill}">
-                    <button type="submit">Eliminar</button>
-                </form>
-            </div>
-            <div th:if="${billProducts.size() == 0}">
-                Tienes una factura iniciada sin productos. Agrega productos para realizar la compra
-            </div>
-            <div th:unless="${billProducts.size() == 0}">
-                <form th:action="@{/bill/close}" method="post">
-                    <input type="hidden" name="billId" th:value="${activeBill.billId}" />
-                    <div th:if="${#authorization.expression('isAuthenticated()')}">
-                        <input type="button" onclick="alertConfirmBill()" value="Comprar" id="submit" />
-                    </div>
-                    <div th:unless="${#authorization.expression('isAuthenticated()')}">
-                        <input type="button" onclick="alertLoginRequired()" value="Comprar" />
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div th:unless="${activeBill != null}">
-            <p>No tienes facturas iniciadas. Agrega un producto al carrito para iniciar una factura</p>
-        </div>
     </div>
 
 
@@ -95,44 +50,56 @@
                         <td th:text="${product.productName}"></td>
                         <td th:text="'$ '+${product.productPrice}"></td>
 
-                        <td th:text="${billProducts.get(i.index).amountPurchased}+${billProducts.get(i.index).amountPurchased > 1 ? ' unidades' : ' unidad'}"></td>
+                        <td
+                            th:text="${billProducts.get(i.index).amountPurchased}+${billProducts.get(i.index).amountPurchased > 1 ? ' unidades' : ' unidad'}">
+                        </td>
                         <td th:text="'$ '+${billProducts.get(i.index).subTotal}"></td>
                     </tr>
                 </div>
             </table>
             <br>
-            <h1>INFORMACION CON RESPECTO A LA ENTREGA DE LOS PRODUCTOS</h1>
+            <h1>ENTREGA DE LOS PRODUCTOS</h1>
             <center>
                 <div class="container3">
-                    <br>
-                    <form>
-                        <label for="deliver">Entrega:</label>
-                        <select id="deliver" onchange="putOrDeleteInputAddress()">
-                            <option selected value="local">Local</option>
-                            <option value="domicilio">Domicilio</option>
-                        </select>
+                    <div th:if="${billProducts.size() == 0}" class="alert-message">
+                        Tienes una factura iniciada sin productos. Agrega productos +
+                        para realizar la compra
+                    </div>
+                    <div th:unless="${billProducts.size() == 0}">
                         <br>
-                        <br>
-                        <!-- <label for="domicile">Direccion de Domicilio:</label>
+                        <form th:action="@{/bill/close}" method="post">
+                            <label for="deliver">Entrega:</label>
+                            <select id="deliver" name="deliverType" onchange="putOrDeleteInputAddress()">
+                                <option selected value="local">Local</option>
+                                <option value="domicilio">Domicilio</option>
+                            </select>
+                            <br>
+                            <br>
+                            <!-- <label for="domicile">Direccion de Domicilio:</label>
                         <input type="text" id="domicile" th:value="${user.address}" disabled placeholder="Direccion de Domicilio"
                             maxlength="12">-->
-                        <label for="paymentType">Formas de Pago:</label>
-                        <input type="text" id="paymentType" value="EFECTIVO" readonly>
-                        <br>
-                        <br>
-                        <label for="finalPrice">TOTAL:</label>
-                        <input type="number" prefix="$&nbsp;" dataformatas="" th:value="${activeBill.finalPrice}" name="finalPrice" id="finalPrice" readonly>
-                    </form>
+                            <label for="paymentType">Formas de Pago:</label>
+                            <input type="text" id="paymentType" value="EFECTIVO" readonly>
+                            <br>
+                            <br>
+                            <label for="finalPrice">TOTAL:</label>
+                            <input type="number" th:value="${activeBill.finalPrice}" name="finalPrice" id="finalPrice"
+                                readonly>
+
+                            <input type="hidden" name="billId" th:value="${activeBill.billId}" />
+                            <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                <input type="button" onclick="alertConfirmBill()" value="Comprar" id="submit" />
+                            </div>
+                            <div th:unless="${#authorization.expression('isAuthenticated()')}">
+                                <input type="button" onclick="alertLoginRequired()" value="Comprar" />
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <br>
             </center>
-            <br>
-            <center>
-                <div>
-                    <button type="button" class="btn">COMPRAR</button>
-                </div>
-            </center>
-            <br>
+        </div>
+        <div th:unless="${activeBill != null}" class="alert-message">
+            <p>No tienes facturas iniciadas. Agrega un producto al carrito para iniciar una factura</p>
         </div>
     </center>
     <div th:replace="/fragments/footer :: footer"></div>

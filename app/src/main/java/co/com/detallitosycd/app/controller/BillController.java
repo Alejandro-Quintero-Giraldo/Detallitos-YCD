@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import reactor.util.annotation.Nullable;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -22,6 +23,8 @@ public class BillController {
     private BillModel billModel;
     private BillProductModel billProductModel;
     private ProductModel productModel;
+    private DomicileModel domicileModel;
+    private DeliveryModel deliveryModel;
 
     @Autowired
     private UserService userService;
@@ -77,7 +80,9 @@ public class BillController {
     }
 
     @PostMapping("close")
-    public String closeBill(@RequestParam("billId") String billId) throws SQLException {
+    public String closeBill(@RequestParam("billId") String billId,
+                            @RequestParam("deliverType") String deliverType,
+                            @Nullable @RequestParam("addressDomicile") String  addressDomicile) throws SQLException {
         billModel = new BillModel();
         StateModel stateModel = new StateModel();
         Bill bill = billModel.findBillById(billId);

@@ -14,7 +14,7 @@ public class Domicile {
     @Column(name = "direccion_entrega", length = 100, nullable = false)
     private String deliveryAddress;
 
-    @Column(name = "encargado_entrega", length = 12, nullable = false)
+    @Column(name = "encargado_entrega", length = 12)
     private String deliveryPerson;
 
     @Column(name = "hora_llegada")
