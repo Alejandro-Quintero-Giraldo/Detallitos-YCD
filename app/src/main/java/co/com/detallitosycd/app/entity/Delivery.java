@@ -7,13 +7,13 @@ import javax.persistence.*;
 public class Delivery {
 
     @Id
-    @Column(name = "id_entrega", length = 12, nullable = false)
+    @Column(name = "id_entrega", length = 40, nullable = false)
     private String deliveryId;
 
     @Column(name =  "tipo_entrega", length = 10, nullable = false)
     private String deliveryType;
 
-    @Column(name = "domicilio_id", length = 12, nullable = true)
+    @Column(name = "domicilio_id", length = 40)
     private String domicileId;
 
     public Delivery(String deliveryId, String deliveryType, String domicileId) {

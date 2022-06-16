@@ -7,6 +7,7 @@ import co.com.detallitosycd.app.model.conection.Conection;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -103,6 +104,24 @@ public class BillModel {
         }
         finishProcess();
         return bill;
+    }
+
+    public List<Bill> findBillsClosed(String userId, String stateClosedId) throws SQLException {
+        String query = "SELECT * FROM FACTURA WHERE usuario_id = ? AND estado_id = ?";
+        prepareBD(query);
+        this.preparedStatement.setString(1, userId);
+        this.preparedStatement.setString(2, stateClosedId);
+        processQuery("query");
+        List<Bill> billList = new ArrayList<>();
+        while(this.resultSet.next()){
+            Bill bill = new Bill(this.resultSet.getString("id_factura"),
+                    this.resultSet.getObject("fecha_factura",LocalDateTime.class),
+                    this.resultSet.getInt("precio_final"),this.resultSet.getString("usuario_id"),
+                    this.resultSet.getString("empresa_nit"), this.resultSet.getString("entrega_id"),
+                    this.resultSet.getString("estado_id"));
+            billList.add(bill);
+        }
+        return billList;
     }
 
     public boolean putProductInAnAvailableBill(String activeBillId, String productId,

@@ -7,6 +7,7 @@ import co.com.detallitosycd.app.entity.ProductCatalogue;
 import co.com.detallitosycd.app.model.CatalogueModel;
 import co.com.detallitosycd.app.model.ProductCatalogueModel;
 import co.com.detallitosycd.app.model.ProductModel;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -59,18 +60,19 @@ public class CatalogueController {
     @GetMapping("/")
     public String findAllCatalogues(Model model) throws SQLException {
         catalogueModel = new CatalogueModel();
+        productModel = new ProductModel();
         List<Catalogue> catalogueList = catalogueModel.findAllCataloguesVisibles();
-       // if(catalogueList.size() == 0){
+        //if(catalogueList.size() == 0){
             List<Product> productList = productModel.findProductsVisibles();
-            List<ProductCatalogue> productCatalogueList = new ArrayList<>();
-            Catalogue catalogue = new Catalogue(UUID.randomUUID().toString(),"Productos destacados", "Este es el catalogo de productos destacados");
-            productCatalogueList = createFeaturedProducts(productList, catalogue);
-            model.addAttribute("productList", productList);
-            model.addAttribute("productCatalogueList", productCatalogueList);
-            model.addAttribute("catalogueList", List.of(catalogue));
+            List<ProductCatalogue> productCatalogueList;
+            //Catalogue catalogue = new Catalogue(UUID.randomUUID().toString(),"Productos destacados", "Este es el catalogo de productos destacados");
+            //productCatalogueList = createFeaturedProducts(productList, catalogue);
+            //model.addAttribute("productList", productList);
+            //model.addAttribute("productCatalogueList", productCatalogueList);
+            model.addAttribute("catalogueList", catalogueList);
           //  return "";
-       // }
-        return "catalogo";
+        //}
+        return "catalogues";
     }
 
     @GetMapping("/update/{id}")

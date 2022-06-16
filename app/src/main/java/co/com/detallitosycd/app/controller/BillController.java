@@ -4,6 +4,7 @@ import co.com.detallitosycd.app.entity.*;
 import co.com.detallitosycd.app.model.*;
 import co.com.detallitosycd.app.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/bill")
@@ -23,8 +25,7 @@ public class BillController {
     private BillModel billModel;
     private BillProductModel billProductModel;
     private ProductModel productModel;
-    private DomicileModel domicileModel;
-    private DeliveryModel deliveryModel;
+    private StateModel stateModel;
 
     @Autowired
     private UserService userService;
@@ -73,9 +74,6 @@ public class BillController {
             model.addAttribute("activeBill", null);
         }
 
-
-
-
         return "shoppingCart";
     }
 
@@ -84,17 +82,22 @@ public class BillController {
                             @RequestParam("deliverType") String deliverType,
                             @Nullable @RequestParam("addressDomicile") String  addressDomicile) throws SQLException {
         billModel = new BillModel();
-        StateModel stateModel = new StateModel();
+        stateModel = new StateModel();
         Bill bill = billModel.findBillById(billId);
         State state = stateModel.findStateById(bill.getStateId());
         if(state.getStateName().equals("DISPONIBLE")){
-            State stateClose = stateModel.findAllState()
-                    .stream().filter(state1 -> state1.getStateName().equals("CERRADO"))
-                    .findAny().get();
+
+            String idDomicile = deliverType.equalsIgnoreCase("domicilio")
+                    ?  createDomicile(new Domicile(UUID.randomUUID().toString(),addressDomicile, null,null)).getDomicileId()
+                    : null;
+            String idDelivery = createDelivery(new Delivery(UUID.randomUUID().toString(),deliverType, idDomicile)).getDeliveryId();
+            State stateClose = getStateClose(stateModel);
+
             billProductModel = new BillProductModel();
             Integer finalPrice = calculateFinalPrice(billId);
             bill.setStateId(stateClose.getStateId());
             bill.setFinalPrice(finalPrice);
+            bill.setDeliverId(idDelivery);
             bill.setDateBill(LocalDateTime.now());
             billModel.updateBill(bill);
         }
@@ -114,6 +117,17 @@ public class BillController {
         return "redirect:/bill/available?productDeleted";
     }
 
+    @GetMapping("showClosed")
+    public String showBillsClosed(Model model) throws SQLException {
+        billModel = new BillModel();
+        stateModel = new StateModel();
+        List<Bill> billList = billModel.findBillsClosed(checkSession().getUsername(),getStateClose(stateModel).getStateId());
+        if(!billList.isEmpty()){
+            model.addAttribute("billClosedList", billList);
+        }
+        return "";
+    }
+
     private List<Product> getProductList(List<BillProduct> billProductList) {
         productModel = new ProductModel();
         List<Product> productList = new ArrayList<>();
@@ -128,6 +142,13 @@ public class BillController {
         return productList;
     }
 
+
+    private State getStateClose(StateModel stateModel) throws SQLException {
+        return stateModel.findAllState()
+                .stream().filter(state1 -> state1.getStateName().equals("CERRADO"))
+                .findAny().get();
+    }
+
     private UserDetails checkSession(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserDetails userDetails = null;
@@ -135,6 +156,16 @@ public class BillController {
             userDetails = (UserDetails) principal;
         }
         return userDetails;
+    }
+
+    private Domicile createDomicile(Domicile domicile) throws SQLException {
+        DomicileModel domicileModel = new DomicileModel();
+        return domicileModel.createDomicile(domicile);
+    }
+
+    private Delivery createDelivery(Delivery delivery) throws SQLException {
+        DeliveryModel deliveryModel = new DeliveryModel();
+        return deliveryModel.createDelivery(delivery);
     }
 
     private Integer calculateFinalPrice(String billId) throws SQLException {

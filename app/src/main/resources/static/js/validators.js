@@ -21,7 +21,7 @@ const formRegisterValidators = () => {
     console.log('inputname ', inputname.length, ' a', inputname);
 
     validateInputNotNull(inputId) ? errorMessage = 'El identificador no puede estar vacío'
-        : validateMinLength(inputId.length, 8) ? errorMessage = 'El identificador debe tener mínimo 9 dígitos'
+        : validateMinLength(inputId.length, 7) ? errorMessage = 'El identificador debe tener mínimo 8 dígitos'
             : validateMaxLength(inputId.length, 11) ? errorMessage = 'El identificador debe tener máximo 10 dígitos'
                 : validateInputNotNull(inputname) ? errorMessage = 'El nombre no puede estar vacío'
                     : validateRegExp(inputname, regExName) ? errorMessage = 'El nombre tiene caracteres que no son permitidos'
@@ -90,6 +90,7 @@ const validateInputNumberNoPointComa = (event, input) => {
     console.log('keypress', code);
     if (code >= 48 && code <= 57) {
         errorMessage = '';
+        //formatNumericInput();
         return true;
     } else {
         errorMessage = 'Ha añadido un caracter inválido en el ' + input;
@@ -120,3 +121,16 @@ const formViewProductValidators = () => {
     validateInputNotNull(inputAmount) ? errorMessage = 'La cantidad no puede estar vacía'
     : isValid = true
 }
+
+// const formatNumericInput = () => {
+//     const input = document.getElementById('userId');
+//     var valueSeparated = separatorByCharacter(input.value);
+//     console.log(valueSeparated);
+//     input.value = valueSeparated;
+// }
+
+// const separatorByCharacter = (number) => {
+//     var valueSeparated = number.toString().split('.');
+//     valueSeparated[0] = valueSeparated[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+//     return valueSeparated.join('.');
+// }

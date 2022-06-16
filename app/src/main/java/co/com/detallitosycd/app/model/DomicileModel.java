@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,13 +42,28 @@ public class DomicileModel {
         this.connection = null;
     }
 
-    public  void createDomicile(Domicile domicile) throws SQLException {
-        String query = "INSERT INTO DOMICILIO(id_domicilio, direccion_entrega, encargado_entrega, hora_llegada) VALUES(?.?.?.?)";
+    public  Domicile createDomicile(Domicile domicile) throws SQLException {
+        String query = "INSERT INTO DOMICILIO(id_domicilio, direccion_entrega) VALUES(?,?)";
         prepareBD(query);
         this.preparedStatement.setString(1, domicile.getDomicileId());
         this.preparedStatement.setString(2, domicile.getDeliveryAddress());
         processQuery("create");
         finishProcess();
+        return findDomicileById(domicile.getDomicileId());
+    }
+
+    public Domicile findDomicileById(String idDomicile) throws SQLException {
+        String query = "SELECT * FROM DOMICILIO WHERE id_domicilio = ?";
+        prepareBD(query);
+        this.preparedStatement.setString(1, idDomicile);
+        processQuery("query");
+        Domicile domicile = null;
+        if(this.resultSet.next()){
+             domicile = new Domicile(this.resultSet.getString("id_domicilio"), this.resultSet.getString("direccion_entrega"),
+                    this.resultSet.getString("encargado_entrega"), this.resultSet.getObject("hora_llegada", LocalDateTime.class));
+        }
+        finishProcess();
+        return domicile;
     }
 
     public void updateDomicile(Domicile domicile) throws SQLException {

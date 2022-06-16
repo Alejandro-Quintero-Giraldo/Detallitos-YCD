@@ -145,3 +145,7 @@ form {
 .alert-message {
 	min-height: 500px;
 }
+
+.submit-button {
+	padding-top: 5%;
+}

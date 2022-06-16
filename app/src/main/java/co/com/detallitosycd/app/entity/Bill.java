@@ -27,7 +27,7 @@ public class Bill {
     @Column(name = "empresa_nit", length = 11, nullable = false)
     private String companyNIT;
 
-    @Column(name = "entrega_id", length = 12)
+    @Column(name = "entrega_id", length = 40)
     private String deliverId;
 
     @Column(name = "estado_id", length = 12, nullable = false)

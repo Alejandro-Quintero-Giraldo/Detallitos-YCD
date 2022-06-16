@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Domicile {
 
     @Id
-    @Column(name = "id_domicilio", length = 12, nullable = false)
+    @Column(name = "id_domicilio", length = 40, nullable = false)
     private String domicileId;
 
     @Column(name = "direccion_entrega", length = 100, nullable = false)

@@ -41,14 +41,29 @@ public class DeliveryModel {
         this.connection = null;
     }
 
-    public void createDelivery(Delivery delivery) throws SQLException {
+    public Delivery createDelivery(Delivery delivery) throws SQLException {
         String query = "INSERT INTO ENTREGA(id_entrega, tipo_entrega, domicilio_id) VALUES (?,?,?)";
-        processQuery(query);
+        prepareBD(query);
         this.preparedStatement.setString(1, delivery.getDeliveryId());
         this.preparedStatement.setString(2, delivery.getDeliveryType());
         this.preparedStatement.setString(3, delivery.getDomicileId());
         processQuery("create");
         finishProcess();
+        return findDeliveryById(delivery.getDeliveryId());
+    }
+
+    public Delivery findDeliveryById(String deliveryId) throws SQLException {
+        String query = "SELECT * FROM ENTREGA WHERE id_entrega = ?";
+        prepareBD(query);
+        this.preparedStatement.setString(1, deliveryId);
+        processQuery("query");
+        Delivery delivery = null;
+        if(this.resultSet.next()){
+            delivery = new Delivery(this.resultSet.getString("id_entrega"), this.resultSet.getString("tipo_entrega"),
+                    this.resultSet.getString("domicilio_id"));
+        }
+        finishProcess();
+        return  delivery;
     }
 
 }
