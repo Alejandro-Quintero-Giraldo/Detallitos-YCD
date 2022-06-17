@@ -87,6 +87,7 @@ public class CatalogueModel {
     }
 
     public List<Catalogue> findAllCataloguesVisibles() throws SQLException {
+        productCatalogueModel = new ProductCatalogueModel();
         String query = "SELECT * FROM CATALOGO";
         prepareBD(query);
         processQuery("query");

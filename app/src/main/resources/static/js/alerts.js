@@ -265,3 +265,22 @@ const alertExtensionImageError = () => {
     })
 
 }
+
+const alertDeleteProductError = () => {
+    Swal.fire({
+        title: "¡ERROR!",
+        text: "La imagen ingresada no tiene una extensión de imagen. Por favor inténtelo nuevamente",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#f27474 ',
+        icon: 'error',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false
+    }).then((res) => {
+        if(res.isConfirmed){
+            console.log('Hecho');
+            window.history.back();
+        }
+    })
+
+}

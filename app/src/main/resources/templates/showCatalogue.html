@@ -1,22 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="estilos.css">
-<!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-<meta name="viewport" content="width=device-width, initial-scale=0.05">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=0.05">
+    <link rel="stylesheet" th:href="@{/styles/showCatalogue.css}">
+</head>
 
 <body>
-
-    <head>
-    </head>
+    <div th:replace="/fragments/navbar :: navbar"></div>
     <br>
 
-    <section class="product-list ">
+    <section class="product-list " th:if="${catalogue}">
         <div>
-            <h1 class="align-center">
-                Ver Catalogo
-            </h1>
+            <h1 class="align-center" th:text="${catalogue.catalogueName}"></h1>
         </div>
         <br>
         <br>
@@ -32,12 +30,12 @@
         <div id="header">
             <nav>
                 <!-- Aqui estamos iniciando la nueva etiqueta nav -->
-                <ul class="nav">
+                <ul class="nav navegation">
                     <li><a href="">Cuadros</a>
                         <ul>
-                            <li><a href="">Submenu1</a></li>
-                            <li><a href="">Submenu2</a></li>
-                            <li><a href="">Submenu3</a></li>
+                            <li class="list-option"><a href="">Submenu1</a></li>
+                            <li class="list-option"><a href="">Submenu2</a></li>
+                            <li class="list-option"><a href="">Submenu3</a></li>
 
                     </li>
                 </ul>
@@ -62,8 +60,37 @@
                 </li>
                 </ul>
             </nav><!-- Aqui estamos cerrando la nueva etiqueta nav -->
-            
-            <div class="product-container">
+
+
+
+
+            <div class="product-container" th:if="${productList.size() > 0}">
+                <div th:each="product : ${productList}" class="card" >
+                    <div class="title">
+                        <p th:text="${product.productName}"></p>
+                    </div>
+                    <!--       Logo de new  -->
+                    <div class="new">
+                        <img
+                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
+
+                    </div>
+                    <div class="image">
+                        <img th:src="@{/image_products/}+${product.image}" height="200px" width="200px">
+                    </div>
+                    <br>
+                    <div class="text" th:text="${product.idProductType}">
+                        Cuadro Personalizados
+                    </div>
+                    <span class="rating">★★★★★</span>
+                    <strong th:text="'Precio $'+${product.productPrice}"></strong>
+                    <br>
+                    <button class="buy-button details">
+                        Comprar
+                    </button>
+
+                </div>
+                <!-- Separador -->
 
                 <!-- Catalago  -->
 
@@ -360,9 +387,11 @@
                     </button>
                 </div>
                 <br>
-                    <br>
-
-
+                <br>
+            </div>
+        </div>
+    </section>
+    <div th:replace="/fragments/footer :: footer"
 </body>
 
 </html>

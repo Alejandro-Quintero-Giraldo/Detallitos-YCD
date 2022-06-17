@@ -1,3 +1,5 @@
+@import url('./navbar.css');
+@import url('./footer.css');
 * {
     margin: 0%;
 }
@@ -7,7 +9,7 @@ div {
 }
 
 h1 {
-    color: #0000;
+    color: #000;
     text-align: left;                                                                                                                                                                           
 }
 
@@ -21,22 +23,19 @@ ul, ol {
     list-style:none;
 }
 
-.nav {
+.navegation {
     width:500px; /*Le establecemos un ancho*/
     margin: 0 auto; /*Centramos automaticamente*/
     position: relative;
     left: 100px;
-    
-
-
 }
 
-.nav > li {
+.navegation > li {
     float:left;
     margin-right: 10px;
 }
 
-.nav li a {
+.navegation li a {
     background-color:rgba(248, 169, 169, 0.773);
     color:#fff;
     text-decoration:none;
@@ -44,25 +43,25 @@ ul, ol {
     display:block;
 }
 
-.nav li a:hover {
+.navegation li a:hover {
     background-color:#d5ccd3;
 }
 
-.nav li ul {
+.navegation li ul {
     display:none;
     position:absolute;
     min-width:140px;
 }
 
-.nav li:hover > ul {
+.navegation li:hover > ul {
     display:block;
 }
 
-.nav li ul li {
+.navegation li ul li {
     position:relative;
 }
 
-.nav li ul li ul {
+.navegation li ul li ul {
     right:-140px;
     top:0px;
 }
@@ -88,6 +87,7 @@ ul, ol {
     font-size: 18px;
     font-weight: bold;
     text-align: center;
+    margin: 1rem 0;
 }
 
 .card img {
@@ -101,16 +101,18 @@ ul, ol {
 
 }
 
-img {
+.image img {
+    height: 200px;
     width: 200px;
-
+    border: 1px solid #686868;
 }
 
 .card .text {
     text-align: center;
-    margin-left: 2em;
+    margin-left: 0;
     margin-bottom: 0.5em;
     font-size: 12px;
+    text-transform:initial;
 }
 
 .buy-button {
@@ -141,13 +143,6 @@ img {
     text-align: center;
 }
 
-.nav-list {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0px 3em;
-}
 
 .sub-menu {
     max-width: 20%;
@@ -165,7 +160,7 @@ img {
     color: #8395a7;
 }
 
-nav ul li:hover .sub-menu {
+.nav-search ul li:hover .sub-menu {
     opacity: 1;
     visibility: visible;
     transition: 1s ease;
@@ -201,8 +196,8 @@ nav ul li:hover .sub-menu {
 }
 
 .card:hover .title {
-    opacity: 0;
-    transition: 1 ease;
+    /* opacity: 0; */
+    transition: 1s ease;
 }
 
 .new {

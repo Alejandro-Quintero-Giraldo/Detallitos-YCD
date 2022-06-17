@@ -54,6 +54,19 @@ public class Product {
         return image;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId='" + productId + '\'' +
+                ", productName='" + productName + '\'' +
+                ", idProductType='" + idProductType + '\'' +
+                ", productPrice=" + productPrice +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", isVisible='" + isVisible + '\'' +
+                '}';
+    }
+
     public void setImage(String image) {
         this.image = image;
     }

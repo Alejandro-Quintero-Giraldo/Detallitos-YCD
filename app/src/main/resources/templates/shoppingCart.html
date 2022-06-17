@@ -29,6 +29,9 @@
     <div th:if="${param.productDeleted}">
         <script>alertProductDeletedInBill()</script>
     </div>
+    <div th:if="${param.error}">
+        <script>alertProductDeletedInBill()</script>
+    </div>
 
     <a th:href="@{/bill/showClosed}">
         <button type="button">Ver facturas cerradas</button>

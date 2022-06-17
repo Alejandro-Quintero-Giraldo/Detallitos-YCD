@@ -1,13 +1,11 @@
 package co.com.detallitosycd.app.controller;
 
-import co.com.detallitosycd.app.entity.BillProduct;
 import co.com.detallitosycd.app.entity.Catalogue;
 import co.com.detallitosycd.app.entity.Product;
 import co.com.detallitosycd.app.entity.ProductCatalogue;
 import co.com.detallitosycd.app.model.CatalogueModel;
 import co.com.detallitosycd.app.model.ProductCatalogueModel;
 import co.com.detallitosycd.app.model.ProductModel;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,14 +42,15 @@ public class CatalogueController {
     @GetMapping("/{id}")
     public String findCatalogueById(@PathVariable("id") String id, Model model) throws SQLException {
         catalogueModel = new CatalogueModel();
+        productCatalogueModel = new ProductCatalogueModel();
         Catalogue catalogue = catalogueModel.findCatalogueById(id);
         if(catalogue != null){
             List<ProductCatalogue> productCatalogueList = productCatalogueModel.findProductCatalogueByCatalogueId(catalogue.getCatalogueId());
             List<Product> productList = getProductList(productCatalogueList);
             model.addAttribute("catalogue", catalogue);
             model.addAttribute("productCatalogueList", productCatalogueList);
-            model.addAttribute("products", productList);
-            return "";
+            model.addAttribute("productList", productList);
+            return "showCatalogue";
         } else {
             return "redirect:?error";
         }

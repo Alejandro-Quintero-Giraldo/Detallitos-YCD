@@ -63,7 +63,7 @@ public class ProductCatalogueModel {
     }
 
     public List<ProductCatalogue> findProductCatalogueByCatalogueId(String id) throws SQLException {
-        String query = "SELECT * FROM PRODUCTO_CATALOGO WHERE catalogue_id = ?";
+        String query = "SELECT * FROM PRODUCTO_CATALOGO WHERE catalogo_id = ?";
         prepareBD(query);
         this.preparedStatement.setString(1, id);
         List<ProductCatalogue> productCatalogueList = new ArrayList<>();

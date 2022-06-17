@@ -4,7 +4,6 @@ import co.com.detallitosycd.app.entity.*;
 import co.com.detallitosycd.app.model.*;
 import co.com.detallitosycd.app.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -112,7 +111,7 @@ public class BillController {
         billProductModel = new BillProductModel();
         boolean result = billProductModel.deleteBillProduct(billId, productId);
         if(!result){
-            return "?error";
+            return "redirect:/bill/available?error";
         }
         return "redirect:/bill/available?productDeleted";
     }
