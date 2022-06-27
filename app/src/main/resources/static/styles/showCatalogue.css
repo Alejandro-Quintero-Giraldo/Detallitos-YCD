@@ -131,8 +131,6 @@ ul, ol {
 
 .product-container {
     display: grid;
-    position: relative;
-    top: 150px;
     grid-template-columns: 22% 22% 22% 22%;
     grid-column-gap: 10px;
     grid-row-gap: 40px;
@@ -226,7 +224,7 @@ ul, ol {
     border-radius: 10px;
     display: flex;
     padding: 0.3em;
-    width: 10%;
+    width: 20%;
     transition: width 0.5s ease-in;
 
 }

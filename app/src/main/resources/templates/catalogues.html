@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="UTF-8">
@@ -11,10 +12,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" th:href="@{/styles/catalogues.css}">
+    <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
+    <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
 </head>
 
 <body>
     <div th:replace="/fragments/navbar :: navbar"></div>
+    <div th:if="${param.error}">
+        <script>alertDeleteCatalogueError()</script>
+    </div>
+    <div th:if="${param.deleted}">
+        <script>alertDeleteCatalogueSuccess()</script>
+    </div>
     <br>
     <center>
         <h2>CATALOGOS DE PRODUCTOS</h2>
@@ -22,7 +31,8 @@
         <br>
         <br>
         <div>
-            <a th:href="@{/catalogue/create}"><button type="button" class="btn">Crear Catalogo</button></a>
+            <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/catalogue/create}"><button type="button"
+                    class="btn">Crear Catalogo</button></a>
             <br>
             <br>
             <br>
@@ -42,199 +52,26 @@
                     <h3 th:text="${catalogue.description}"></h3>
                     <strong>Precio $60</strong>
                     <span class="rating">★★★★★</span>
-                    <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" href="#" class="add-cart">Eliminar</a>
+                    <form th:action="@{/catalogue/delete/}+${catalogue.catalogueId}">
+                        <button sec:authorize="hasRole('ROLE_ADMINISTRATOR')" type="button" onclick="alertDeleteCatalogue()" id="submit-delete" class="add-cart">Eliminar</button>
+                    </form>
                     <a th:href="@{/catalogue/}+${catalogue.catalogueId}" class="add-cart">Ver Catalogo</a>
                     <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" href="#" class="add-cart">Actualizar</a>
                 </div>
             </div>
-            <!-- <div class="card-catalogue estilo-c">
-                <a href="#">
-                    <div class="img-container">
-                        <img src="https://mysignregalos.com/wp-content/uploads/2020/09/Cuadro-Personalizado-Love.jpg"
-                            alt="producto 1">
-                        <span class="promo">10% de descuento</span>
-                    </div>
-                </a>
-                <div class="info-container">
-                    <h3>Cuadro-Personalizado-Love</h3>
-                    <strong>Precio $80</strong>
-                    <span class="rating">★★★☆☆</span>
-                    <a href="#" class="add-cart">Eliminar</a> <a href="#" class="add-cart">Ver Catalogo</a><a href="#"
-                        class="add-cart">Actualizar</a>
-                </div>
-            </div>
-            <div class="card-catalogue estilo-c">
-                <a href="#">
-                    <div class="img-container">
-                        <img src="https://micontact.org/public/uploads/all/2ecXdlk5QGznGpce4oMmRQrVnaeAAaQI8WjI11cS.jpg"
-                            alt="producto 1">
-                        <span class="promo">20% de descuento</span>
-                    </div>
-                </a>
-                <div class="info-container">
-                    <h3>Cuadro-Personalizado</h3>
-                    <strong>Precio $120</strong>
-                    <span class="rating">★★★★★</span>
-                    <a href="#" class="add-cart">Eliminar</a> <a href="#" class="add-cart">Ver Catalogo</a><a href="#"
-                        class="add-cart">Actualizar</a>
-                </div>
-            </div> -->
         </section>
     </div>
-
-    <!---    sparador             -->
-    <section>
-        <div class="card-catalogue estilo-c">
-            <a href="#">
-                <div class="img-container">
-                    <img src="https://www.floristeriadfranco.com/310-large_default/mug-personalizado-tia-.jpg"
-                        alt="producto 1">
-                    <span class="promo">5% de descuento</span>
-                </div>
-            </a>
-            <div class="info-container">
-                <h3>Mugs-personalizado</h3>
-                <strong>Precio $60</strong>
-                <span class="rating">★★★★☆</span>
-                <a href="#" class="add-cart">Eliminar</a><a href="#" class="add-cart">Ver Catalogo</a><a href="#"
-                    class="add-cart">Actualizar</a>
-            </div>
-        </div>
-        <div class="card-catalogue estilo-c">
-            <a href="#">
-                <div class="img-container">
-                    <img src="https://mysignregalos.com/wp-content/uploads/2020/09/Cuadro-Personalizado-Love.jpg"
-                        alt="producto 1">
-                    <span class="promo">10% de descuento</span>
-                </div>
-            </a>
-            <div class="info-container">
-                <h3>Cuadro-Personalizado-Love</h3>
-                <strong>Precio $80</strong>
-                <span class="rating">★★★☆☆</span>
-                <a href="#" class="add-cart">Eliminar</a> <a href="#" class="add-cart">Ver Catalogo</a><a href="#"
-                    class="add-cart">Actualizar</a>
-            </div>
-        </div>
-        <div class="card-catalogue estilo-c">
-            <a href="#">
-                <div class="img-container">
-                    <img src="https://micontact.org/public/uploads/all/2ecXdlk5QGznGpce4oMmRQrVnaeAAaQI8WjI11cS.jpg"
-                        alt="producto 1">
-                    <span class="promo">20% de descuento</span>
-                </div>
-            </a>
-            <div class="info-container">
-                <h3>Cuadro-Personalizado</h3>
-                <strong>Precio $120</strong>
-                <span class="rating">★★★★★</span>
-                <a href="#" class="add-cart">Eliminar</a> <a href="#" class="add-cart">Ver Catalogo</a><a href="#"
-                    class="add-cart">Actualizar</a>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section>
-        <div class="card-catalogue estilo-c">
-            <a href="#">
-                <div class="img-container">
-                    <img src="https://www.floristeriadfranco.com/310-large_default/mug-personalizado-tia-.jpg"
-                        alt="producto 1">
-                    <span class="promo">30% de descuento</span>
-                </div>
-            </a>
-            <div class="info-container">
-                <h3>Mugs-personalizado</h3>
-                <strong>Precio $200</strong>
-                <span class="rating">★★★★☆</span>
-                <a href="#" class="add-cart">Eliminar</a> <a href="#" class="add-cart">Ver Catalogo</a><a href="#"
-                    class="add-cart">Actualizar</a>
-            </div>
-        </div>
-        <div class="card-catalogue estilo-c">
-            <a href="#">
-                <div class="img-container">
-                    <img src="https://mysignregalos.com/wp-content/uploads/2020/09/Cuadro-Personalizado-Love.jpg"
-                        alt="producto 1">
-                    <span class="promo">15% de descuento</span>
-                </div>
-            </a>
-            <div class="info-container">
-                <h3>Cuadro-Personalizado-Love</h3>
-                <strong>Precio $150</strong>
-                <span class="rating">★★★☆☆</span>
-                <a href="#" class="add-cart">Eliminar</a> <a href="#" class="add-cart">Ver Catalogo</a><a href="#"
-                    class="add-cart">Actualizar</a>
-            </div>
-        </div>
-        <div class="card-catalogue estilo-c">
-            <a href="#">
-                <div class="img-container">
-                    <img src="https://micontact.org/public/uploads/all/2ecXdlk5QGznGpce4oMmRQrVnaeAAaQI8WjI11cS.jpg"
-                        alt="producto 1">
-                    <span class="promo">9% de descuento</span>
-                </div>
-            </a>
-            <div class="info-container">
-                <h3>Cuadro-Personalizado</h3>
-                <strong>Precio $350</strong>
-                <span class="rating">★★★★★</span>
-                <a href="#" class="add-cart">Eliminar</a> <a href="#" class="add-cart">Ver Catalogo</a><a href="#"
-                    class="add-cart">Actualizar</a>
-            </div>
-        </div>
-    </section>
-    <br>
-    <section>
-        <div class="card-catalogue estilo-c">
-            <a href="#">
-                <div class="img-container">
-                    <img src="https://www.floristeriadfranco.com/310-large_default/mug-personalizado-tia-.jpg"
-                        alt="producto 1">
-                    <span class="promo">50% de descuento</span>
-                </div>
-            </a>
-            <div class="info-container">
-                <h3>Mugs-personalizado</h3>
-                <strong>Precio $200</strong>
-                <span class="rating">★★★★☆</span>
-                <a href="#" class="add-cart">Eliminar</a> <a href="#" class="add-cart">Ver Catalogo</a><a href="#"
-                    class="add-cart">Actualizar</a>
-            </div>
-        </div>
-        <div class="card-catalogue estilo-c">
-            <a href="#">
-                <div class="img-container">
-                    <img src="https://mysignregalos.com/wp-content/uploads/2020/09/Cuadro-Personalizado-Love.jpg"
-                        alt="producto 1">
-                    <span class="promo">25% de descuento</span>
-                </div>
-            </a>
-            <div class="info-container">
-                <h3>Cuadro-Personalizado-Love</h3>
-                <strong>Precio $150</strong>
-                <span class="rating">★★★☆☆</span>
-                <a href="#" class="add-cart">Eliminar</a> <a href="#" class="add-cart">Ver Catalogo</a><a href="#"
-                    class="add-cart">Actualizar</a>
-            </div>
-        </div>
-        <div class="card-catalogue estilo-c">
-            <a href="#">
-                <div class="img-container">
-                    <img src="https://micontact.org/public/uploads/all/2ecXdlk5QGznGpce4oMmRQrVnaeAAaQI8WjI11cS.jpg"
-                        alt="producto 1">
-                    <span class="promo">30% de descuento</span>
-                </div>
-            </a>
-            <div class="info-container">
-                <h3>Cuadro-Personalizado</h3>
-                <strong>Precio $350</strong>
-                <span class="rating">★★★★★</span>
-                <a href="#" class="add-cart">Eliminar</a> <a href="#" class="add-cart">Ver Catalogo</a><a href="#"
-                    class="add-cart">Actualizar</a>
-            </div>
-        </div>
-    </section>
+    <div th:unless="${catalogueList.size()} > 0" class="no-catalogues">
+		<img th:src="@{/assets/plus-solid.svg}" src="../static/assets/plus-solid.svg" alt="icon" width="17%" height="17%" />
+	</div>
+	<div th:unless="${catalogueList.size()} > 0" class="no-catalogues">
+		<b><p>Aún no se han creado catálogos</p></b>
+	</div>
+	<div th:unless="${catalogueList.size()} > 0" class="no-catalogues">
+		<p sec:authorize="hasRole('USER') || !isAuthenticated()" class="no-catalogues-user-message">
+			Por favor espere a que el administrador de la aplicación registre catálogos
+		</p>
+	</div>
     <br>
     <br>
     <div th:replace="/fragments/footer :: footer"></div>

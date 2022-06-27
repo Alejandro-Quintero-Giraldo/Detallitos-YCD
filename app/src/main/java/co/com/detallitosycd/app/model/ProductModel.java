@@ -75,7 +75,7 @@ public class ProductModel {
     }
 
     public void updateProduct(Product productUpdate) throws SQLException {
-        String query = "UPDATE PRODUCTO SET nombre_producto = ?, tipo_producto = ?, " +
+        String query = "UPDATE PRODUCTO SET nombre_producto = ?, tipo_producto = ?,  precio_producto = ?, " +
                 "descripcion = ?, esta_visible = ?, imagen = ? WHERE id_producto = ?";
         prepareBD(query);
         this.preparedStatement.setString(1, productUpdate.getProductName());

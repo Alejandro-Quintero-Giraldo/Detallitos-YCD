@@ -93,15 +93,21 @@ public class CatalogueController {
         return "?updated";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteCatalogue(@PathVariable("id") String id) throws SQLException {
         catalogueModel = new CatalogueModel();
+        productCatalogueModel = new ProductCatalogueModel();
         Catalogue catalogue = catalogueModel.findCatalogueById(id);
         if(catalogue == null){
-            return "?error";
+            return "redirect:/catalogue/?error";
+        }
+        List<ProductCatalogue> productCatalogueList = productCatalogueModel.findProductCatalogueByCatalogueId(id);
+        List<Boolean> resultList = deleteProductCatalogues(productCatalogueList);
+        if(resultList.size() != productCatalogueList.size() || resultList.contains(false)) {
+            throw new IllegalArgumentException("Ha ocurrido un error al eliminar algunos productos del catálogo. Intentelo nuevamente");
         }
         catalogueModel.deleteCatalogue(id);
-        return "?deleted";
+        return "redirect:/catalogue/?deleted";
     }
 
     @PostMapping("/addProduct")
@@ -124,6 +130,18 @@ public class CatalogueController {
             return "?error";
         }
         return "?deleteSuccess";
+    }
+
+    private List<Boolean> deleteProductCatalogues(List<ProductCatalogue> productCatalogueList) {
+        productCatalogueModel = new ProductCatalogueModel();
+        return productCatalogueList.stream().map(productCatalogue -> {
+            try {
+                return productCatalogueModel.deleteProductCatalogue(productCatalogue);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     private List<ProductCatalogue> createFeaturedProducts(List<Product> productList, Catalogue catalogue) throws SQLException {

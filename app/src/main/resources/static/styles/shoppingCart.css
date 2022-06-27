@@ -13,15 +13,15 @@
 }
 
 body {
-	background: #EBE4F3;
+	background: #e6e6e6a4;
 	font-family: "Segoe UI";
 }
 
-th {
+th, tr {
 	color: rgb(0, 0, 0);
 	background: white;
 	padding: 25.888%;
-	text-align: left;
+	text-align: center;
 
 }
 
@@ -133,8 +133,7 @@ tr:hover td {
 }
 
 
-form {
-
+.form-close {
 	width: 100%;
 	margin: 20px;
 	padding: 20px;
@@ -147,5 +146,17 @@ form {
 }
 
 .submit-button {
-	padding-top: 5%;
+	padding: 3%;
+	background-color: #d361b6;
+	color: #fff;
+	margin-top: 5%;
+	border: 0;
+	border-radius: 7px;
+}
+
+.submit-button:hover {
+	background-color: #fff;
+	color: #d361b6;
+	transition: 0.3s;
+	border: 1px solid #d361b6
 }

@@ -2,9 +2,13 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <meta name="viewport" content="width=device-width, initial-scale=0.05">
+    <meta charset="UTF-8">
+    <title>Ver catalogo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" th:href="@{/styles/showCatalogue.css}">
 </head>
 
@@ -33,39 +37,23 @@
                 <ul class="nav navegation">
                     <li><a href="">Cuadros</a>
                         <ul>
-                            <li class="list-option"><a href="">Submenu1</a></li>
-                            <li class="list-option"><a href="">Submenu2</a></li>
-                            <li class="list-option"><a href="">Submenu3</a></li>
 
                     </li>
                 </ul>
                 </li>
                 <li><a href="">Mugs</a>
-                    <ul>
-                        <li><a href="">Submenu1</a></li>
-                        <li><a href="">Submenu2</a></li>
-                        <li><a href="">Submenu3</a></li>
 
-                    </ul>
                 </li>
 
 
                 <li><a href="">Cojines</a>
-                    <ul>
-                        <li><a href="">Submenu1</a></li>
-                        <li><a href="">Submenu2</a></li>
-                        <li><a href="">Submenu3</a></li>
 
-                    </ul>
                 </li>
                 </ul>
             </nav><!-- Aqui estamos cerrando la nueva etiqueta nav -->
 
-
-
-
             <div class="product-container" th:if="${productList.size() > 0}">
-                <div th:each="product : ${productList}" class="card" >
+                <div th:each="product : ${productList}" class="card">
                     <div class="title">
                         <p th:text="${product.productName}"></p>
                     </div>
@@ -93,305 +81,12 @@
                 <!-- Separador -->
 
                 <!-- Catalago  -->
-
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <!--       Logo de new  -->
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-
-                    </div>
-                    <div class="image">
-                        <img
-                            src="data:image/jpeg;base64,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" />
-                    </div>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-
-                </div>
-
-                <!-- Catalago  -->
-
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <!--       Logo de new  -->
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-
-                    </div>
-                    <div class="image">
-                        <img src="https://http2.mlstatic.com/D_NQ_NP_967147-MLM40445854027_012020-O.jpg" />
-                    </div>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-
-                </div>
-
-                <!-- Catalago  -->
-
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-
-                    </div>
-                    <div class="image">
-                        <img src="https://m.media-amazon.com/images/I/61oscLnPtkS._AC_SY450_.jpg" />
-                    </div>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-
-                </div>
-
-                <!-- Catalago  -->
-
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-                    </div>
-                    <div class="image">
-                        <img src="https://i.pinimg.com/originals/9f/9f/7c/9f9f7cac9e974682628ce9270021a033.png" />
-                    </div>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-
-                </div>
-
-                <!-- Catalago  -->
-
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-                    </div>
-                    <div class="image">
-                        <br>
-                        <img src="https://http2.mlstatic.com/D_NQ_NP_975146-MLA43524437508_092020-O.webp" />
-                        <br>
-                    </div>
-                    <br>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-
-                </div>
-
-                <!-- Catalago  -->
-
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-                    </div>
-                    <div class="image">
-                        <img src="https://http2.mlstatic.com/D_NQ_NP_682600-MLA44638177680_012021-O.jpg" />
-                    </div>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-
-                </div>
-
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-
-                    </div>
-                    <div class="image">
-                        <img
-                            src="https://ae01.alicdn.com/kf/HTB13vEzcf6H8KJjSspmq6z2WXXa8/Amellor-Chuunibyou-demo-Koi-ga-Shitai-cojines-decorativos-cojines-personalizados-cuadrados-suaves-de-dos-lados-impresos.jpg_Q90.jpg_.webp" />
-                    </div>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-                </div>
-
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-
-                    </div>
-                    <div class="image">
-                        <img
-                            src="https://ae01.alicdn.com/kf/HTB13vEzcf6H8KJjSspmq6z2WXXa8/Amellor-Chuunibyou-demo-Koi-ga-Shitai-cojines-decorativos-cojines-personalizados-cuadrados-suaves-de-dos-lados-impresos.jpg_Q90.jpg_.webp" />
-                    </div>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-
-                </div>
-
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-
-                    </div>
-                    <div class="image">
-                        <img
-                            src="https://ae01.alicdn.com/kf/HTB13vEzcf6H8KJjSspmq6z2WXXa8/Amellor-Chuunibyou-demo-Koi-ga-Shitai-cojines-decorativos-cojines-personalizados-cuadrados-suaves-de-dos-lados-impresos.jpg_Q90.jpg_.webp" />
-                    </div>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-
-                </div>
-
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <!--       Logo de new  -->
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-
-                    </div>
-                    <div class="image">
-                        <img
-                            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAoHCBUSFRgWFhYSGBgZFhgYGhgSGhgYGhgSGBgcGRgYGhgcIy4lHB4rIRgaJjgmLDExNTU1GiQ7QDs0Py40NTQBDAwMEA8QHhISHzQrJCs3NDQ0NzQ0NDQxNDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQxNDQ0MTQ0NDQ0NDQ0NDQ9NP/AABEIAOEA4QMBIgACEQEDEQH/xAAbAAEAAgMBAQAAAAAAAAAAAAAABAUCAwYBB//EAEEQAAIBAgQDBQUECAQHAQAAAAECAAMRBBIhMQVBUQYiYXGBEzKRscEUUqHRFSNCYnKCkvCy0uHxFjNTc6LC4iT/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAjEQEBAAICAgICAwEAAAAAAAAAAQIREjEDIRNRMmEiQXEE/9oADAMBAAIRAxEAPwD63ERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAQw06ePSIgV1PFMNCTcaG/USVTxQO8h8RpWbNyb/EP7+cipUsZlu410cccpteqb7RK1HgtJ5q/F+1lErhUI5mZiu3UyecR8VTokNcQ3WbkrA76fKTMpVbhlG6IYgb6ec0tiUHP4SdxWS3puiahiF6/gZkKynmI3E8b9M4ms116/OefaV6n4GNw45fTbE0HFL4zz7WOh/CRyieGX0kRIr4voPjNZxbeEcoTx5J00viVG2vl+chvVLbkz0LcStz+mmPi+237UegH4yYJXYeiSddr6+UsZbHd7U8kk9QiIlmZERAREQEREDViKWdSOfLzEoqt1NiLEbidFKTiw/Weaj6iUzn9tfFl709pPNmaQ6TSJx/HvQoM6ZcwZR3hcWLAHSZt5N3S2vPbyk4FxJ6zVEcocjKAQrIxDAm7U2JKyJwbjdWtUCs1EDM4KinUzFVB1D6peFuN9ulzzYKk5zFce9niTSdQEyr39e67C65jtlJ0meG4wzYQ4kouYK5yi9u65UC+/KDjV9eeNKLCcacvSWpTVRWXNTam5b9kNlYFRY2I67z3ifH/Y1fZZKZ7gfNUqLTGpItdha+nWDjel2DGaVmO4oKNNHdTmcqqohDE1GF8obYjfWbMFincsHovTIsblkdWvyDKd/SFdXtPzRmldw7iK1s+VWGR2Q5raldyLcpAo9pkZVdqdZEZsodghUN45WJHnaE8av809zSu4jxJKAXMHZnbKiILszdANuY+Mw4fxRazOmV0dLZkqAAgHYixII/0g1dbWZaY3lPR42tRyqU6zqHyF0UFQ+2utwvjaWoMIss7bQZtokttMKYvN+FXK/nERbqJlNMo+cziJvrTlt37IiIQREQEREBERASr40mqN5j03H1lpKzjR9z+b/1lculsPyiuUTVj8EuIQ03LBSQe6QDcG41M3rNWJGg5azKdunLK4zcMBwtaLM4Ls72zPUbMxC7C/SR8BwRaTApUr5blshcZCTvdQNd5majdZgauw1l+MZfNk2VuEU6j1HYk+1QIykrYBbWK8wbgGeLwdVw5w+Z8lmGY5c1mYseVtz0mK+cjcW4uuHQMwLFjZV623PkNPjHGJnmybsHwdUdHapUqGmuVA+UKi2toFAubaXMxx/BTUq+1WoFOQJZkRxYG+z6XnIP2trhycygclUDb039ZecC7Ve2cJVUAsbK6dejD6iRxT8tXOP4Wa9NELkOhVldVH/MUWvk2tvpN+Co1lJNR1e9rBEyBbXudze/0mZcr4TA4woLLqfGOMPmvWkfhXDmoCoCwbPVdxYEWDW0PwlVQ7P1fZJh3en7JXztkVs7a3y3OgGu8mvxNwQSTvt9JIfHvrewJFx/fWRqJ+atfGcA9Rqb02QPScsBUvlYG1wSNRsJjwvAOtWpWqlM7hVy07lVRQBubEnQfCb/ANJsDc9NvrBxJcAnSTMdo+eya0qf0PWautTLQpkPmZ6LOC6XvlKEWueZ53M6lRK5akmYZrj1i46TPLyukxBN1PceY+c1JJGGTW/T5mVk3U5XUqVERN3KREQEREBERAREQErONr3UPRiPiP8A5lnIXF1vTPgVP4gfWVvS2PcVCNMMWbKPP6GFntdMwAPWZTt0ZfjUFCGIHLn5c5R8V7TLTfLRCEA2LtbUg9Okt+Ln2dB2G+W39RA+s+eV6QHPcX+IuB/fUS/KWsJjZHaYDjy17q4FM5ffU2A8bHTaR62Ko4kFLhsjEDvEk/vAnUgggzkEuo+V/lJOAIdVsmUopUMOp7wa9trnUeMrldNMJu9I/FMEKT21ynY9PAzPh1w6kHUMCPGx/K8kcTpXFmdm8rAX8ANfiTK/D4lUa17qCNRrlP8AfSRMrYZYyZPrSj2iBgbkCx8eh85qagWE19ncUtSkCNbCx9NjLDPfUag8xJmXpXLH2r6eB1uxso6DUnpItTitBTbIz2IF76720Am3EcQJJpki4sSNASCARYdBf4znOJcOU3YMygjUA721t8tJNukzH0v6PF8NUqFMoB2NiL3AHj6bSybCgi6m6/KfOeGYI3sQt7902BJO513sZ9C4PU7oGo0t/pEy96RcfW21cMLbyThkyj1mio+UkTdh3vIuW1sMdVPWTMMND5yDTMnYf3fUyce0+T8W2IiauciIgIiICIiAiIgJF4mP1T+QPwIMlSLxM/qn8gPiwEi9LY9xRrPam0xpiZudJi6cummrSDqykCzAg31Fj4TjsTwAJcsKlwxtlsQRy3Gs7K81YkBgRexAvfoNdfLSOPK+mfLj24ejwlQmfIzHNoKxygDrYDbzlJx2o9OsyK7AFEY5DYZiLHbynY4mlUscuduehUBj62NpVcV4BmQXOZlAJZQM1zq9uq66L+6La3vbHC/2ZZydOOas53ZiPEkxnygW6/7zdj8A9ErexVhdXXZh9Dtp4zPglf2dQNlViDezdLEN+Bv6S2kctTa67K8bbC1ALgo26k7GfQcMgAZkIyOQy2sQpI7w003F585w+ZwESkChJLNoDnc3Vs1iRlAsLTUn2jCVLtmQ3uCraG1ybW0Ol9DKXGbJldOm4hhmqVDZ1Dhh3t9VzZjlv+8OfjMK7VQLFqbW6Arf0uZU0+PgABrlipPeBBLAsAD0Jtf1klcU1YXBAAO2t7g877TPK2NceOToeHU0azWGmnkRptLzBUrHSc5wpiVAGp1vbredLgrp3j6eMvjds8ppnjaXf06a+kzwa6HzmFWsWNyPh0m3Aahja2srb/JbGaiZSlhh/dHr85CUSbQ90f3zmmHaPL+LZERNXOREQEREBERAREQEi8T/AOW38v8AiElSHxU/q281/wAQP0kZdLY/lFKJ5WOk9Wa8S1h6zCuqvM0rOJ4QVAxHdY27y6XI1XNb3hfr6WMnHaR3M38c1NubO7qBwvHe0XK4s63uDvocp9QdDbTY85LcZhruPlzlLjlNN0qrpmNmG16gFgT/ABKMt+RC6XMuqVQMoZdiL+h8JozcZ2uw4CELsGDgdM11cDwuVPrKHhq1MrlFvoPaGwJFPXqNBffyE6ftjh3IQICcz5LAXJDbfiomfBcIMNRcVSt30IUnQWtlDDc68pTLvbTH3NKLh+OqUiQpAZyoXPYCx/aN+W0tO0Qeo6ZHV2QXCUxnOY3BZgL6WmxuEJVAIYgdD3j6sdT08JJOEFJDkYrpe+97DmNJjy9tpjOLj8TgnpgZkZDpcWbcje4Fr6X35+BjEl0By1Cc4BbKQtjr907afjO54rhf/wAz5hnOQX5Fjpc+c4lHUuSCAMmUqwbRFt3dCTqRy1Gs0/1jf0YSs4JVHqIbm/fyCxAy2Oa99Dt4amdZ2e4y1PIlZ+640ao4cZrLe2t0ILa38rCclSTvFSquxYAZ86kkjvDLpcakdb2lhh6FBEZK+YP3ijo5IAcXXKhI5gg+XTUTJKXcnp9KNU5rfLYjfTwlhw+sSWHQLr8ZxHZjFmrTRAxJVdyGGgtmCsd8pYA9LidpwehlLeIGmvI9PWctlxz03xu5taKZPpe6PKQcsnUj3R5TfDtTy9M4iJowIiICIiAiIgIiICQOMnuD+MfIyfIHGvcH8Y+TSuXS2P5RULI2OayjxNpJWVXaDEezCfvOR+Ewy6dVb6b3XSaMSxAv0lfg+KqqsGBJB2Uc+ep2E1V+Je00GVfxPxm2HkxmM257hllbYnV6AqJlN7FbaaEHr4Ha3lK/gtRhmRuTML2sCwYq9ulyMw5nMZoWpUButUb3s6hvx0P4z1KRapn9pcb5NwGK5Ta50U7263POXnkx+0Xx5LWrRDlD91g3pzHy+E5btire1RUtohYgm12ZrDzPdPxlxgscQ7K6soJAU1CBcj7o3bf0AnOcY4mr4l/dyqqqrDcWW7C9jzZhK5ZbiccLvTPsxiDUL5ywscose6rC5tbncfKXmORvZMwKlVBJIvcAb3A1HpeU3Z50NMFcu7BgL394kBh11BzCXLUiUdQbhkZbHoQRa8z9X00nKTaPxniqvhTl1zgJz0YkWNyBfbwnJ0E7pYANmABDWW12sbkN7ua45X0kHEYxyppn3Q17G+hHL4xUqM6AE7dfM/C9/X0mmvtly+lh9oV7u7v94Kh0AtfK1xrawFvO+u+6rSSogdmu7EMFvmB7o7oB722u/LwF6pHNR01zHMtlOxJIFjc6X5nxl2vDjUR3NLJcA02ugPtFIDBgDcbEWI0N9ok9lu5pa9iyVrKCHAKOU07mQ2Ba511ZD5z6Xgjr6fWcP2LUk1XN7WREzDXKuf6ZZ2GCfv7n3T8xMc7Lk1xmvS3EmUfdEhLtLBRYWmmHaPLfUIiJowIiICIiAiIgIiICQOLr3FPRvmDJ8o+KYgs+Xkun83M/SVyvpfCbyRpQ9qaRdUtyLN6gC0u5A4opOQi2mb8bTDP8XRl05ThybkamxBVtLA678xpb1mWIdKaO7Kh07hsDdjteTSi0yeW1wdLjT8QBKntFUVUyrrdlJI55VI25HaZY2ZVPgx5ZyVzVWo2+cnU7EjQc7eM1pXdTcO4PgTMCYJm+o9PLx4z3Uyrj6lUhWY7WNtLnx/u0hUkuD4qRpyNtDJXCku+bcLr9JIxGFGGQNWDZ6qMaaLYWUaZ3uP3hZRrob9Ineo4vJcMfdVvC+IvSaynuk3yttfr4GdXS45TRgGNgyg3PugnkTy85xeDQs4A/sTdxRGRgrbj8h+cvcZa4cc7I6nG8GoV29ohCs2ptqj+JtsfEH4yqr8HrUczBFdc11Ck3A1sb6HTTTwlPhqr0tUZl11IOnqNp1PZ7jLvWpIylg1RAWUHLYuoN+g1kfyx/a28Mv1VPW4LiqI9vUw9RU1clgoFjrqASV8Mw9JNwGEWpUKUB7RyASUu5JubksRfkCb7X1sbz7RWpq6srAFWBDA81OhEr+CcHTCJlTvOQA9RgM7gE5QzbsBe2vnuZpfc0phlxy24zhgrYOoqV0dEfcNbLfYMCLjTS9uR8paP2lWm1qaZwNMzHKD5aXI+EtO3NRfstmtmNRMn8WpNv5Q3xnAUzMcsZMnd49eScrH0bgPH1xJKFcjgXtfMCuxIOnUaeM6lNh5CfOuxOGZqrPbuqpUn95iLD4An4dZ9DoG6jw0l8O2H/AEYydNkRE0cpERAREQEREBERATmsQbu5/fb5mdMJyrNck9ST8TKZtfF3Xt5FxlFntlK6XuDcXv4gTfmmOaZWbmm6vxPDnqLYmnfSx1367Six3ZSq4sr09TfvM9r9bBTrOtzQHkY4THoxy45cp24D/gbE/fw/9VT/ACTB+wuKI0fD/wBb/wCSfRQ89zy222Xnyymq+b0+xeNTQNhrXDWzvqVByg9zbvH435TbjuyWNcgg0mOQqxdyeZsVut1BFrjYbCfQi08zS265rju7r5zwrsXiqbkuKVrW7rg8xysJK7UdlcTWcNSRCOd3UclHM+E73NGaOVR8eL5O/ZDGrcewzAHS1RPdvyBfSbU4FxJFYLTdFy6DPSY6WsF1Nm6HT3d59UBnsnnUfHG/hGJerRRqiZKmUe0XpUt3reBOo85LbSV9KpkN/iPCbK9fNoNB85My9K3x3fpw3bfHPUrhCCqIv6v9/NbM/wARa3K3jIHBuHviXyoNB7zn3UHj1PhO4xmESqMrorgG4zcj1B3E34OmtNQiKqqNgosP95nbt145zHHjIseGYRKCKiDQczuzc2PiZZ4Y7iV9F5PwvP0k4dsPJ7xqRERNnMREQEREDV7UR7aa8sZYGz2/hPPtHhNZSacVTYoQvvW05fjBHuI4kq3Frnw5eZnPltJ69Oqvv03t1WzD/wASTK+vj1U273qrD6TLLddGPHGeqll5papaV78RHIOfJWP0mtscTslQ+SP+UjVW5T7WoxAmLVJUe1qNtSq+oA+Zmp6eJ/YTL/3GFvgt7yeNV5xeriJkcSBzlLTp4n9qmpPVGsPgfzmNfD4lhZUUeLNf8B+ccac4tn4gqzOjjFYXB+M5av2fxNT33NvuroPgN/WZ0Oz+Ip+5UceG4+B0luKvyx1X2kR7ec99lxg50z5g/Qz1ftY3RGHgSPneV41PyYulSrMxUnNjE4gb0X/lZT87T1eIVBvSqj0B+Rkcatzx+3SZpkWnPDiltxUHmjD6TanFVJ94Dz0+cjSeUXl7zyVqcUpjd0HmwkynilbmI0LDC1NQJY06pU6SnpVACCDJLYkcoT2vadQMNPhM5SYbGWYS7BvNcctufPHjSIiWUIiIGu09yzOIGGWeZJsiBqyTFqAPITfECL9kX7o+E8+xr90SXECJ9jX7onn2NfuiTIgQvsK9BPPsC9JOiBB/Ry9J5+jV6SfECv8A0avSP0assIgV/wCjFnn6LWWMQKw8ITwmJ4Kh6S1iBSv2bondU/pE1f8ACtHkMv8ABdfkRL+IFCvZal96p6O/5zenZ+kP2qv9ZlvEjUTyquXgtIf9T1dvzlgigAAbAW9J7EaLbeyIiSgiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgf/2Q==" />
-                    </div>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-                </div>
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <!--       Logo de new  -->
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-
-                    </div>
-                    <div class="image">
-                        <img
-                            src="data:image/jpeg;base64,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" />
-                    </div>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-                </div>
-                <div class="card">
-                    <div class="title">Cuadro Personalizado</div>
-                    <!--       Logo de new  -->
-                    <div class="new">
-                        <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
-
-                    </div>
-                    <div class="image">
-                        <img
-                            src="data:image/jpeg;base64,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" />
-                    </div>
-                    <br>
-                    <div class="text">
-                        Cuadro Personalizados
-                    </div>
-                    <span class="rating">★★★★☆</span>
-                    <strong>Precio $60</strong>
-                    <br>
-                    <button class="buy-button details">
-                        Comprar
-                    </button>
-                </div>
                 <br>
                 <br>
             </div>
         </div>
     </section>
-    <div th:replace="/fragments/footer :: footer"
+    <div th:replace="/fragments/footer :: footer"></div>
 </body>
 
 </html>

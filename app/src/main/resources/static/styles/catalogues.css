@@ -1,96 +1,148 @@
 @import url('../styles/navbar.css');
 @import url('../styles/footer.css');
 
-*{
-    box-sizing: border-box;
-  }
-  section{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 50px 0;
-    
-  }
-  section h2{
-    width: 100%;
-    color: #999;
-    font-family: monospace;
-  }
-  .card-catalogue{
-    width: 33.333333%;
+* {
+  box-sizing: border-box;
+}
 
-  }
-  .estilo-c{
-    font-family: sans-serif;
-    width: 25%;
-  }
-  .estilo-c .img-container{
-    overflow: hidden;
-    height: 240px;
-   
-    position: relative;
-    border-radius: 15px;
-  }
-  .estilo-c .img-container img{
-    width: 105%;
-    height: 210%;
-    position: absolute;
-    top: -60%;
-    transition: all 0.5s;
-  }
-  .estilo-c:hover .img-container img{
-    transform: scale(1.2);
-    
-  }
-  .estilo-c .img-container .promo{
-    position: absolute;
-    top: 10px;
-    left: 0;
-    opacity: 0.9;
-    font-size: 20px;
-    background: rgba(230, 230, 230, 0.932);
-    padding: 15px;
-    color: rgb(0, 0, 0);
-    border-bottom-right-radius: 25px;
-    border-top-right-radius: 25px;
-  }
-  .estilo-c .info-container{
-    display: flex;
-    flex-wrap: wrap;
-    text-align: center;
-    justify-content: center;
-    gap: 5%;
-  }
-  .estilo-c .info-container h3{
-    margin: 0;
-  }
-  .estilo-c .info-container h3,
-  .estilo-c .info-container strong,
-  .estilo-c .info-container span{
-    padding: 5px 15px;
-    width: 100%;
-  }
-  .estilo-c .add-cart{
-    margin-top: 2px;
-    text-decoration: none;
-    color: rgb(0, 0, 0);
-    background-color: rgb(255, 255, 255);
-    padding: 15px;
-    border: 1px solid black;
-    border-radius: 25px;
-  }
-  .estilo-c .add-cart:hover{
-    color: black;
-    background-color: transparent;
-    border: 1px solid black;
-  }
-  button{
-    padding: 11px 40px;
-    background-color: #cecece;
-    text-align: center;
-    border: 1px solid black;
-    font-family: Arial, Helvetica, sans-serif;
-    border-radius: 25px;
-    
-    }
+section {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 50px 0;
+
+}
+
+section h2 {
+  width: 100%;
+  color: #999;
+  font-family: monospace;
+}
+
+
+.card-catalogue {
+  width: 33.333333%;
+
+}
+
+.estilo-c {
+  font-family: sans-serif;
+  width: 25%;
+  border-radius: 10px;
+  border: 3px solid gray;
+}
+
+.estilo-c .img-container {
+  overflow: hidden;
+  height: 240px;
+  position: relative;
+  border-radius: 15px;
+  border-radius: 15px;
+  border-bottom: 1.5px solid #000;
+}
+
+.estilo-c .img-container img {
+  width: 105%;
+  height: 210%;
+  position: absolute;
+  top: -60%;
+  transition: all 0.5s;
+}
+
+.estilo-c:hover .img-container img {
+  transform: scale(1.2);
+
+}
+
+.estilo-c .img-container .promo {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  opacity: 0.9;
+  font-size: 20px;
+  background: rgba(230, 230, 230, 0.932);
+  padding: 15px;
+  color: rgb(0, 0, 0);
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
+.estilo-c .info-container {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+  gap: 5%;
+}
+
+.estilo-c .info-container h3 {
+  margin: 0;
+}
+
+.estilo-c .info-container h3,
+.estilo-c .info-container strong,
+.estilo-c .info-container span {
+  padding: 5px 15px;
+  width: 100%;
+}
+
+/* 
+.estilo-c .add-cart {
+  margin-top: 2px;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 25px;
+}
+
+.estilo-c .add-cart:hover {
+  color: black;
+  background-color: transparent;
+  border: 1px solid black;
+} */
+
+button {
+  padding: 11px 40px;
+  background-color: #cecece;
+  text-align: center;
+  border: 1px solid black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.add-cart,
+.btn {
+  border-radius: 25px;
+  background-color: #e064cc;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.no-catalogues {
+	display: flex;
+	justify-content: center;
+	font-size: 20pt;
+}
+
+.no-catalogues img {
+	opacity: 0.5;
+}
+
+.no-catalogues-user-message {
+	font-size: 16pt;
+  margin-bottom: 20%;
+}
+
+.no-catalogues img:hover {
+	transform: scale(0.9);
+	transition: all 500ms;
+}

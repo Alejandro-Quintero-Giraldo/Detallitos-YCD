@@ -1,4 +1,4 @@
-
+@import url('./navbar.css');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 *{
     margin: 0;
@@ -7,11 +7,11 @@
     font-family: 'Poppins', sans-serif;
 }
 body{
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #e6e6e6a4;
+    background-color: #e6e6e6a4;
+}
+
+html, body {
+    height: 100%;
 }
 .container{
     position: relative;
@@ -19,7 +19,8 @@ body{
     width: 100%;
     border-radius: 6px;
     padding: 30px;
-    margin: 0 15px;
+    margin: 5% 15%;
+    height: 80%;
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
@@ -37,14 +38,14 @@ body{
     height: 3px;
     width: 27px;
     border-radius: 8px;
-    background-color: #e0c7eea4;
+    background-color: #f173e1;;
 }
 .container form{
     position: relative;
     margin-top: 16px;
-    min-height: 490px;
+    min-height: 350px;
     background-color: #fff;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 .container form .form{
     position: absolute;
@@ -103,6 +104,11 @@ form .fields .input-field{
     height: 42px;
     margin: 8px 0;
 }
+
+.input-field input[type="file"]{
+    border: 0;
+}
+
 .input-field input :focus,
 .input-field select:focus{
     box-shadow: 0 3px 6px rgba(0,0,0,0.13);
@@ -111,8 +117,8 @@ form .fields .input-field{
 .input-field input[type="date"]{
     color: #707070;
 }
-.input-field input[type="date"]:valid{
-    color: #333;
+.input-field textarea{
+    resize: none;
 }
 .container form button, .backBtn{
     display: flex;
@@ -126,7 +132,7 @@ form .fields .input-field{
     color: #fff;
     border-radius: 5px;
     margin: 25px 0;
-    background-color: #e0c7ee;
+    background-color: #f173e1;
     transition: all 0.3s linear;
     cursor: pointer;
     
@@ -135,6 +141,14 @@ form .fields .input-field{
     font-size: 14px;
     font-weight: 400;
 }
+form .buttons button {
+    padding: 5%;
+}
+
+form .buttons {
+    margin: 5%;
+}
+
 form button:hover{
     background-color: #e0c7ee;
 }
@@ -151,6 +165,10 @@ form .buttons{
 }
 form .buttons button , .backBtn{
     margin-right: 14px;
+}
+
+img {
+    border: 2px solid #999;
 }
 
 @media (max-width: 750px) {

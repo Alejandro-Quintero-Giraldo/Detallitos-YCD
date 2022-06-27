@@ -33,7 +33,14 @@ function alertRegisterIdExist() {
         text: "El documento ingresado ya pertenece a otro usuario. Por favor inténtelo nuevamente",
         confirmButtonText: "¡Aceptar!",
         confirmButtonColor: '#f27474 ',
-        icon: 'error'
+        icon: 'error',
+        allowEnterKey: false,
+        allowEscapeKey: false,
+        allowOutsideClick: false
+    }).then((res) => {
+        if(res.isConfirmed){
+            window.history.back();
+        }
     })
 }
 
@@ -43,7 +50,14 @@ function alertRegisterEmailExist() {
         text: "El correo electrónico ingresado ya pertenece a otro usuario. Por favor inténtelo nuevamente",
         confirmButtonText: "¡Aceptar!",
         confirmButtonColor: '#f27474 ',
-        icon: 'error'
+        icon: 'error',
+        allowEnterKey: false,
+        allowEscapeKey: false,
+        allowOutsideClick: false
+    }).then((res) => {
+        if(res.isConfirmed){
+            window.history.back();
+        }
     })
 }
 
@@ -57,6 +71,10 @@ function alertProductImageError() {
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false
+    }).then((res) => {
+        if(res.isConfirmed){
+            window.history.back();
+        }
     })
 }
 
@@ -149,7 +167,6 @@ const alertAskEspecificationsInProduct = () => {
         }
     }).then((result) => {
         if (result.isConfirmed) {
-            console.log('value', result.value)
             const inputSubmit = document.getElementById('submit');
             inputSubmit.setAttribute('type', 'submit');
             const inputEspecifications = document.getElementById('especifications');
@@ -259,7 +276,6 @@ const alertExtensionImageError = () => {
         allowEnterKey: false
     }).then((res) => {
         if(res.isConfirmed){
-            console.log('Hecho');
             window.history.back();
         }
     })
@@ -278,9 +294,90 @@ const alertDeleteProductError = () => {
         allowEnterKey: false
     }).then((res) => {
         if(res.isConfirmed){
-            console.log('Hecho');
+           
             window.history.back();
         }
     })
 
+}
+
+const alertDeleteCatalogueError = () => {
+    Swal.fire({
+        title: "¡ERROR!",
+        text: "El id del catálogo no existe en la base de datos. Por favor inténtelo nuevamente",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#f27474 ',
+        icon: 'error',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false
+    });
+}
+
+const alertDeleteCatalogue = () => {
+    Swal.fire({
+        title: 'Confirme la operación',
+        text: '¿Está seguro de que desea eliminar este catálogo?',
+        confirmButtonText: "Eliminar",
+        confirmButtonColor: '#3fc3ee',
+        icon: 'info',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#f27474',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var inputSubmit = document.querySelector('#submit-delete');
+            inputSubmit.setAttribute('type', 'submit');
+            inputSubmit.click();
+        }
+    });
+}
+
+const alertDeleteCatalogueSuccess = () => {
+    Swal.fire({
+        title: '¡Se ha eliminado el catálogo exitosamente!',
+        confirmButtonText: '¡Aceptar!',
+        confirmButtonColor: '#a5dc86',
+        icon: 'success',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+    });
+}
+
+const alertNoProductsInActiveBill = () => {
+    Swal.fire({
+        title: 'Sin productos',
+        text: 'Tienes una factura iniciada sin productos. Agrega productos para realizar la compra',
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: '#3fc3ee',
+        icon: 'info',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.assign('/product/');
+        }
+    })
+}
+
+const alertNoActiveBill = () => {
+    Swal.fire({
+        title: 'Sin facturas iniciadas',
+        text: 'No tienes facturas iniciadas. Agrega un producto al carrito para iniciar una factura',
+        confirmButtonText: "Aceptar",
+        confirmButtonColor: '#3fc3ee',
+        icon: 'info',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.assign('/product/');
+        }
+    })
 }

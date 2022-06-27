@@ -5,13 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de compras</title>
-    <link type="text/css" rel="stylesheet" th:href="@{/styles/shoppingCart.css}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/styles/shoppingCart.css}">
     <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
     <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
     <script th:src="@{/js/shoppingCart.js}" type="text/javascript"></script>
+    <script th:src="@{/js/validators.js}" type="text/javascript"></script>
     <script th:if="${user}" th:inline="javascript">
         var address = [[${ user.getAddress() }]];
     </script>
@@ -33,6 +34,7 @@
         <script>alertProductDeletedInBill()</script>
     </div>
 
+
     <a th:href="@{/bill/showClosed}">
         <button type="button">Ver facturas cerradas</button>
     </a>
@@ -48,6 +50,7 @@
                         <th>PRECIO</th>
                         <th>CANTIDAD</th>
                         <th>SUBTOTAL</th>
+                        <th>ACCIONES</th>
                     </tr>
                 </thead>
                 <div th:if="${products.size() > 0 && billProducts.size() > 0}" th:remove="tag">
@@ -58,6 +61,11 @@
                         <td th:text="${billProducts.get(i.index).amountPurchased}+${billProducts.get(i.index).amountPurchased > 1 ? ' unidades' : ' unidad'}">
                         </td>
                         <td th:text="'$ '+${billProducts.get(i.index).subTotal}"></td>
+                        <td><form th:action="@{/bill/deleteProduct}" method="post">
+                            <input type="hidden" th:value="${product.productId}" name="productId" />
+                            <input type="hidden" th:value="${activeBill.billId}" name="billId" />
+                            <button class="btn btn-danger" type="submit">Eliminar</button>
+                        </form></td>
                     </tr>
                 </div>
             </table>
@@ -66,12 +74,11 @@
             <center>
                 <div class="container3">
                     <div th:if="${billProducts.size() == 0}" class="alert-message">
-                        Tienes una factura iniciada sin productos. Agrega productos +
-                        para realizar la compra
+                       <script>alertNoProductsInActiveBill()</script>
                     </div>
                     <div th:unless="${billProducts.size() == 0}">
                         <br>
-                        <form th:action="@{/bill/close}" method="post">
+                        <form th:action="@{/bill/close}" method="post" class="form-close">
                             <label for="deliver">Entrega:</label>
                             <select id="deliver" name="deliverType" onchange="putOrDeleteInputAddress()">
                                 <option selected value="local">Local</option>
@@ -84,15 +91,15 @@
                             <br>
                             <br>
                             <label for="finalPrice">TOTAL:</label>
-                            <input type="number" th:value="${activeBill.finalPrice}" name="finalPrice" id="finalPrice"
+                            <input type="text" th:value="'$ '+${activeBill.finalPrice}" name="finalPrice" id="finalPrice"
                                 readonly>
 
                             <input type="hidden" name="billId" th:value="${activeBill.billId}" />
-                            <div th:if="${#authorization.expression('isAuthenticated()')}" class="submit-button">
-                                <input type="button" onclick="alertConfirmBill()" value="Comprar" id="submit" />
+                            <div th:if="${#authorization.expression('isAuthenticated()')}">
+                                <input type="button" onclick="alertConfirmBill()" class="submit-button" value="Comprar" id="submit" />
                             </div>
-                            <div th:unless="${#authorization.expression('isAuthenticated()')}" class="submit-button">
-                                <input type="button" onclick="alertLoginRequired()" value="Comprar" />
+                            <div th:unless="${#authorization.expression('isAuthenticated()')}">
+                                <input type="button" onclick="alertLoginRequired()" class="submit-button" value="Comprar" />
                             </div>
                         </form>
                     </div>
@@ -100,7 +107,7 @@
             </center>
         </div>
         <div th:unless="${activeBill != null}" class="alert-message">
-            <p>No tienes facturas iniciadas. Agrega un producto al carrito para iniciar una factura</p>
+           <script>alertNoActiveBill()</script>
         </div>
     </center>
     <div th:replace="/fragments/footer :: footer"></div>

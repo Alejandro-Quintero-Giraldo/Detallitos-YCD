@@ -18,7 +18,6 @@ const formRegisterValidators = () => {
     isValid = false
 
     errorMessage = ''
-    console.log('inputname ', inputname.length, ' a', inputname);
 
     validateInputNotNull(inputId) ? errorMessage = 'El identificador no puede estar vacío'
         : validateMinLength(inputId.length, 7) ? errorMessage = 'El identificador debe tener mínimo 8 dígitos'
@@ -30,10 +29,9 @@ const formRegisterValidators = () => {
                                 : validateRegExp(inputCellphone, regExNumber) ? errorMessage = 'El celular tiene caracteres que no son permitidos'
                                     : validateMinLength(inputAddress.length, 7) ? errorMessage = 'La dirección debe tener mínimo 7 caracteres'
                                         : validateRegExp(inputAddress, regExAddress) ? errorMessage = 'La dirección tiene caracteres que no son permitidos'
-                                            : validateMaxLength(inputAddress.length, 100) ? errorMessage = 'La dirección debe tener máximo 100 caracteres'
+                                            : validateMaxLength(inputAddress.length, 101) ? errorMessage = 'La dirección debe tener máximo 100 caracteres'
                                                 : validateEmailAndPassword(inputEmail, inputPassword);
     
-    console.log('errorMessage', errorMessage)
 }
 
 const validateLength = (value, lengthCondition, operator) => {
@@ -42,12 +40,10 @@ const validateLength = (value, lengthCondition, operator) => {
 
 
 const validateMinLength = (value, lengthCondition) => {
-    console.log('min', value, ' ', lengthCondition)
     return !(value > lengthCondition);
 }
 
 const validateMaxLength = (value, lengthCondition) => {
-    console.log('max', value, ' ', lengthCondition)
     return !(value < lengthCondition);
 }
 
@@ -74,14 +70,6 @@ const alertAnyError = (hasAlert) => {
             return alertAskEspecificationsInProduct();
         }
         inputSubmit.setAttribute('type', 'submit');
-        // axios.post('localhost:8080/saveUser', {
-        //     userId: document.getElementById('userId').value,
-        //     userName: document.getElementById('userName').value,
-        //     cellphone: document.getElementById('cellphone').value,
-        //     address: document.getElementById('address').value,
-        //     email: document.getElementById('email').value,
-        //     password: document.getElementById('password').value
-        // })
     }
 }
 
@@ -120,6 +108,19 @@ const formViewProductValidators = () => {
     isValid = false
     validateInputNotNull(inputAmount) ? errorMessage = 'La cantidad no puede estar vacía'
     : isValid = true
+}
+
+const formUpdateProductsValidators = () => {
+    const inputName = document.getElementById('productName').value;
+    const inputPrice = document.getElementById('productPrice').value;
+    isValid = false;
+
+    validateMinLength(inputName.length, 4) ? errorMessage = 'El nombre del producto debe tener como mínimo 5 caracteres' 
+        : validateMaxLength(inputName.length, 20) ? errorMessage = 'El nombre del producto debe tener máximo 20 caracteres'
+            : validateMinLength(inputPrice.length, 3) ? errorMessage = 'El precio debe tener como mínimo 4 caracteres'
+                : validateMaxLength(inputPrice.length, 7) ? errorMessage = 'El precio debe tener máximo 6 caracteres'
+                    : isValid = true
+
 }
 
 // const formatNumericInput = () => {

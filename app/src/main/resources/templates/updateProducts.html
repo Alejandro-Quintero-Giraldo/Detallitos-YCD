@@ -1,118 +1,180 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" th:href="@{/styles/style.css}">
-  <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
-  <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/styles/updateProducts.css}">
+    <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
+    <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
+    <script th:src="@{/js/validators.js}" type="text/javascript"></script>
 </head>
 
 <body>
-
-  <div th:replace="/fragments/navbar :: navbar"></div>
-
-  <div class="container">
-
-    <div class="title" th:if="${action == 'create'}">Crear Producto</div>
-
-    <div class="title" th:if="${action == 'update'}">Actualizar Producto</div>
-
-    <form th:if="${action == 'create'}" method="post" th:action="@{/product/save}" th:object="${productAction}"
-      enctype="multipart/form-data">
-
-      <label for="productName">Nombre: </label><br>
-      <input type="text" id="productName" name="productName" th:field="*{productName}" placeholder="Nombre" required
-        autofocus><br>
-
-      <label for="idProductType">Tipo de producto: </label><br>
-      <select id="idProductType" name="idProductType" th:field="*{idProductType}" required>
-        <option value="CUADROS">Cuadro</option>
-        <option value="COJINES">Cojin</option>
-        <option value="MUGS">Mug</option>
-      </select><br>
-
-      <label for="productPrice">Precio: </label><br>
-      <input type="number" id="productPrice" name="productPrice" th:field="*{productPrice}" placeholder="Precio"
-        required><br>
-
-      <label for="description">Descripcion: </label><br>
-      <textarea name="description" id="description" th:field="*{description}" placeholder="Descripcion"
-        required></textarea>
-      <br>
-
-      <input type="hidden" value="" th:field="*{image}" />
-      <label for="file">Imagen: </label><br>
-      <input type="file" id="file" name="file" accept=".png, .jpg, .jpeg" required /><br>
-
-      <label for="isVisible">¿Será visible a los usuarios?: </label><br>
-      <select name="isVisible" id="isVisible" th:field="*{isVisible}" required>
-        <option selected value="SI">SI</option>
-        <option value="NO">NO</option>
-      </select><br>
-
-
-      <input type="submit" value="Crear" class="button">
-
-    </form>
-
-    <form th:if="${action == 'update'}" method="post" th:action="@{/product/put}" enctype="multipart/form-data">
-      <input type="hidden" th:value="${productUpdate.productId}" th:name="productId">
-      <label for="productName">Nombre: </label><br>
-      <input type="text" th:value="${productUpdate.productName}" th:name="productName" placeholder="Nombre"
-        required><br>
-
-      <label for="idProductType">Tipo de producto: </label><br>
-      <select th:name="idProductType" th:value="${productUpdate.idProductType}" required>
-        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'CUADROS'} ? true : false" value="CUADROS">
-          Cuadro</option>
-        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'COJINES'} ? true : false" value="COJINES">
-          Cojin</option>
-        <option th:selected="${productUpdate.idProductType.toUpperCase() == 'MUGS'} ? true : false" value="MUGS">Mug
-        </option>
-      </select><br>
-
-      <label for="productPrice">Precio: </label><br>
-      <input type="number" th:name="productPrice" th:value="${productUpdate.productPrice}" placeholder="Precio"
-        required><br>
-
-      <label for="description">Descripcion: </label><br>
-      <textarea th:name="description" placeholder="Descripcion" th:inline="text"
-        required>[[${productUpdate.description}]]</textarea>
-
-      <br>
-      <label for="recentImg">Imagen actual</label><br>
-      <img id="recentImg" th:src="@{/image_products/}+${productUpdate.image}" width="200" height="200" /><br><br>
-
-      <input type="hidden" th:value="${productUpdate.image}" name="actualImage" />
-
-      <label for="fileUpdate">Imagen: </label><br>
-      <input type="file" name="fileUpdate" id="fileUpdate" accept=".png, .jpg, .jpeg" /><br>
-
-      <label for="isVisible">¿Será visible a los usuarios?: </label><br>
-      <select th:name="isVisible" th:value="${productUpdate.isVisible}" required>
-        <option th:selected="${productUpdate.isVisible == 'SI'} ? true : false" value="SI">SI</option>
-        <option th:selected="${productUpdate.isVisible == 'NO'} ? true : false" value="NO">NO</option>
-      </select><br><br><br><br>
-
-
-      <input th:if="${action == 'create'}" type="submit" value="Crear" class="button">
-      <input th:if="${action == 'update'}" type="submit" value="Actualizar" class="button">
-
-    </form>
-
+    <div th:replace="/fragments/navbar :: navbar"></div>
     <div th:if="${param.success}">
-      <script>alertProductSuccess()</script>
+        <script>alertProductSuccess()</script>
     </div>
     <div th:if="${param.updated}">
-      <script>alertProductUpdated()</script>
+        <script>alertProductUpdated()</script>
     </div>
-  </div>
+    <div class="container">
+
+        <div th:if="${action == 'create'}" th:remove="tag">
+            <header>Crear Producto</header>
+        </div>
+        <div th:if="${action == 'update'}" th:remove="tag">
+            <header>Actualizar Producto</header>
+        </div>
+
+
+        <form th:if="${action == 'create'}" method="post" th:action="@{/product/save}" th:object="${productAction}"
+            enctype="multipart/form-data">
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title"></span>
+
+                    <div class="fields">
+                        <div class="input-field">
+                            <label for="productName">Nombre del producto:</label>
+                            <input type="text" id="productName" name="productName" onchange="formUpdateProductsValidators()" th:field="*{productName}"
+                                placeholder="Nombre del producto" required autofocus>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="idProductType">Tipo de producto:</label>
+
+                            <select id="idProductType" name="idProductType" th:field="*{idProductType}" required>
+                                <option value="CUADROS">Cuadro</option>
+                                <option value="COJINES">Cojin</option>
+                                <option value="MUGS">Mug</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="productPrice">Precio: </label>
+                            <input type="number" id="productPrice" onchange="formUpdateProductsValidators()" onkeypress="validateInputNumberNoPointComa(event, 'Precio')" 
+                                name="productPrice" th:field="*{productPrice}" placeholder="Precio" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="description">Descripcion: </label>
+                            <textarea name="description" id="description" th:field="*{description}"
+                                placeholder="Descripcion"></textarea>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="isVisible">¿Será visible a los usuarios?: </label>
+                            <select name="isVisible" id="isVisible" th:field="*{isVisible}" required>
+                                <option selected value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-field">
+                            <label for="file">Imagen: </label>
+                            <input type="file" id="file" name="file" accept=".png, .jpg, .jpeg" required />
+                        </div>
+
+                        <div class="buttons">
+                            <button type="button" onclick="window.location.assign('/product/')" class="backBtn">
+                                <i class="uil uil-navigator"></i>
+                                <span class="btnText">Volver</span>
+                            </button>
+
+                            <button type="button" id="submit" onclick="alertAnyError(false)" class="sumbit">
+                                <span class="btnText">Crear</span>
+                                <i class="uil uil-navigator"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <form th:if="${action == 'update'}" method="post" th:action="@{/product/put}" enctype="multipart/form-data">
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title"></span>
+                    <input type="hidden" th:value="${productUpdate.productId}" th:name="productId">
+                    <div class="fields">
+                        <div class="input-field">
+                            <label for="productName">Nombre del producto</label>
+                            <input type="text" onchange="formUpdateProductsValidators()" id="productName"  th:value="${productUpdate.productName}"
+                                th:name="productName" placeholder="Nombre del producto" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="idProductType">Tipo de producto:</label>
+
+                            <select id="idProductType" th:name="idProductType" th:value="${productUpdate.idProductType}"
+                                required>
+                                <option
+                                    th:selected="${productUpdate.idProductType.toUpperCase() == 'CUADROS'} ? true : false"
+                                    value="CUADROS">
+                                    Cuadro</option>
+                                <option
+                                    th:selected="${productUpdate.idProductType.toUpperCase() == 'COJINES'} ? true : false"
+                                    value="COJINES">
+                                    Cojin</option>
+                                <option
+                                    th:selected="${productUpdate.idProductType.toUpperCase() == 'MUGS'} ? true : false"
+                                    value="MUGS">Mug
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="productPrice">Precio: </label>
+                            <input type="number" onchange="formUpdateProductsValidators()" onkeypress="validateInputNumberNoPointComa(event, 'Precio')" id="productPrice" th:name="productPrice"
+                                th:value="${productUpdate.productPrice}" placeholder="Precio" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="description">Descripcion: </label>
+                            <textarea th:name="description" id="description" placeholder="Descripcion" th:inline="text"
+                            >[[${productUpdate.description}]]</textarea>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="isVisible">¿Será visible a los usuarios?: </label>
+                            <select th:name="isVisible" th:value="${productUpdate.isVisible}" id="isVisible" required>
+                                <option th:selected="${productUpdate.isVisible == 'SI'} ? true : false" value="SI">SI
+                                </option>
+                                <option th:selected="${productUpdate.isVisible == 'NO'} ? true : false" value="NO">NO
+                                </option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label for="fileUpdate">Imagen nueva: </label>
+                            <input type="file" name="fileUpdate" id="fileUpdate" accept=".png, .jpg, .jpeg" />
+                        </div>
+
+                        <div class="input-field">
+                            <label for="recentImg">Imagen actual: </label>
+                            <img id="recentImg" th:src="@{/image_products/}+${productUpdate.image}" width="200"
+                                height="200" />
+                            <input type="hidden" th:value="${productUpdate.image}" name="actualImage" />
+                        </div>
+                        
+                        <div class="buttons">
+                            <button type="button" onclick="window.location.assign('/product/')" class="backBtn">
+                                <i class="uil uil-navigator"></i>
+                                <span class="btnText">Volver</span>
+                            </button>
+
+                            <button type="button" id="submit" onclick="alertAnyError(false)" class="sumbit">
+                                <span class="btnText">Actualizar</span>
+                                <i class="uil uil-navigator"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>
