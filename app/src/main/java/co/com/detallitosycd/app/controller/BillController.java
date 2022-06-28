@@ -144,7 +144,7 @@ public class BillController {
 
     private State getStateClose(StateModel stateModel) throws SQLException {
         return stateModel.findAllState()
-                .stream().filter(state1 -> state1.getStateName().equals("CERRADO"))
+                .stream().filter(state1 -> state1.getStateName().equals("CERRADO-NO-ENTREGADO"))
                 .findAny().get();
     }
 

@@ -27,11 +27,11 @@ const formRegisterValidators = () => {
                         : validateMinLength(inputname.length, 9) ? errorMessage = 'El nombre debe tener mínimo 10 caracteres'
                             : inputCellphone.length !== 10 ? errorMessage = 'El celular debe tener 10 caracteres'
                                 : validateRegExp(inputCellphone, regExNumber) ? errorMessage = 'El celular tiene caracteres que no son permitidos'
-                                    : validateMinLength(inputAddress.length, 7) ? errorMessage = 'La dirección debe tener mínimo 7 caracteres'
+                                    : validateMinLength(inputAddress.length, 6) ? errorMessage = 'La dirección debe tener mínimo 7 caracteres'
                                         : validateRegExp(inputAddress, regExAddress) ? errorMessage = 'La dirección tiene caracteres que no son permitidos'
                                             : validateMaxLength(inputAddress.length, 101) ? errorMessage = 'La dirección debe tener máximo 100 caracteres'
                                                 : validateEmailAndPassword(inputEmail, inputPassword);
-    
+
 }
 
 const validateLength = (value, lengthCondition, operator) => {
@@ -62,9 +62,9 @@ const alertAnyError = (hasAlert) => {
         inputSubmit.getAttribute('type') !== 'button' ? inputSubmit.setAttribute('type', 'button') : null
         return alertRegisterFailed(errorMessage);
     } else {
-        if(hasAlert){
+        if (hasAlert) {
             const inputAmount = document.getElementById('amountPurchased').value;
-            if(inputAmount > 10){
+            if (inputAmount > 10) {
                 return alertRegisterFailed('El valor del campo cantidad es mayor a 10');
             }
             return alertAskEspecificationsInProduct();
@@ -107,7 +107,7 @@ const formViewProductValidators = () => {
     const inputAmount = document.getElementById('amountPurchased').value;
     isValid = false
     validateInputNotNull(inputAmount) ? errorMessage = 'La cantidad no puede estar vacía'
-    : isValid = true
+        : isValid = true
 }
 
 const formUpdateProductsValidators = () => {
@@ -115,14 +115,34 @@ const formUpdateProductsValidators = () => {
     const inputPrice = document.getElementById('productPrice').value;
     isValid = false;
 
-    validateMinLength(inputName.length, 4) ? errorMessage = 'El nombre del producto debe tener como mínimo 5 caracteres' 
-        : validateMaxLength(inputName.length, 20) ? errorMessage = 'El nombre del producto debe tener máximo 20 caracteres'
+    validateMinLength(inputName.length, 4) ? errorMessage = 'El nombre del producto debe tener como mínimo 5 caracteres'
+        : validateMaxLength(inputName.length, 21) ? errorMessage = 'El nombre del producto debe tener máximo 20 caracteres'
             : validateMinLength(inputPrice.length, 3) ? errorMessage = 'El precio debe tener como mínimo 4 caracteres'
                 : validateMaxLength(inputPrice.length, 7) ? errorMessage = 'El precio debe tener máximo 6 caracteres'
                     : isValid = true
 
 }
 
+const formAddressShopping = (submitPressed) => {
+    const inputAddress = document.getElementById('domicile');
+    if (inputAddress != null) {
+        isValid = false;
+        validateMinLength(inputAddress.value.length, 6) ? errorMessage = 'La dirección debe tener mínimo 7 caracteres'
+            : validateMaxLength(inputAddress.value.length, 102) ? errorMessage = 'La dirección debe tener máximo 100 caracteres'
+                : isValid = true
+        submitPressed && !isValid ? alertAnyError(false)
+            : submitPressed && isValid ? alertConfirmBill()
+                : null
+    }
+}
+
+const formUpdateCataloguesValidators = () => {
+    const inputName = document.getElementById('catalogueName').value;
+    isValid = false;
+    validateMinLength(inputName.length, 4) ? errorMessage = 'El nombre del catálogo debe tener como mínimo 5 caracteres'
+        : validateMaxLength(inputName.length, 31) ? errorMessage = 'El nombre del catálogo debe tener máximo 30 caracteres'
+            : isValid = true;
+}
 // const formatNumericInput = () => {
 //     const input = document.getElementById('userId');
 //     var valueSeparated = separatorByCharacter(input.value);

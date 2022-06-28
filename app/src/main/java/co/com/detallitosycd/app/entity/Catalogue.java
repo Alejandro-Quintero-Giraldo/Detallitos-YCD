@@ -22,6 +22,9 @@ public class Catalogue {
         this.description = description;
     }
 
+    public Catalogue() {
+    }
+
     public String getCatalogueId() {
         return catalogueId;
     }

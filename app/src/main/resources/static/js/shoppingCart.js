@@ -29,6 +29,7 @@ const putInput = () => {
         inputDomicile.placeholder = 'Dirección de domicilio';
         inputDomicile.value = address;
         inputDomicile.name = 'addressDomicile';
+        inputDomicile.setAttribute('onchange', 'formAddressShopping(false)');
         inputDomicile.setAttribute('required', true);
 
         inputDeliver.insertAdjacentElement("afterend", br1);

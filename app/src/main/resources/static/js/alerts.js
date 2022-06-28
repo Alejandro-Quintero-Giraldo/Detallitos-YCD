@@ -260,6 +260,9 @@ const alertConfirmBill = () => {
                     document.querySelector('#submit').click();
                 }
             })
+        } else {
+            const inputSubmit = document.getElementById('submit');
+            inputSubmit.setAttribute('type', 'button');
         }
     })
 }

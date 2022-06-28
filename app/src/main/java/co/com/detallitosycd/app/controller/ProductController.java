@@ -91,6 +91,9 @@ public class ProductController {
         productModel = new ProductModel();
         Product product = productModel.findById(id);
         model.addAttribute("oneProduct", product);
+        List<Product> productList = productModel.findProductsVisibles();
+        List<Product> suggestProductList  = filterRecentProduct(product, productList);
+        model.addAttribute("suggestProductList", suggestProductList);
         return "viewProduct";
     }
 
@@ -131,6 +134,13 @@ public class ProductController {
         productModel.updateProduct(productUpdate);
         return "redirect:/product/update/" + productUpdate.getProductId() + "?updated";
     }
+    private List<Product> filterRecentProduct(Product product, List<Product> suggestProductList) {
+        return suggestProductList.stream()
+                .filter(product1 -> !product1.getProductId().equals(product.getProductId()))
+                .limit(4)
+                .collect(Collectors.toList());
+    }
+
 
     private void validateFileExtension(MultipartFile file) throws FileSystemException {
         String extensionFile =  FileNameUtils.getExtension(file.getOriginalFilename());

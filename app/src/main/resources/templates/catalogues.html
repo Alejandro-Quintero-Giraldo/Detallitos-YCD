@@ -56,7 +56,7 @@
                         <button sec:authorize="hasRole('ROLE_ADMINISTRATOR')" type="button" onclick="alertDeleteCatalogue()" id="submit-delete" class="add-cart">Eliminar</button>
                     </form>
                     <a th:href="@{/catalogue/}+${catalogue.catalogueId}" class="add-cart">Ver Catalogo</a>
-                    <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" href="#" class="add-cart">Actualizar</a>
+                    <a sec:authorize="hasRole('ROLE_ADMINISTRATOR')" th:href="@{/catalogue/update/}+${catalogue.catalogueId}" class="add-cart">Actualizar</a>
                 </div>
             </div>
         </section>

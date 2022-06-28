@@ -26,17 +26,24 @@ public class CatalogueController {
     private ProductCatalogueModel productCatalogueModel;
     private ProductModel productModel;
 
+    @ModelAttribute("catalogueAction")
+    public Catalogue attributeController(){
+        return new Catalogue();
+    }
+
     @GetMapping("/create")
-    public String createPage(){
-        return "";
+    public String createPage(Model model){
+        model.addAttribute("action", "create");
+        return "updateCatalogues";
     }
 
     @PostMapping("/save")
     public String createCatalogue(Catalogue catalogue) throws SQLException {
         catalogueModel = new CatalogueModel();
+        catalogue.setCatalogueId(UUID.randomUUID().toString());
         catalogueModel.createCatalogue(catalogue);
         //TODO: RETORNAR HTML
-        return "";
+        return "redirect:/catalogue/create?success";
     }
 
     @GetMapping("/{id}")
@@ -79,18 +86,22 @@ public class CatalogueController {
         catalogueModel = new CatalogueModel();
         Catalogue catalogue = catalogueModel.findCatalogueById(id);
         if(catalogue != null){
-            model.addAttribute("catalogue", catalogue);
-            return "";
+            model.addAttribute("catalogueUpdate", catalogue);
+            model.addAttribute("action", "update");
+            return "updateCatalogues";
         } else  {
-            return "redirect:?error";
+            return "redirect:/catalogue/?error";
         }
     }
 
-    @PutMapping("/put")
-    public String updateCatalogue(Catalogue catalogue) throws SQLException {
+    @PostMapping("/put")
+    public String updateCatalogue(@RequestParam("catalogueId") String catalogueId,
+                                  @RequestParam("catalogueName") String catalogueName,
+                                  @RequestParam("description") String description) throws SQLException {
         catalogueModel = new CatalogueModel();
-        catalogueModel.updateCatalogue(catalogue);
-        return "?updated";
+        Catalogue catalogueUpdate = new Catalogue(catalogueId, catalogueName, description);
+        catalogueModel.updateCatalogue(catalogueUpdate);
+        return "redirect:/catalogue/update/"+catalogueUpdate.getCatalogueId()+"?updated";
     }
 
     @GetMapping("/delete/{id}")

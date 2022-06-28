@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{/styles/updateCatalogues.css}">
+    <script th:src="@{/util/sweetalert.js}" type="text/javascript"></script>
+    <script th:src="@{/js/alerts.js}" type="text/javascript"></script>
+    <script th:src="@{/js/validators.js}" type="text/javascript"></script>
+</head>
+
+<body>
+    <div th:replace="/fragments/navbar :: navbar"></div>
+    <div th:if="${param.success}">
+        <script>alertProductSuccess()</script>
+    </div>
+    <div th:if="${param.updated}">
+        <script>alertProductUpdated()</script>
+    </div>
+    <div class="container">
+        <div th:if="${action == 'create'}" th:remove="tag">
+            <header>Crear Catalogo</header>
+        </div>
+        <div th:if="${action == 'update'}" th:remove="tag">
+            <header>Actualizar Catalogo</header>
+        </div>
+
+        <form th:if="${action == 'create'}" method="post" th:action="@{/catalogue/save}" th:object="${catalogueAction}">
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title"></span>
+
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Nombre del catalogo</label>
+                            <input type="text" placeholder="Nombre del catalogo" id="catalogueName"
+                                th:field="*{catalogueName}" name="catalogueName" required autofocus>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="description">Descripcion: </label>
+                            <textarea name="description" id="description" th:field="*{description}"
+                                placeholder="Descripcion"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button type="button" onclick="window.location.assign('/catalogue/')" class="backBtn">
+                        <i class="uil uil-navigator"></i>
+                        <span class="btnText">Volver</span>
+                    </button>
+
+                    <button type="button" id="submit" onclick="alertAnyError(false)" class="sumbit">
+                        <span class="btnText">Crear</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <form th:if="${action == 'update'}" method="post" th:action="@{/catalogue/put}">
+            <div class="form first">
+                <div class="details personal">
+                    <span class="title"></span>
+                    <input type="hidden" th:value="${catalogueUpdate.catalogueId}" th:name="catalogueId">
+                    <div class="fields">
+                        <div class="input-field">
+                            <label for="catalogueName">Nombre del producto</label>
+                            <input type="text" onchange="formUpdateCataloguesValidators()" id="catalogueName"  th:value="${catalogueUpdate.catalogueName}"
+                                th:name="catalogueName" placeholder="Nombre del catálogo" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="description">Descripcion: </label>
+                            <textarea th:name="description" id="description" placeholder="Descripcion" th:inline="text"
+                            >[[${catalogueUpdate.description}]]</textarea>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button type="button" onclick="window.location.assign('/catalogue/')" class="backBtn">
+                        <i class="uil uil-navigator"></i>
+                        <span class="btnText">Volver</span>
+                    </button>
+
+                    <button type="button" id="submit" onclick="alertAnyError(false)" class="sumbit">
+                        <span class="btnText">Actualizar</span>
+                        <i class="uil uil-navigator"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

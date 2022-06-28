@@ -87,7 +87,8 @@ public class StateModel {
             StateModel stateModel = new StateModel();
             companyModel.createCompany(new Company("123", "Detallitos YCDG", "123", "detallitosycdg@gamil.com"));
             stateModel.createState(new State("111111111111", "DISPONIBLE"));
-            stateModel.createState(new State("222222222222", "CERRADO"));
+            stateModel.createState(new State("222222222222", "CERRADO-NO-ENTREGADO"));
+            stateModel.createState(new State("333333333333", "CERRADO-ENTREGADO"));
         }
     }
 
