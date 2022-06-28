@@ -132,15 +132,15 @@ public class CatalogueController {
         return  "";
     }
 
-    @DeleteMapping("/deleteProduct")
+    @PostMapping("/deleteProduct")
     public String deleteProductInCatalogue(@RequestParam("catalogueId") String catalogueId,
                                            @RequestParam("productId") String productId) throws SQLException {
         productCatalogueModel = new ProductCatalogueModel();
         boolean result = productCatalogueModel.deleteProductCatalogue(new ProductCatalogue(productId, catalogueId));
         if(!result){
-            return "?error";
+            return "redirect:/catalogue/"+catalogueId+"?error";
         }
-        return "?deleteSuccess";
+        return "redirect:/catalogue/"+catalogueId+"?deleteSuccess";
     }
 
     private List<Boolean> deleteProductCatalogues(List<ProductCatalogue> productCatalogueList) {

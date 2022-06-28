@@ -179,6 +179,7 @@ ul, ol {
     transition: 2s ease;
     visibility: hidden;
     opacity: 0;
+    color: #fff;
 }
 
 .card:hover .details {
@@ -270,4 +271,11 @@ ul, ol {
 }
 .search-input{
 color:#000000;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 5%;
+    margin:5%;
 }

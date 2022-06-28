@@ -384,3 +384,32 @@ const alertNoActiveBill = () => {
         }
     })
 }
+
+const alertDeleteProductInCatalogueError = () => {
+    Swal.fire({
+        title: "¡ERROR!",
+        text: "El producto no se pudo eliminar del catálogo. Por favor inténtelo nuevamente",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#f27474 ',
+        icon: 'error',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false
+    });
+}
+
+const alertDeleteProductInCatalogueSuccess = () => {
+    Swal.fire({
+        title: '¡Se ha eliminado el producto del catálogo exitosamente!',
+        confirmButtonText: '¡Aceptar!',
+        confirmButtonColor: '#a5dc86',
+        icon: 'success',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+    }).then((res) => {
+        if(res.isConfirmed){
+            window.location.assign('/catalogue/');
+        }
+    });
+}

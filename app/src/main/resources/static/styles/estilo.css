@@ -149,7 +149,7 @@ padding: 0px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  margin: auto;
+  margin-left: 40%;
 }
 .testimonials__txt{
   text-align: center;

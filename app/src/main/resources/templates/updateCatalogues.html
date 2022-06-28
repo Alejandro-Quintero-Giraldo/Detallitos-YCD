@@ -37,7 +37,7 @@
                     <div class="fields">
                         <div class="input-field">
                             <label>Nombre del catalogo</label>
-                            <input type="text" placeholder="Nombre del catalogo" id="catalogueName"
+                            <input type="text" placeholder="Nombre del catalogo" onchange="formUpdateCataloguesValidators()" id="catalogueName"
                                 th:field="*{catalogueName}" name="catalogueName" required autofocus>
                         </div>
 

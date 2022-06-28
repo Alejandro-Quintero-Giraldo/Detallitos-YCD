@@ -95,7 +95,7 @@ public class CatalogueModel {
         while(this.resultSet.next()){
             Catalogue catalogue = new Catalogue(this.resultSet.getString("id_catalogo"),
                     this.resultSet.getString("nombre_catalogo"), this.resultSet.getString("descripcion"));
-            if(productCatalogueModel.findProductCatalogueByCatalogueId(catalogue.getCatalogueId()).size() > 0)
+           // if(productCatalogueModel.findProductCatalogueByCatalogueId(catalogue.getCatalogueId()).size() > 0)
                 catalogueList.add(catalogue);
         }
         finishProcess();
