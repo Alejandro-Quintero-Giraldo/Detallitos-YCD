@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="UTF-8">
@@ -15,15 +16,21 @@
 </head>
 
 <body>
-    
+
     <div th:replace="/fragments/navbar :: navbar"></div>
     <div th:if="${param.error}">
         <script>alertDeleteProductInCatalogueError()</script>
     </div>
     <div th:if="${param.deleteSuccess}">
-        <script> alertDeleteProductInCatalogueSuccess()</script>
+        <script>alertDeleteProductInCatalogueSuccess()</script>
     </div>
-
+    <div th:if="${param.errorAdded}">
+        <script>alertAddProductInCatalogueError()</script>
+    </div>
+    <div th:if="${param.productAdded}">
+        <script>alertAddProductInCatalogueSuccess()</script>
+    </div>
+    
     <section class="product-list " th:if="${catalogue}">
         <div>
             <h1 class="align-center" th:text="${catalogue.catalogueName}"></h1>
@@ -43,21 +50,30 @@
             <nav>
                 <!-- Aqui estamos iniciando la nueva etiqueta nav -->
                 <ul class="nav navegation">
-                    <li><a href="">Cuadros</a>
+                    <li>
+                        <!--<a href="">Cuadros</a>-->
                         <ul>
 
                     </li>
                 </ul>
                 </li>
-                <li><a href="">Mugs</a>
+                <li>
+                    <!--<a href="">Mugs</a>-->
                 </li>
-                <li><a href="">Cojines</a>
+                <li>
+                    <!--<a href="">Cojines</a>-->
 
                 </li>
-                <li sec:authorize="hasRole('ROLE_ADMINISTRATOR')"><a href="">Añadir producto</a>
+                <li sec:authorize="hasRole('ROLE_ADMINISTRATOR')"
+                    th:onclick="alertSelectProductInCatalogue([[${productsNoCatalogue}]])">
+                    <form method="post" th:action="@{/catalogue/addProduct}">
+                        <input type="hidden" th:value="${catalogue.catalogueId}" name="catalogueId"/>
+                        <input type="hidden" id="productId" name="productId"/>
+                        <button type="button" id="submit-product">Añadir producto</button>
+                    </form>
                 </li>
                 </ul>
-            </nav><!-- Aqui estamos cerrando la nueva etiqueta nav -->
+            </nav>
 
             <div class="product-container" th:if="${productList.size() > 0}">
                 <div th:each="product : ${productList}" class="card">
@@ -67,7 +83,7 @@
                     <!--       Logo de new  -->
                     <div class="new">
                         <img
-                            src="https://cdn.glitch.com/9cf36649-4cc8-43b3-936f-9f591ad3040c%2Fnew.png?v=1586849341161">
+                            th:src="@{/assets/new.png}">
 
                     </div>
                     <div class="image">
@@ -75,16 +91,18 @@
                     </div>
                     <br>
                     <div class="text" th:text="${product.idProductType}">
-                        Cuadro Personalizados
                     </div>
                     <span class="rating">★★★★★</span><br>
                     <strong th:text="'Precio $'+${product.productPrice}"></strong>
                     <br>
                     <div class="buttons">
-                        <button class="buy-button details">
-                            Comprar
-                        </button>
-                        <form  sec:authorize="hasRole('ROLE_ADMINISTRATOR')" method="post" th:action="@{/catalogue/deleteProduct}">
+                        <a th:href="@{/product/}+${product.productId}">
+                            <button  class="buy-button details">
+                                Ver
+                            </button>
+                        </a>
+                        <form sec:authorize="hasRole('ROLE_ADMINISTRATOR')" method="post"
+                            th:action="@{/catalogue/deleteProduct}">
                             <input type="hidden" th:value="${catalogue.catalogueId}" name="catalogueId">
                             <input type="hidden" th:value="${product.productId}" name="productId">
                             <button type="submit" class="buy-button details">

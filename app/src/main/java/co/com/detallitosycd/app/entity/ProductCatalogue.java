@@ -12,7 +12,7 @@ public class ProductCatalogue implements Serializable {
     private String idProduct;
 
     @Id
-    @Column(name = "catalogo_id", length = 12, nullable = false)
+    @Column(name = "catalogo_id", length = 40, nullable = false)
     private String idCatalogue;
 
     public String getIdProduct() {

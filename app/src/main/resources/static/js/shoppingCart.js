@@ -29,13 +29,15 @@ const putInput = () => {
         inputDomicile.placeholder = 'Dirección de domicilio';
         inputDomicile.value = address;
         inputDomicile.name = 'addressDomicile';
-        inputDomicile.setAttribute('onchange', 'formAddressShopping(false)');
+        inputDomicile.setAttribute('onchange', 'formAddressShopping(true,false)');
         inputDomicile.setAttribute('required', true);
 
         inputDeliver.insertAdjacentElement("afterend", br1);
         br1.insertAdjacentElement("afterend", br2);
         br2.insertAdjacentElement("afterend", labelDomicile);
         labelDomicile.insertAdjacentElement("afterend", inputDomicile);
+
+        document.querySelector('#submit').setAttribute('onclick', 'formAddressShopping(true,true)')
     }
 }
 

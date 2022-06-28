@@ -6,6 +6,7 @@ import co.com.detallitosycd.app.entity.ProductCatalogue;
 import co.com.detallitosycd.app.model.CatalogueModel;
 import co.com.detallitosycd.app.model.ProductCatalogueModel;
 import co.com.detallitosycd.app.model.ProductModel;
+import org.springframework.core.CollectionFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,9 +55,12 @@ public class CatalogueController {
         if(catalogue != null){
             List<ProductCatalogue> productCatalogueList = productCatalogueModel.findProductCatalogueByCatalogueId(catalogue.getCatalogueId());
             List<Product> productList = getProductList(productCatalogueList);
+            List<Product> productsNoCatalogues = productModel.findProductsVisibles();
+            productsNoCatalogues.forEach(product -> System.out.println(product.toString()));
             model.addAttribute("catalogue", catalogue);
             model.addAttribute("productCatalogueList", productCatalogueList);
             model.addAttribute("productList", productList);
+            model.addAttribute("productsNoCatalogue", productsNoCatalogues);
             return "showCatalogue";
         } else {
             return "redirect:?error";
@@ -127,9 +131,9 @@ public class CatalogueController {
         productCatalogueModel = new ProductCatalogueModel();
         boolean result = productCatalogueModel.createProductCatalogue(new ProductCatalogue(productId,catalogueId));
         if(!result){
-            return "?error";
+            return "redirect:/catalogue/"+catalogueId+"?errorAdded";
         }
-        return  "";
+        return  "redirect:/catalogue/"+catalogueId+"?productAdded";
     }
 
     @PostMapping("/deleteProduct")
@@ -183,6 +187,23 @@ public class CatalogueController {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
+
+   /* private List<Product> getProductNoCatalogues(List<Product> productList) throws SQLException {
+        productModel = new ProductModel();
+        List<Product> productNoCatalogues = productModel.findProductsVisibles();
+        removeProductsInCatalogue(productList, productNoCatalogues);
+        return productNoCatalogues;
+    }*/
+
+    /*private List<Product> removeProductsInCatalogue(List<Product> productList, List<Product> productNoCatalogues) {
+        List<String> productIds =  productList.stream().map(Product::getProductId).collect(Collectors.toList());
+        for (:
+             ) {
+            
+        }
+         IntStream.range(0, productList.size())
+                .mapToObj(index -> productNoCatalogues.remove(productList.get(index)));
+    }*/
 
     private List<Product> getProductList(List<ProductCatalogue> productCatalogueList) {
         productModel = new ProductModel();

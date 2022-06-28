@@ -123,15 +123,15 @@ const formUpdateProductsValidators = () => {
 
 }
 
-const formAddressShopping = (submitPressed) => {
+const formAddressShopping = (inputDomicile, submitPressed) => {
     const inputAddress = document.getElementById('domicile');
     if (inputAddress != null) {
         isValid = false;
         validateMinLength(inputAddress.value.length, 6) ? errorMessage = 'La dirección debe tener mínimo 7 caracteres'
-            : validateMaxLength(inputAddress.value.length, 102) ? errorMessage = 'La dirección debe tener máximo 100 caracteres'
+            : validateMaxLength(inputAddress.value.length, 101) ? errorMessage = 'La dirección debe tener máximo 100 caracteres'
                 : isValid = true
         submitPressed && !isValid ? alertAnyError(false)
-            : submitPressed && isValid ? alertConfirmBill()
+            : submitPressed && (inputDomicile && isValid) ? alertConfirmBill()
                 : null
     }
 }

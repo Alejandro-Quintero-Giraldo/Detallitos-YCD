@@ -48,6 +48,8 @@ public class ProductCatalogueModel {
     }
 
     public boolean createProductCatalogue(ProductCatalogue productCatalogue) throws SQLException {
+        productModel = new ProductModel();
+        catalogueModel = new CatalogueModel();
         Product product = productModel.findById(productCatalogue.getIdProduct());
         Catalogue catalogue = catalogueModel.findCatalogueById(productCatalogue.getIdCatalogue());
         if(product == null || catalogue == null){

@@ -407,9 +407,73 @@ const alertDeleteProductInCatalogueSuccess = () => {
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
-    }).then((res) => {
-        if(res.isConfirmed){
-            window.location.assign('/catalogue/');
+    });
+}
+
+const alertSelectProductInCatalogue = (productList) => {
+    console.log(productList);
+    const productValue = productList.map(product => product.productName + ' $'+ product.productPrice);
+    console.log(productValue);
+    Swal.fire({
+        title: "¡Seleccione el producto!",
+        text: "Escoja el producto que desea añadir al catálogo",
+        confirmButtonText: "Agregar",
+        confirmButtonColor: '#3fc3ee',
+        icon: 'info',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        input: 'select',
+        inputLabel: 'Seleccione un producto',
+        inputOptions: productValue,
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#f27474',
+        showLoaderOnConfirm: true,
+        inputAttributes: {
+            autocapitalize: 'on',
+            autocorrect: 'off'
+        },
+        preConfirm: (value) => {
+            if (value == '') {
+                Swal.showValidationMessage('Debes escoger una opción');
+            }
         }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            console.log(result.value);
+            const productSelected =  productList[result.value];
+            console.log(productSelected);
+            const inputProductId = document.getElementById('productId');
+            inputProductId.value = productSelected.productId;
+            const inputSubmit = document.querySelector('#submit-product');
+            inputSubmit.setAttribute('type', 'submit');
+            inputSubmit.click();
+        }
+    });
+}
+
+const alertAddProductInCatalogueSuccess = () => {
+    Swal.fire({
+        title: '¡Se ha agregado el producto al catálogo exitosamente!',
+        confirmButtonText: '¡Aceptar!',
+        confirmButtonColor: '#a5dc86',
+        icon: 'success',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+    })
+}
+
+const alertAddProductInCatalogueError = () => {
+    Swal.fire({
+        title: "¡ERROR!",
+        text: "El producto no se pudo agregar al catálogo. Por favor inténtelo nuevamente",
+        confirmButtonText: "¡Aceptar!",
+        confirmButtonColor: '#f27474 ',
+        icon: 'error',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false
     });
 }

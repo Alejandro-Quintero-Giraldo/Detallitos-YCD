@@ -43,14 +43,12 @@
             <div class="card-catalogue estilo-c">
                 <a href="#">
                     <div class="img-container">
-                        <img src="https://www.floristeriadfranco.com/310-large_default/mug-personalizado-tia-.jpg"
-                            alt="producto 1">
+                        <img th:src="@{/assets/catalogues.jpg}">
                         <span class="promo" th:text="${catalogue.catalogueName}"></span>
                     </div>
                 </a>
                 <div class="info-container">
                     <h3 th:text="${catalogue.description}"></h3>
-                    <strong>Precio $60</strong>
                     <span class="rating">★★★★★</span>
                     <form th:action="@{/catalogue/delete/}+${catalogue.catalogueId}">
                         <button sec:authorize="hasRole('ROLE_ADMINISTRATOR')" type="button" onclick="alertDeleteCatalogue()" id="submit-delete" class="add-cart">Eliminar</button>

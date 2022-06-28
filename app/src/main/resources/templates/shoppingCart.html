@@ -96,7 +96,7 @@
 
                             <input type="hidden" name="billId" th:value="${activeBill.billId}" />
                             <div th:if="${#authorization.expression('isAuthenticated()')}">
-                                <input type="button" onclick="formAddressShopping(true)" class="submit-button" value="Comprar" id="submit" />
+                                <input type="button" onclick="alertConfirmBill()" class="submit-button" value="Comprar" id="submit" />
                             </div>
                             <div th:unless="${#authorization.expression('isAuthenticated()')}">
                                 <input type="button" onclick="alertLoginRequired()" class="submit-button" value="Comprar" />
